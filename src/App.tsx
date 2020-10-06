@@ -5,18 +5,45 @@ import React, {
   ChangeEvent,
   FormEvent,
 } from "react";
-import Styled, { StyledComponentBase } from "styled-components";
-import axios from "axios";
+import Styled from "styled-components";
 import InputField from "./components/InputField";
 import IAPIResponse from "./interfaces/IAPIResponse";
+import { FETCH_POST } from "./services/FETCH_API";
 
-const Button: String &
-  StyledComponentBase<"button", any, {}, never> = Styled.button``;
-const Paragraph: String & StyledComponentBase<"p", any, {}, never> = Styled.p``;
-const Form: String &
-  StyledComponentBase<"form", any, {}, never> = Styled.form``;
+//! FIXME: Style and organize these components
+const Button = Styled.button``;
+const Paragraph = Styled.p``;
+const Form = Styled.form``;
+
+// A structure of registration form
+interface IRegistrationForm {
+  username: string;
+  email: string;
+  password: string;
+  key?: string;
+}
+
+// An optional auth header
+interface IHeader {
+  Authorization?: string;
+}
+
+// What registration response will look like
+interface IRegistrationResponse {
+  // A return data about user
+  data: {
+    uuid: string;
+    username: string;
+  };
+  // The tokens we want to store locally
+  tokens: {
+    token: string;
+    refresh_token: string;
+  };
+}
 
 function App(): JSX.Element {
+  //? TODO: combine all states and functions into reducer state
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -25,40 +52,36 @@ function App(): JSX.Element {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect((): void => {
-    setToken(window.localStorage.getItem("token") || "");
-  }, []);
+    !token && setToken(window.localStorage.getItem("token") || "");
+  }, [token]);
 
   useEffect((): void => {
     token && window.localStorage.setItem("token", token);
   }, [token]);
 
-  const handleFetchData = useCallback(async (): Promise<IAPIResponse> => {
-    return axios({
-      method: "post",
-      url: "http://localhost:3333/api/v1/users",
-      data: {
-        username,
-        password,
-        email,
-        key,
-      },
-      headers: { "Content-Type": "application/json" },
-    });
-  }, [email, key, password, username]);
-
+  // handle function that will perform registration
   const handleFetchAction = useCallback(async (): Promise<void> => {
     setIsLoading(true);
-    await handleFetchData()
-      .then((response: IAPIResponse): void =>
-        setToken(response.data.tokens ? response.data.tokens.token : "")
+
+    await FETCH_POST<IRegistrationForm, IHeader, any>(
+      "users",
+      { username, email, password, key },
+      {},
+      undefined
+    )
+      .then((response: IAPIResponse<IRegistrationResponse>): void =>
+        setToken(response.tokens ? response.tokens.token : "")
       )
       .catch((e: Error): void => console.error(e))
       .finally((): void => setIsLoading(false));
-  }, [handleFetchData]);
+  }, [email, username, password, key]);
 
+  // handle function that will submit form request
   const onSubmitRegister = useCallback(
     async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+      // prevent default submit actions
       e.preventDefault();
+      // call handleFetchAction
       handleFetchAction();
     },
     [handleFetchAction]
@@ -66,8 +89,11 @@ function App(): JSX.Element {
 
   return (
     <div className="">
+      {/* TODO: Style these loading indicator properly */}
       {isLoading && <Paragraph children="is loading...." />}
+      {/* FIXME: Remove these temporary debugging component */}
       {token && <Paragraph children={token} />}
+      {/* TODO: organize these components for easier readability */}
       <Form onSubmit={onSubmitRegister}>
         <InputField
           type="text"
