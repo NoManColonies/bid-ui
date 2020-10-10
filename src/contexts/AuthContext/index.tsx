@@ -55,13 +55,8 @@ function authReducer(
         uuid: tokens.uuid
       }
     }
-    case 'ABORT_TOKENS': {
-      return {
-        token: '',
-        refreshToken: '',
-        uuid: ''
-      }
-    }
+    case 'ABORT_TOKENS':
+      return INITIAL_STATE
     default:
       return state
   }
