@@ -175,7 +175,7 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
         {},
         {
           refreshToken: JSON.parse(
-            window.localStorage.getItem(TOKEN_STORE) || ''
+            window.localStorage.getItem(TOKEN_STORE) || '{}'
           ).refreshToken as CredentialType['refreshToken']
         },
         ''
