@@ -65,8 +65,6 @@ function RegisterContext({
   )
 }
 
-export default RegisterContext
-
 export function useRegistration(): USE_REGISTRATION_RETURN_TYPE {
   const { registrationForm, registrationFormDispatch } = useContext(
     RegistrationContext
@@ -154,3 +152,5 @@ export function useRegistration(): USE_REGISTRATION_RETURN_TYPE {
 
   return [registrationFormData, handleFunctions]
 }
+
+export default RegisterContext
