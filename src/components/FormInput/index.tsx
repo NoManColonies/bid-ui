@@ -1,13 +1,12 @@
-import React from "react";
-import InputField from "../InputField";
-import IFormInput from "./IFormInput";
-import Styled, { StyledComponentBase } from "styled-components";
+import React, { ReactElement } from 'react'
+// import InputField from '../InputField'
+import FormInputType from './FormInput'
+import styled from 'styled-components'
 
-const Form: String &
-  StyledComponentBase<"form", any, {}, never> = Styled.form``;
+const Form = styled.form``
 
-function FormInput({ onSubmit }: IFormInput): JSX.Element {
-  return <Form onSubmit={onSubmit}></Form>;
+function FormInput({ onSubmit }: FormInputType): ReactElement {
+  return <Form onSubmit={onSubmit}></Form>
 }
 
-export default FormInput;
+export default FormInput

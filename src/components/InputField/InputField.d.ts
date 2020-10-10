@@ -1,4 +1,4 @@
-export default interface IInputField {
+export default interface InputFieldType {
   type: string;
   name: string;
   value: string;
