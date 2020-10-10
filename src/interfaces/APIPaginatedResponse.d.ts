@@ -1,4 +1,4 @@
-export default interface IAPIPaginatedResponse<T> {
+export default interface APIPaginatedResponseType<T> {
   status: number;
   error?: string;
   pages: any;
