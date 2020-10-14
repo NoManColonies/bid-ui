@@ -5,6 +5,7 @@ function withHelmet<T>(title: string) {
   return (Component: ComponentType<T>) => (props: T): ReactElement => (
     <>
       <Helmet>
+      <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"></link>
         <title>{title}</title>
       </Helmet>
       <Component {...props} />
