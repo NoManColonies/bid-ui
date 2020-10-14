@@ -4,7 +4,7 @@ import InputField from '../InputField'
 import { useToken } from '../../contexts/AuthContext'
 import { useRegistration } from '../../contexts/RegisterContext'
 import withHelmet from '../../utils/withHelmet'
-import RegistrationForm from '../RegistrationForm'
+
 // import Images from '../assets/1png'
 
 
@@ -55,11 +55,14 @@ const Signin=styled.div`
   z-index: 2;
 `
 const Title=styled.div`
-font-size: 2.2rem;
-  color: #444;
-  margin-bottom: 10px;
-  font-style:thicker;
-  padding-bottom:2rem;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+
 `
 const PanelsContainer=styled.div`
  position: absolute;
@@ -79,10 +82,23 @@ const Panel=styled.div`
   text-align: center;
   z-index: 6;
 
+
   `
 const LeftPanel=styled.div`
-pointer-events: all;
+  pointer-events: all;
   padding: 3rem 17% 2rem 12%;
+  &h3>{
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+  margin-bottom:1rem;
+
+}
+&p>{
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+  padding-top:3rem;
+}
 
 `
 
@@ -102,7 +118,7 @@ const Form = styled.form`
 const Button = styled.button`
   width: 150px;
   background-color: #0278AE;
-  border: none;
+  border: 1px solid #fff;
   outline: none;
   height: 49px;
   border-radius: 49px;
@@ -115,11 +131,17 @@ const Button = styled.button`
   &:hover {
     background-color: #E8FFC1;
     color: #0278AE;
+    border:none
   }
 
   `
 const Paragraph = styled.p``
+const Content=styled.div`
+ color: #fff;
+  transition: transform 0.9s ease-in-out;
+  transition-delay: 0.6s;
 
+  `
 
 function LoginForm(): ReactElement {
   const [
@@ -167,6 +189,7 @@ function LoginForm(): ReactElement {
         <InputField
           type="text"
           name="username"
+          placeholder="USERNAME"
           value={username}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
           handleChangeUsername(event.target.value)
@@ -175,6 +198,7 @@ function LoginForm(): ReactElement {
         <InputField
           type="password"
           name="password"
+          placeholder="PASSWORD"
           value={password}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangePassword(event.target.value)
@@ -189,12 +213,14 @@ function LoginForm(): ReactElement {
       <PanelsContainer>
         <Panel>
         <LeftPanel>
+          <Content>
         <h3>NEW HERE ?</h3>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
           ex ratione. Aliquid!
         </p>
         <Button type="submit">SING UP</Button>
+        </Content>
 
         </LeftPanel>
         </Panel>
