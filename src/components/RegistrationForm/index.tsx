@@ -68,13 +68,29 @@ const Panel=styled.div`
   justify-content: space-around;
   text-align: center;
   z-index: 6;
+  &h3>{
+    font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+  }
 
   `
 const RightPanel=styled.div`
- pointer-events: none;
+
+  pointer-events: none;
   padding: 3rem 12% 2rem 17%;
+  &h3>{
+  font-weight: 600;
+  line-height: 1;
+  font-size: 1.5rem;
+  padding-bottom:3rem;
 
-
+}
+  &p>{
+  font-size: 0.95rem;
+  padding: 0.7rem 0;
+  padding-top:3rem;
+}
 
 
 `
@@ -112,13 +128,21 @@ const Button = styled.button`
 
   `
 const Paragraph = styled.p``
+const Content=styled.div`
+ color: #fff;
+  transition: transform 0.9s ease-in-out;
+  transition-delay: 0.6s;
+
+  `
 
 const Title=styled.div`
-font-size: 2.2rem;
-  color: #444;
-  margin-bottom: 10px;
-  font-style:thicker;
-  padding-bottom:2rem;
+    display: block;
+    font-size: 1.5em;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
 `
 
 function RegistrationForm(): ReactElement {
@@ -160,7 +184,7 @@ function RegistrationForm(): ReactElement {
   return (
        <Container>
        <FormsContainer>
-         <SigninSignup>
+       <SigninSignup>
 
       {/* TODO: Style these loading indicator properly */}
       {loading && <Paragraph>...is loading</Paragraph>}
@@ -211,12 +235,14 @@ function RegistrationForm(): ReactElement {
       <PanelsContainer>
         <Panel>
         <RightPanel>
+          <Content>
         <h3>ONE OF US ?</h3>
         <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
           laboriosam ad deleniti.
         </p>
         <Button type="submit">SING IN</Button>
+        </Content>
 
         </RightPanel>
         </Panel>
