@@ -3,5 +3,6 @@ export default interface InputFieldType {
   name: string;
   value: string;
   required?: boolean;
+  placeholder?: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
