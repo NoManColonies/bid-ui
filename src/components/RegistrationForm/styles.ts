@@ -42,8 +42,8 @@ export const SigninSignup=styled.div`
   `
 
 export const Signup=styled.div`
-   opacity: 0;
-  z-index: 1;
+   /* opacity: 0;
+  z-index: 1; */
 `
 
 export const PanelsContainer=styled.div`
