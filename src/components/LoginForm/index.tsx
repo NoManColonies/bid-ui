@@ -87,17 +87,18 @@ const Panel=styled.div`
 const LeftPanel=styled.div`
   pointer-events: all;
   padding: 3rem 17% 2rem 12%;
-  &h3>{
+  h3 {
   font-weight: 600;
   line-height: 1;
   font-size: 1.5rem;
   margin-bottom:1rem;
 
+
 }
-&p>{
+p {
   font-size: 0.95rem;
   padding: 0.7rem 0;
-  padding-top:3rem;
+
 }
 
 `
@@ -189,7 +190,7 @@ function LoginForm(): ReactElement {
         <InputField
           type="text"
           name="username"
-          placeholder="USERNAME"
+          placeholder="Username"
           value={username}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
           handleChangeUsername(event.target.value)
@@ -198,7 +199,7 @@ function LoginForm(): ReactElement {
         <InputField
           type="password"
           name="password"
-          placeholder="PASSWORD"
+          placeholder="Password"
           value={password}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangePassword(event.target.value)
