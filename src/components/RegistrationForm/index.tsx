@@ -197,14 +197,17 @@ function RegistrationForm(): ReactElement {
         <InputField
           type="text"
           name="username"
+          placeholder="Username"
           value={username}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeUsername(event.target.value)
           }
         />
+
         <InputField
           type="email"
           name="email"
+          placeholder="Email"
           value={email}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeEmail(event.target.value)
@@ -213,6 +216,7 @@ function RegistrationForm(): ReactElement {
         <InputField
           type="password"
           name="password"
+          placeholder="Password"
           value={password}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangePassword(event.target.value)
@@ -221,6 +225,7 @@ function RegistrationForm(): ReactElement {
         <InputField
           type="text"
           name="key"
+          placeholder=""
           value={key}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeKey(event.target.value)
