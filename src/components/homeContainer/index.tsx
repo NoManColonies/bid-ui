@@ -2,13 +2,13 @@ import React,{ReactElement   } from 'react'
 import styled from 'styled-components'
 
 const Container =styled.div`
-.container {
+
+  background-color:#E8FFC1;
   align-items: center;
   padding-left: 1rem;
   padding-right: 1rem;
   width: 100vw;
   height: 78vh;
-}
 `
 
 function homeContainer(): ReactElement{
