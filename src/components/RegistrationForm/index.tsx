@@ -1,5 +1,5 @@
 import React, { useCallback, ChangeEvent, FormEvent, ReactElement } from 'react'
-import styled from 'styled-components'
+import {Container,FormsContainer,SigninSignup,Signup,PanelsContainer,Panel,RightPanel,Form,Button,Paragraph,Content,Title} from '../RegistrationForm/styles'
 import InputField from '../InputField'
 import { useToken } from '../../contexts/AuthContext'
 import { useRegistration } from '../../contexts/RegisterContext'
