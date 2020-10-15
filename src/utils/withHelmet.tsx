@@ -6,6 +6,7 @@ function withHelmet<T>(title: string) {
     <>
       <Helmet>
       <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"></link>
+      <script src="https://kit.fontawesome.com/a076d05399.js"></script>
         <title>{title}</title>
       </Helmet>
       <Component {...props} />
