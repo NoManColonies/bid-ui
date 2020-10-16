@@ -10,8 +10,9 @@ const Globalstyle = createGlobalStyle`
     font-family: 'Josefin Sans', sans-serif;
     font-size: 20px;
     list-style: none;
-
+    overflow-x: hidden;
     scroll-behavior: smooth;
+
   }
 
 
@@ -23,6 +24,23 @@ const Globalstyle = createGlobalStyle`
       color: inherit;
     }
   }
+
+  * {
+  scrollbar-width: thin;
+  scrollbar-color: #51adcf #E8FFC1;
+}
+*::-webkit-scrollbar {
+  width: 10px;
+
+}
+*::-webkit-scrollbar-track {
+  background: #51adcf;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #E8FFC1;
+  border-radius: 20px;
+  border: none;
+}
 `
 
 export default Globalstyle
