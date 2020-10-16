@@ -4,6 +4,8 @@ import InputField from '../InputField'
 import { useToken } from '../../contexts/AuthContext'
 import { useRegistration } from '../../contexts/RegisterContext'
 import withHelmet from '../../utils/withHelmet'
+import BackgroundLogin from '../LoginForm/BackgrountLogin'
+import backgroundImage from '../../assets/bg.png'
 
 // import Images from '../assets/1png'
 
@@ -43,6 +45,7 @@ function LoginForm(): ReactElement {
 
   return (
     <Container>
+      <BackgroundLogin src={backgroundImage}/>
       <FormsContainer>
         <SigninSignup>
       {/* TODO: Style these loading indicator properly */}
@@ -52,6 +55,7 @@ function LoginForm(): ReactElement {
       <Signin>
       <Form onSubmit={onSubmitLogin}>
         <Title>WELLCOME</Title>
+
         <InputField
           type="text"
           name="username"

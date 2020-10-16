@@ -13,6 +13,14 @@ const InputStyle= Styled.div`
   grid-template-columns: 15% 85%;
   padding: 0 0.4rem;
   position: relative;
+
+  & i{
+    text-align: center;
+    line-height: 55px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+  }
 `
 const Input = Styled.input`
 max-width: 380px;
@@ -32,6 +40,7 @@ max-width: 380px;
 `
 
 
+
 function InputField({
   type,
   name,
@@ -42,7 +51,7 @@ function InputField({
 }: InputFieldType): ReactElement {
   return required ? (
 
-    <InputStyle> <Input type={type} name={name} value={value} onChange={onChange} required placeholder={placeholder}/></InputStyle>
+    <InputStyle> <i className="far fa-user"><Input type={type} name={name} value={value} onChange={onChange} required placeholder={placeholder}/></i></InputStyle>
   ) : (
     <InputStyle><Input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} /></InputStyle>
   )

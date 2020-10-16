@@ -7,13 +7,13 @@ const Globalstyle = createGlobalStyle`
   html, body, #root {
     height: 100vh;
     width: 100vw;
-
-    font-family: "Poppins", sans-serif;
+    font-family: 'Josefin Sans', sans-serif;
     font-size: 20px;
     list-style: none;
 
     scroll-behavior: smooth;
   }
+
 
   a {
     text-decoration: none;

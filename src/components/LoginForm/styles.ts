@@ -17,7 +17,7 @@ export const Container=styled.div`
   top: -20%;
   right: 48%;
   transform: translateY(-10%);
-  background-color:#0278AE;
+
   transition: 1.8s ease-in-out;
   border-radius:30%;
   z-index: 6;

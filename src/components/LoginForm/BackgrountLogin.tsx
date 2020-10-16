@@ -4,7 +4,7 @@ import styled from 'styled-components'
 interface BackgroundBlockType {
    src: string;
    height?: string;
-   children: ReactElement[] | ReactElement;
+
 }
 interface BackgroundBlockPropsType{
   src: string;
@@ -22,24 +22,14 @@ const BackgroundImage = styled.div`
 
   position: relative;
 `
-const BackgroundOverylay = styled.div`
-  position: absolute;
-  width: 100vw;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`
-function BackgroundBlock ({ src, height = "100", children }: BackgroundBlockType): ReactElement {
+function BackgroundLogin ({ src, height = "100" }: BackgroundBlockType): ReactElement {
   return (
     <div>
       <BackgroundImage src={src} height={height}>
-        <BackgroundOverylay>{children}</BackgroundOverylay>
+
       </BackgroundImage>
     </div>
   )
 }
-export default BackgroundBlock
+export default BackgroundLogin
