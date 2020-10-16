@@ -13,7 +13,7 @@ interface BackgroundBlockPropsType{
 
 const BackgroundImage = styled.div`
   height: ${(props: BackgroundBlockPropsType): string => props.height}vh;
-  width: auto;
+  width: 100vw;
   background-image: url(${(props: BackgroundBlockPropsType): string => props.src});
   background-repeat: no-repeat;
   background-size: cover;
