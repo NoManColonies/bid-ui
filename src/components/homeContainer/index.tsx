@@ -3,19 +3,17 @@ import styled from 'styled-components'
 
 const Container =styled.div`
 
-  background-color:#E8FFC1;
+  background-color:white;
   align-items: center;
-
+  margin: 0;
+  padding: 0;
   width: 100vw;
   height: 100vh;
-
-
 `
 
 function homeContainer(): ReactElement{
   return(
     <Container>
-      <i className="far fa-user"></i>
     </Container>
   )
 }
