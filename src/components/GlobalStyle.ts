@@ -8,7 +8,7 @@ const Globalstyle = createGlobalStyle`
     height: 100vh;
     width: 100vw;
 
-    font-family: 'Kanit', sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 20px;
     list-style: none;
 

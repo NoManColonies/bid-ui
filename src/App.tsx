@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import withHelmet from './utils/withHelmet'
 import RegisterContext from './contexts/RegisterContext'
 import GlobalStyle from './components/GlobalStyle'
+import Home from './pages/Home'
 
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
@@ -13,7 +14,9 @@ function App(): ReactElement {
       <GlobalStyle />
       <Suspense fallback="...loading">
         <Switch>
-          <Route exact path="/" />
+          <Route exact path="/" >
+            <Home></Home>
+          </Route>
           <RegisterContext>
             <Route exact path="/register">
               <RegistrationForm />

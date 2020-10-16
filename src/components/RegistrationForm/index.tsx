@@ -1,13 +1,11 @@
 import React, { useCallback, ChangeEvent, FormEvent, ReactElement } from 'react'
-import styled from 'styled-components'
+import {Container,FormsContainer,SigninSignup,Signup,PanelsContainer,Panel,RightPanel,Form,Button,Paragraph,Content,Title} from '../RegistrationForm/styles'
 import InputField from '../InputField'
 import { useToken } from '../../contexts/AuthContext'
 import { useRegistration } from '../../contexts/RegisterContext'
 import withHelmet from '../../utils/withHelmet'
 
-const Button = styled.button``
-const Paragraph = styled.p``
-const Form = styled.form``
+
 
 function RegistrationForm(): ReactElement {
   const [
@@ -46,23 +44,32 @@ function RegistrationForm(): ReactElement {
   )
 
   return (
-    <>
+       <Container>
+       <FormsContainer>
+       <SigninSignup>
+
       {/* TODO: Style these loading indicator properly */}
       {loading && <Paragraph>...is loading</Paragraph>}
       {/* FIXME: Remove these temporary debugging component */}
       {credential.token && <Paragraph>{credential.token}</Paragraph>}
+
+      <Signup>
       <Form onSubmit={onSubmitRegister}>
+      <Title>SIGN IN</Title>
         <InputField
           type="text"
           name="username"
+          placeholder="Username"
           value={username}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeUsername(event.target.value)
           }
         />
+
         <InputField
           type="email"
           name="email"
+          placeholder="Email"
           value={email}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeEmail(event.target.value)
@@ -71,6 +78,7 @@ function RegistrationForm(): ReactElement {
         <InputField
           type="password"
           name="password"
+          placeholder="Password"
           value={password}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangePassword(event.target.value)
@@ -79,14 +87,35 @@ function RegistrationForm(): ReactElement {
         <InputField
           type="text"
           name="key"
+          placeholder=""
           value={key}
           onChange={(event: ChangeEvent<HTMLInputElement>): void =>
             handleChangeKey(event.target.value)
           }
         />
-        <Button type="submit">Register</Button>
+        <Button type="submit">SING UP</Button>
       </Form>
-    </>
+      </Signup>
+      </SigninSignup>
+      </FormsContainer>
+
+      <PanelsContainer>
+        <Panel>
+        <RightPanel>
+          <Content>
+        <h3>ONE OF US ?</h3>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
+          laboriosam ad deleniti.
+        </p>
+        <Button type="submit">SING IN</Button>
+        </Content>
+
+        </RightPanel>
+        </Panel>
+      </PanelsContainer>
+      </Container>
+
   )
 }
 
