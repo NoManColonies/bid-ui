@@ -5,12 +5,11 @@ import { Link } from 'react-router-dom'
 const Container = styled.div`
   margin: 0;
   padding: 0;
-
+  width: 100vw;
   height: 40vh;
   background-color: #51adcf;
   color: aliceblue;
-  display: flex;
-  justify-content: space-between;
+  display: flex;flex-direction: column;
   align-items: center;
   font-family: 'Josefin Sans', sans-serif;
 `
@@ -147,6 +146,13 @@ display: flex;
   margin-bottom:0.5rem;
 `
 
+const Social =styled.div`
+ i{
+   width:50px;
+   height:50px;
+ }
+`
+
 function Footer(): ReactElement {
   return (
     <Container>
@@ -201,7 +207,15 @@ function Footer(): ReactElement {
             </Tel>
           </Contact>
         </Title>
+
       </Content>
+      <Social>
+        <i className="fab fa-whatsapp"></i>
+        <i className="fab fa-facebook"></i>
+        <i className="fab fa-twitter"></i>
+        <i className="fab fa-youtube"></i>
+        <i className="fab fa-instagram"></i>
+        </Social>
     </Container>
   )
 }
