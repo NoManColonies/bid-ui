@@ -1,11 +1,11 @@
 import axios, { AxiosResponse } from 'axios'
-// import fs from "fs";
+// import fs from 'fs'
 
 const API_ENDPOINT = 'http://localhost:3333'
 const API_VERSION = 'api/v1'
 const JSON_HEADER = { 'Content-Type': 'application/json' }
 
-export async function HEALTH_CHECK (): Promise<boolean> {
+export async function HEALTH_CHECK(): Promise<boolean> {
   return axios({
     method: 'get',
     url: API_ENDPOINT,
@@ -15,7 +15,7 @@ export async function HEALTH_CHECK (): Promise<boolean> {
     .catch(() => false)
 }
 
-export async function FETCH_GET<K, V, Return> (
+export async function FETCH_GET<K, V, Return>(
   section: string,
   headers: K,
   params: V
@@ -28,7 +28,7 @@ export async function FETCH_GET<K, V, Return> (
   }).then((response: AxiosResponse): Promise<Return> => response.data)
 }
 
-export async function FETCH_POST<K, V, T, Return> (
+export async function FETCH_POST<K, V, T, Return>(
   section: string,
   data: K,
   headers: V,
@@ -43,7 +43,7 @@ export async function FETCH_POST<K, V, T, Return> (
   }).then((response: AxiosResponse): Promise<Return> => response.data)
 }
 
-export async function FETCH_UPDATE<K, V, T, Return> (
+export async function FETCH_UPDATE<K, V, T, Return>(
   section: string,
   data: K,
   headers: V,
@@ -58,7 +58,7 @@ export async function FETCH_UPDATE<K, V, T, Return> (
   }).then((response: AxiosResponse): Promise<Return> => response.data)
 }
 
-export async function FETCH_DELETE<K, V, Return> (
+export async function FETCH_DELETE<K, V, Return>(
   section: string,
   headers: K,
   params: V
@@ -71,18 +71,17 @@ export async function FETCH_DELETE<K, V, Return> (
   }).then((response: AxiosResponse): Promise<Return> => response.data)
 }
 
-// export async function FETCH_FILE_UPLOAD (
-// TODO: implement file upload feature
-// section: string
-// fileName: string,
-// file: fs.PathLike
-// ) {
-// const fd = new FormData()
+export async function FETCH_FILE_UPLOAD(
+  // ? TODO: implement file upload feature
+  section: string,
+  fileName: string,
+  file: Blob
+): Promise<void> {
+  const fd = new FormData()
 
-//! FIXME: Resolve string | Blob issue
-// fd.append(fileName, fs.createReadStream(file));
-// axios.post(`${API_ENDPOINT}/${API_VERSION}/${section}`, fd, {
-//! FIXME: Resolve form data headers
-// headers: fd.getHeaders(),
-// })
-// }
+  // ! FIXME: Resolve string | Blob issue
+  fd.append(fileName, file)
+  axios.post(`${API_ENDPOINT}/${API_VERSION}/${section}`, fd, {
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
+}
