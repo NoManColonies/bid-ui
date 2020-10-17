@@ -1,13 +1,24 @@
 import React, { ReactElement } from 'react'
-import { Container, Wrapper, Logo, ActionContainer, Action } from '../NavBar/styles'
+import { Container, Wrapper,Box, Logo,Join, ActionContainer, Action } from '../NavBar/styles'
 import { Link } from 'react-router-dom'
 
 function NavBar(): ReactElement {
   return(
     <Container>
     <Wrapper>
-      <Logo />
+      <Box>
+      <Logo>
       Logo
+      </Logo>
+      <Join>
+        <Action>
+           <Link to="/login">Login</Link>
+        </Action>
+        <Action>
+           <Link to="/register">Join</Link>
+         </Action>
+      </Join>
+      </Box>
       <ActionContainer>
               <Action>
                 <Link to="/">Home</Link>
@@ -21,7 +32,7 @@ function NavBar(): ReactElement {
               <Action>
                 <Link to="/payment">Payment</Link>
               </Action>
-            </ActionContainer>
+       </ActionContainer>
     </Wrapper>
   </Container>
   )
