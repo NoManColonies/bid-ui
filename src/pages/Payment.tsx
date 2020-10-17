@@ -1,14 +1,10 @@
-import React,{ReactElement   } from 'react'
-
-
-
+import React, { ReactElement } from 'react'
 
 function Payment(): ReactElement {
   return (
     <>
-     <div></div>
+      <div></div>
     </>
   )
 }
 export default Payment
-

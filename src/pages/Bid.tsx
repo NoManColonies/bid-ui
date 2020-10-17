@@ -1,12 +1,9 @@
-import React,{ReactElement   } from 'react'
-
-
-
+import React, { ReactElement } from 'react'
 
 function Bid(): ReactElement {
   return (
     <>
-     <div></div>
+      <div></div>
     </>
   )
 }
