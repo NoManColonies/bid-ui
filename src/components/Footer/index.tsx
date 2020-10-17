@@ -1,8 +1,21 @@
 import React, { ReactElement } from 'react'
-import {Container,Content,Title,Box,Menu,ActionContainer,Action,Address,Contact,User1,User2,Email,Tel,Social} from '../Footer/styles'
+import {
+  Container,
+  Content,
+  Title,
+  Box,
+  Menu,
+  ActionContainer,
+  Action,
+  Address,
+  Contact,
+  User1,
+  User2,
+  Email,
+  Tel,
+  Social
+} from '../Footer/styles'
 import { Link } from 'react-router-dom'
-
-
 
 function Footer(): ReactElement {
   return (
@@ -42,23 +55,25 @@ function Footer(): ReactElement {
             </p>
           </Address>
           <Contact>
-
             <h3>CONTACT US</h3>
             <User1>
-            <i className="far fa-user"></i><p>  Katsu Miyajima</p>
+              <i className="far fa-user"></i>
+              <p> Katsu Miyajima</p>
             </User1>
             <User2>
-            <i className="far fa-user"></i><p>  Walaluck khamnoi</p>
+              <i className="far fa-user"></i>
+              <p> Walaluck khamnoi</p>
             </User2>
             <Email>
-            <i className="far fa-envelope"></i><p> BidBRS@gmail.com</p>
+              <i className="far fa-envelope"></i>
+              <p> BidBRS@gmail.com</p>
             </Email>
             <Tel>
-            <i className="fas fa-phone-alt"></i><p> 053456234</p>
+              <i className="fas fa-phone-alt"></i>
+              <p> 053456234</p>
             </Tel>
           </Contact>
         </Title>
-
       </Content>
       <Social>
         <i className="fab fa-whatsapp"></i>
@@ -66,8 +81,9 @@ function Footer(): ReactElement {
         <i className="fab fa-twitter"></i>
         <i className="fab fa-youtube"></i>
         <i className="fab fa-instagram"></i>
-        </Social>
+      </Social>
     </Container>
   )
 }
+
 export default Footer
