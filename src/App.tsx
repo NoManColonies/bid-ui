@@ -4,6 +4,7 @@ import withHelmet from './utils/withHelmet'
 import RegisterContext from './contexts/RegisterContext'
 import GlobalStyle from './components/GlobalStyle'
 import Home from './pages/Home'
+import NavBar from './components/NavBar'
 
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
@@ -13,6 +14,7 @@ function App(): ReactElement {
     <>
       <GlobalStyle />
       <Suspense fallback="...loading">
+        <NavBar/>
         <Switch>
           <Route exact path="/" >
             <Home></Home>
