@@ -1,4 +1,10 @@
-export type PAYLOAD_TYPE = 'NEW_TOKEN' | 'NEW_REFRESHTOKEN' | 'ABORT_TOKENS'
+export type PAYLOAD_TYPE =
+  | 'NEW_TOKEN'
+  | 'ABORT_ALL'
+  | 'NEW_ALERT'
+  | 'ADD_ALERT'
+  | 'REMOVE_ALERT'
+
 export type USE_TOKEN_RETURN_TYPE = [
   CredentialType,
   {
@@ -11,6 +17,10 @@ export type USE_TOKEN_RETURN_TYPE = [
       password,
       key
     }: RegistrationFormType) => Promise<void>;
+    handleFetchAlerts: () => void;
+    handleFetchNewAlerts: (alertUuids: string[]) => void;
+    handleAddAlert: (alert: AlertType) => void;
+    handleRemoveAlert: (alert: AlertType) => void;
   }
 ]
 
@@ -63,4 +73,8 @@ export interface AuthContextType<T> {
   credential?: ReducerState<T>;
   credentialDispatch?: Dispatch<ReducerAction<T>>;
   children?: ReactElement;
+}
+
+export interface AuthorizationHeaderType {
+  Authorization: string;
 }
