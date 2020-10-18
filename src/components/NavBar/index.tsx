@@ -1,15 +1,19 @@
 import React, { ReactElement } from 'react'
-import { Container, Wrapper,Box, Logo,Join, ActionContainer, Action } from '../NavBar/styles'
+import { Container, Wrapper,Box,BoxLogo,Join, ActionContainer, Action } from '../NavBar/styles'
 import { Link } from 'react-router-dom'
+import Logo from './Logo'
+import LogoImage from '../../assets/dollar-coin.svg'
 
 function NavBar(): ReactElement {
   return(
     <Container>
     <Wrapper>
       <Box>
-      <Logo>
-      Logo
-      </Logo>
+      <BoxLogo>
+      <Logo src={LogoImage}/>
+      <p>BRS</p>
+      </BoxLogo>
+
       <Join>
         <Action>
            <Link to="/login">Login</Link>
