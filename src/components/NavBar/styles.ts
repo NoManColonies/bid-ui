@@ -2,14 +2,15 @@ import styled from 'styled-components'
 
 
 export const Container = styled.div`
-  margin:0;
-  padding:0;
+  padding:0.5rem 0.5rem 0.5rem 0.5rem;
+
   width: 100vw;
-  height:10vh;
+  height:15vh;
   z-index: 10000;
   background-color:#0278AE;
   color:white;
   transition:background-color 0.5;
+
 `
 
 export const Box = styled.div`
@@ -17,15 +18,23 @@ export const Box = styled.div`
   flex-direction:row;
   justify-content: space-between;
   align-items: center;
-  padding-top:1.5rem;
+  padding-top:0.5rem;
   margin-left:2rem;
 
 
 `
+export const BoxLogo = styled.div`
+  display: flex;
+  flex-direction:row;
+  align-items: center;
 
-export const Logo = styled.div`
 
-align-items: center;
+  p{
+    padding-top:0.5rem;
+    padding-left:0.5rem
+  }
+
+
 `
 export const Join = styled.div`
  margin-right:2rem;
