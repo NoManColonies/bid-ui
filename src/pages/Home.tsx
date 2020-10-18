@@ -1,4 +1,5 @@
 import React, { ReactElement } from 'react'
+import withHelmet from '../utils/withHelmet'
 import backgroundImage from '../assets/nike_0.jpg'
 import BackgroundBlock from '../components/BackgroundBlock'
 import Container from '../components/homeContainer'
@@ -13,4 +14,4 @@ function Home(): ReactElement {
     </div>
   )
 }
-export default Home
+export default withHelmet('BIDRS | Home')(Home)
