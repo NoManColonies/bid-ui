@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react'
 import InputFieldType from './InputField'
-import Styled from 'styled-components'
+import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const InputStyle= Styled.div`
+const InputStyle = styled.div`
   max-width: 380px;
   width: 100%;
   background-color: #f0f0f0;
@@ -10,53 +11,72 @@ const InputStyle= Styled.div`
   height: 55px;
   border-radius: 55px;
   display: grid;
-  grid-template-columns: 15% 85%;
-  padding: 0 0.4rem;
+  grid-template-column: 10% 1fr;
+  box-sizing: border-box;
   position: relative;
-
-  & i{
-    text-align: center;
-    line-height: 55px;
-    color: #acacac;
-    transition: 0.5s;
-    font-size: 1.1rem;
-  }
 `
-const Input = Styled.input`
-max-width: 380px;
-  width:200vh;
+
+const InputIcon = styled(FontAwesomeIcon)`
+  color: #333;
+  height: 100%;
+  margin: auto;
+  display: flex;
+  opacity: 0.6;
+  grid-column: 1;
+`
+
+const Input = styled.input`
+  width: 100%;
   background: none;
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 0.9rem;
   color: #333;
-  &&::-webkit-input-placeholder{
-    color: #aaa;
-    font-weight:500;
-    font-size: 1rem;
+  position: relative;
+  grid-column: 2;
+
+  &&::-webkit-input-placeholder {
+    color: #333;
+    font-weight: 600;
+    font-size: 0.9rem;
   }
 `
-
-
 
 function InputField({
   type,
   name,
   value,
+  icon,
   onChange,
   placeholder,
   required
 }: InputFieldType): ReactElement {
   return required ? (
-
-    <InputStyle> <i className="far fa-user"><Input type={type} name={name} value={value} onChange={onChange} required placeholder={placeholder}/></i></InputStyle>
+    <InputStyle>
+      {icon && <InputIcon icon={icon} />}
+      <Input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        required
+        placeholder={placeholder}
+      />
+    </InputStyle>
   ) : (
-    <InputStyle><Input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder} /></InputStyle>
+    <InputStyle>
+      {icon && <InputIcon icon={icon} />}
+      <Input
+        type={type}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+      />
+    </InputStyle>
   )
-
-
 }
 
 export default InputField

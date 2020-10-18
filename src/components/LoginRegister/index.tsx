@@ -6,7 +6,7 @@ function LoginRegister(): ReactElement {
   return (
     <>
       <LoginForm />
-      <RegisterForm />
+      <RegisterForm admin={false} />
     </>
   )
 }
