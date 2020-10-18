@@ -14,7 +14,7 @@ import {
   Email,
   Tel,
   Social
-} from '../Footer/styles'
+} from '../Footer/styled'
 import { Link } from 'react-router-dom'
 
 function Footer(): ReactElement {

@@ -14,6 +14,7 @@ export const NotificationWrapper = styled.div`
   box-shadow: 5px 5px 10px 1px #ccc;
   position: absolute;
   padding: 0.5rem;
+  z-index: 110;
 `
 
 export const EmptyTag = styled.div`

@@ -1,20 +1,24 @@
 import React, { ReactElement, useState, useEffect, useCallback } from 'react'
-import { Link } from 'react-router-dom'
 import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useWebsocket } from '../../utils/useWebsocket'
 import Notification from './Notification'
 import withWebsocketContext from '../../utils/withWebsocketContext'
+import { AlertType } from '../../interfaces/Credential'
 import {
-  NavBarContainer,
-  NavBarWrapper,
-  Logo,
-  ActionWrapper,
-  LinkWrapper,
+  Container,
+  Wrapper,
+  Box,
+  BoxLogo,
+  Join,
+  ActionContainer,
+  Action,
   BellIcon,
   NotificationButton
-} from './styled'
-import { AlertType } from '../../interfaces/Credential'
+} from '../NavBar/styled'
+import { Link } from 'react-router-dom'
+import Logo from './Logo'
+import LogoImage from '../../assets/dollar-coin.svg'
 
 function NavBar(): ReactElement {
   const [notification, toggleNotification] = useState<boolean>(false)
@@ -33,7 +37,7 @@ function NavBar(): ReactElement {
   const handleAlertChannel = useCallback(
     ({ data }: MessageEvent): void => {
       const { t, d } = JSON.parse(data)
-      console.log(d)
+      console.log(t, d)
 
       if (t === 7) {
         switch (d.data.type) {
@@ -96,44 +100,52 @@ function NavBar(): ReactElement {
   }, [handleFetchAlerts, setUnread, token.token, alerts])
 
   return (
-    <NavBarContainer>
-      <NavBarWrapper>
-        <Logo>
-          <Link to="/">BIDRS</Link>
-        </Logo>
-        <ActionWrapper>
-          <LinkWrapper>
+    <Container>
+      <Wrapper>
+        <Box>
+          <BoxLogo>
+            <Logo src={LogoImage} />
+            <p>BRS</p>
+          </BoxLogo>
+          <Join>
+            {!token.token ? (
+              <>
+                <Action>
+                  <Link to="/login">Login</Link>
+                </Action>
+                <Action>
+                  <Link to="/register">Join</Link>
+                </Action>
+              </>
+            ) : (
+              <Action>
+                <NotificationButton
+                  unread={unread}
+                  onClick={(): void => toggleNotification(!notification)}
+                >
+                  <BellIcon icon={faBell} fixedWidth size="1x"></BellIcon>
+                </NotificationButton>
+                {notification && <Notification alerts={alerts} />}
+              </Action>
+            )}
+          </Join>
+        </Box>
+        <ActionContainer>
+          <Action>
             <Link to="/">Home</Link>
-          </LinkWrapper>
-          <LinkWrapper>
-            <Link to="offers">Offers</Link>
-          </LinkWrapper>
-          <LinkWrapper>
-            <Link to="product">Add product</Link>
-          </LinkWrapper>
-          {!token.token ? (
-            <>
-              <LinkWrapper>
-                <Link to="register">Join us</Link>
-              </LinkWrapper>
-              <LinkWrapper>
-                <Link to="login">Sign in</Link>
-              </LinkWrapper>
-            </>
-          ) : (
-            <LinkWrapper>
-              <NotificationButton
-                unread={unread}
-                onClick={(): void => toggleNotification(!notification)}
-              >
-                <BellIcon icon={faBell} fixedWidth size="1x"></BellIcon>
-              </NotificationButton>
-              {notification && <Notification alerts={alerts} />}
-            </LinkWrapper>
-          )}
-        </ActionWrapper>
-      </NavBarWrapper>
-    </NavBarContainer>
+          </Action>
+          <Action>
+            <Link to="/bid">Bid</Link>
+          </Action>
+          <Action>
+            <Link to="/product">Product</Link>
+          </Action>
+          <Action>
+            <Link to="/payment">Payment</Link>
+          </Action>
+        </ActionContainer>
+      </Wrapper>
+    </Container>
   )
 }
 

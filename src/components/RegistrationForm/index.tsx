@@ -12,7 +12,7 @@ import {
   Paragraph,
   Content,
   Title
-} from '../RegistrationForm/styles'
+} from '../RegistrationForm/styled'
 import InputField from '../InputField'
 import {
   faUser,

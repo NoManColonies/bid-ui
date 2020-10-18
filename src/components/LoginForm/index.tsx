@@ -12,7 +12,7 @@ import {
   Button,
   Paragraph,
   Content
-} from '../LoginForm/styles'
+} from '../LoginForm/styled'
 import InputField from '../InputField'
 import { useToken } from '../../utils/useToken'
 import { useRegistration } from '../../contexts/RegisterContext'
@@ -20,6 +20,8 @@ import { faUser, faKey } from '@fortawesome/free-solid-svg-icons'
 import withHelmet from '../../utils/withHelmet'
 import BackgroundLogin from '../LoginForm/BackgrountLogin'
 import backgroundImage from '../../assets/bg.png'
+import ImageLogin from './ImageLogin'
+import Image from '../../assets/surfer.svg'
 
 // import Images from '../assets/1png'
 
@@ -105,6 +107,7 @@ function LoginForm(): ReactElement {
               </p>
               <Button type="submit">SIGN UP</Button>
             </Content>
+            <ImageLogin src={Image} />
           </LeftPanel>
         </Panel>
       </PanelsContainer>
