@@ -5,24 +5,27 @@ const API_ENDPOINT = 'http://localhost:3333'
 const API_VERSION = 'api/v1'
 const JSON_HEADER = { 'Content-Type': 'application/json' }
 
-export async function HEALTH_CHECK(): Promise<boolean> {
+export async function HEALTH_CHECK(): Promise<void> {
   return axios({
     method: 'get',
     url: API_ENDPOINT,
     headers: JSON_HEADER
   })
-    .then(() => true)
-    .catch(() => false)
+    .then(() => undefined)
+    .catch((e: Error) => console.log(e))
 }
 
 export async function FETCH_GET<K, V, Return>(
   section: string,
   headers: K,
-  params: V
+  params: V,
+  query?: string
 ): Promise<Return> {
   return axios({
     method: 'get',
-    url: `${API_ENDPOINT}/${API_VERSION}/${section}`,
+    url: `${API_ENDPOINT}/${API_VERSION}/${section}${
+      query ? `/?${query}` : ''
+    }`,
     headers: { ...JSON_HEADER, ...headers },
     params
   }).then((response: AxiosResponse): Promise<Return> => response.data)
@@ -32,11 +35,14 @@ export async function FETCH_POST<K, V, T, Return>(
   section: string,
   data: K,
   headers: V,
-  params: T
+  params: T,
+  query?: string
 ): Promise<Return> {
   return axios({
     method: 'post',
-    url: `${API_ENDPOINT}/${API_VERSION}/${section}`,
+    url: `${API_ENDPOINT}/${API_VERSION}/${section}${
+      query ? `/?${query}` : ''
+    }`,
     data,
     headers: { ...JSON_HEADER, ...headers },
     params
@@ -47,11 +53,14 @@ export async function FETCH_UPDATE<K, V, T, Return>(
   section: string,
   data: K,
   headers: V,
-  params: T
+  params: T,
+  query?: string
 ): Promise<Return> {
   return axios({
     method: 'patch',
-    url: `${API_ENDPOINT}/${API_VERSION}/${section}`,
+    url: `${API_ENDPOINT}/${API_VERSION}/${section}${
+      query ? `/?${query}` : ''
+    }`,
     data,
     headers: { ...JSON_HEADER, ...headers },
     params

@@ -12,13 +12,23 @@ import {
   Paragraph,
   Content,
   Title
-} from '../RegistrationForm/styles'
+} from '../RegistrationForm/styled'
 import InputField from '../InputField'
-import { useToken } from '../../contexts/AuthContext'
+import {
+  faUser,
+  faMailBulk,
+  faKey,
+  faQuestion
+} from '@fortawesome/free-solid-svg-icons'
+import { useToken } from '../../utils/useToken'
 import { useRegistration } from '../../contexts/RegisterContext'
 import withHelmet from '../../utils/withHelmet'
 
-function RegistrationForm(): ReactElement {
+interface RegistrationFormType {
+  admin: boolean;
+}
+
+function RegistrationForm({ admin }: RegistrationFormType): ReactElement {
   const [
     { username, email, password, key, loading },
     {
@@ -61,14 +71,17 @@ function RegistrationForm(): ReactElement {
           {/* TODO: Style these loading indicator properly */}
           {loading && <Paragraph>...is loading</Paragraph>}
           {/* FIXME: Remove these temporary debugging component */}
-          {credential.token && <Paragraph>{credential.token}</Paragraph>}
+          {credential.token.token && (
+            <Paragraph>{credential.token.token}</Paragraph>
+          )}
           <Signup>
             <Form onSubmit={onSubmitRegister}>
-              <Title>SIGN IN</Title>
+              <Title>SIGN UP</Title>
               <InputField
                 type="text"
                 name="username"
                 placeholder="Username"
+                icon={faUser}
                 value={username}
                 onChange={(event: ChangeEvent<HTMLInputElement>): void =>
                   handleChangeUsername(event.target.value)
@@ -78,6 +91,7 @@ function RegistrationForm(): ReactElement {
                 type="email"
                 name="email"
                 placeholder="Email"
+                icon={faMailBulk}
                 value={email}
                 onChange={(event: ChangeEvent<HTMLInputElement>): void =>
                   handleChangeEmail(event.target.value)
@@ -87,21 +101,25 @@ function RegistrationForm(): ReactElement {
                 type="password"
                 name="password"
                 placeholder="Password"
+                icon={faKey}
                 value={password}
                 onChange={(event: ChangeEvent<HTMLInputElement>): void =>
                   handleChangePassword(event.target.value)
                 }
               />
-              <InputField
-                type="text"
-                name="key"
-                placeholder=""
-                value={key}
-                onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-                  handleChangeKey(event.target.value)
-                }
-              />
-              <Button type="submit">SING UP</Button>
+              {admin && (
+                <InputField
+                  type="text"
+                  name="key"
+                  placeholder="Secret"
+                  icon={faQuestion}
+                  value={key}
+                  onChange={(event: ChangeEvent<HTMLInputElement>): void =>
+                    handleChangeKey(event.target.value)
+                  }
+                />
+              )}
+              <Button type="submit">SIGN UP</Button>
             </Form>
           </Signup>
         </SigninSignup>
@@ -124,4 +142,6 @@ function RegistrationForm(): ReactElement {
   )
 }
 
-export default withHelmet('BDRS | Register')(RegistrationForm)
+export default withHelmet<RegistrationFormType>('BIDRS | Register')(
+  RegistrationForm
+)
