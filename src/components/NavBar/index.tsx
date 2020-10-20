@@ -56,15 +56,17 @@ function NavBar(): ReactElement {
   useEffect(() => {
     if (token.uuid) {
       handleAddSubscription(
-        { subscription: 'alert', topic: token.uuid },
+        { subscription: 'alert', topic: token.uuid, packet: 7 },
         handleAlertChannel
       )
 
-      return (): void =>
+      return (): void => {
+        console.log('removing subscription...')
         handleRemoveSubscription(
-          { subscription: 'alert', topic: token.uuid },
+          { subscription: 'alert', topic: token.uuid, packet: 7 },
           handleAlertChannel
         )
+      }
     }
   }, [
     handleAddSubscription,
