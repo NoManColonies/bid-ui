@@ -1,5 +1,4 @@
 import axios, { AxiosResponse } from 'axios'
-// import fs from 'fs'
 
 const API_ENDPOINT = 'http://localhost:3333'
 const API_VERSION = 'api/v1'
@@ -11,10 +10,7 @@ export async function HEALTH_CHECK(): Promise<boolean> {
     url: API_ENDPOINT,
     headers: JSON_HEADER
   })
-    .then((response: AxiosResponse) => {
-      console.log(response)
-      return true
-    })
+    .then(() => true)
     .catch((e: Error) => {
       console.error(e)
       return false
