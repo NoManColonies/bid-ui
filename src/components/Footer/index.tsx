@@ -23,7 +23,9 @@ function Footer(): ReactElement {
       <Content>
         <Title>
           <Box>
-            <h3>BIDBRS</h3>
+            <Link to="/">
+              <h3>BIDBRS</h3>
+            </Link>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incid idunt ut labore et dolore magna aliqua. Ut
