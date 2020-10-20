@@ -9,6 +9,8 @@ import { useWebsocket } from './utils/useWebsocket'
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
 const Home = lazy(() => import('./pages/Home'))
+const Profile =lazy(()=>import('./pages/Profile'))
+
 
 function App(): ReactElement {
   const [, { handleConnectionClose }] = useWebsocket()
@@ -24,6 +26,9 @@ function App(): ReactElement {
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/profile">
+            <Profile/>
           </Route>
           <RegisterContext>
             <Route exact path="/register">
