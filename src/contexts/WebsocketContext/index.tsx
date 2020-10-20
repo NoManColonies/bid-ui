@@ -102,7 +102,6 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
           } = socket
           clearInterval(clientIntervalCode)
           clearTimeout(serverIntervalCode)
-          console.log('heartbeat effect cleared.')
           const hearthbeat: number = setInterval(
             () => handleHeartbeat(serverInterval, clientInterval),
             clientInterval
