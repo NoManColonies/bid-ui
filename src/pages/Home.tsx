@@ -4,16 +4,15 @@ import backgroundImage from '../assets/nike_0.jpg'
 import BackgroundBlock from '../components/BackgroundBlock'
 import Container from '../components/homeContainer'
 import Footer from '../components/Footer'
-// import NavBar from '../components/NavBar'
+import withNavbar from '../utils/withNavbar'
 
 function Home(): ReactElement {
   return (
     <div>
-      {/* <NavBar/> */}
       <BackgroundBlock src={backgroundImage}></BackgroundBlock>
       <Container />
       <Footer />
     </div>
   )
 }
-export default withHelmet('BIDRS | Home')(Home)
+export default withHelmet('BIDRS | Home')(withNavbar(Home))
