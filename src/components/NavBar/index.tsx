@@ -35,24 +35,19 @@ function NavBar(): ReactElement {
   const [, { handleAddSubscription, handleRemoveSubscription }] = useWebsocket()
 
   const handleAlertChannel = useCallback(
-    ({ data }: MessageEvent): void => {
-      const { t, d } = JSON.parse(data)
-      console.log(t, d)
-
-      if (t === 7) {
-        switch (d.data.type) {
-          case 'new:alert': {
-            handleAddAlert(d.data.data)
-            setUnread(true)
-            break
-          }
-          case 'edit:alert': {
-            handleRemoveAlert(d.data.data)
-            break
-          }
-          default:
-            console.log(t, d.data.data)
+    ({ d }): void => {
+      switch (d.data.type) {
+        case 'new:alert': {
+          handleAddAlert(d.data.data)
+          setUnread(true)
+          break
         }
+        case 'edit:alert': {
+          handleRemoveAlert(d.data.data)
+          break
+        }
+        default:
+          console.log(d.data.data)
       }
     },
     [handleAddAlert, handleRemoveAlert, setUnread]
