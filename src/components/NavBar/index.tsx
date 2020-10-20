@@ -3,7 +3,6 @@ import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useWebsocket } from '../../utils/useWebsocket'
 import Notification from './Notification'
-import withWebsocketContext from '../../utils/withWebsocketContext'
 import { AlertType } from '../../interfaces/Credential'
 import {
   Container,
@@ -78,14 +77,11 @@ function NavBar(): ReactElement {
   useEffect(() => {
     const alertUuids: string[] = alerts
       // eslint-disable-next-line
-      .filter(({ is_read }: AlertType): boolean => !is_read)
       .map(({ uuid }: AlertType): string => uuid)
     if (notification && alertUuids.length) handleFetchNewAlerts(alertUuids)
   }, [notification, handleFetchNewAlerts, alerts])
 
   useEffect(() => {
-    token.token && handleFetchAlerts()
-
     if (alerts.length) {
       const unreadAlerts: AlertType[] = alerts.filter(
         // eslint-disable-next-line
@@ -96,14 +92,20 @@ function NavBar(): ReactElement {
     }
   }, [handleFetchAlerts, setUnread, token.token, alerts])
 
+  useEffect(() => {
+    token.token && handleFetchAlerts()
+  }, [token.token, handleFetchAlerts])
+
   return (
     <Container>
       <Wrapper>
         <Box>
-          <BoxLogo>
-            <Logo src={LogoImage} />
-            <p>BRS</p>
-          </BoxLogo>
+          <Link to="/">
+            <BoxLogo>
+              <Logo src={LogoImage} />
+              <p>BRS</p>
+            </BoxLogo>
+          </Link>
           <Join>
             {!token.token ? (
               <>
@@ -146,4 +148,4 @@ function NavBar(): ReactElement {
   )
 }
 
-export default withWebsocketContext(NavBar)
+export default NavBar
