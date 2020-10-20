@@ -5,14 +5,20 @@ const API_ENDPOINT = 'http://localhost:3333'
 const API_VERSION = 'api/v1'
 const JSON_HEADER = { 'Content-Type': 'application/json' }
 
-export async function HEALTH_CHECK(): Promise<void> {
+export async function HEALTH_CHECK(): Promise<boolean> {
   return axios({
     method: 'get',
     url: API_ENDPOINT,
     headers: JSON_HEADER
   })
-    .then(() => undefined)
-    .catch((e: Error) => console.log(e))
+    .then((response: AxiosResponse) => {
+      console.log(response)
+      return true
+    })
+    .catch((e: Error) => {
+      console.error(e)
+      return false
+    })
 }
 
 export async function FETCH_GET<K, V, Return>(
@@ -28,7 +34,7 @@ export async function FETCH_GET<K, V, Return>(
     }`,
     headers: { ...JSON_HEADER, ...headers },
     params
-  }).then((response: AxiosResponse): Promise<Return> => response.data)
+  }).then(({ data }: AxiosResponse): Promise<Return> => data)
 }
 
 export async function FETCH_POST<K, V, T, Return>(
@@ -46,7 +52,7 @@ export async function FETCH_POST<K, V, T, Return>(
     data,
     headers: { ...JSON_HEADER, ...headers },
     params
-  }).then((response: AxiosResponse): Promise<Return> => response.data)
+  }).then(({ data }: AxiosResponse): Promise<Return> => data)
 }
 
 export async function FETCH_UPDATE<K, V, T, Return>(
@@ -64,7 +70,7 @@ export async function FETCH_UPDATE<K, V, T, Return>(
     data,
     headers: { ...JSON_HEADER, ...headers },
     params
-  }).then((response: AxiosResponse): Promise<Return> => response.data)
+  }).then(({ data }: AxiosResponse): Promise<Return> => data)
 }
 
 export async function FETCH_DELETE<K, V, Return>(
@@ -77,7 +83,7 @@ export async function FETCH_DELETE<K, V, Return>(
     url: `${API_ENDPOINT}/${API_VERSION}/${section}`,
     headers: { ...JSON_HEADER, ...headers },
     params
-  }).then((response: AxiosResponse): Promise<Return> => response.data)
+  }).then(({ data }: AxiosResponse): Promise<Return> => data)
 }
 
 export async function FETCH_FILE_UPLOAD(
