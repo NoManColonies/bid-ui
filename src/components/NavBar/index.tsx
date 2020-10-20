@@ -3,7 +3,6 @@ import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useWebsocket } from '../../utils/useWebsocket'
 import Notification from './Notification'
-import withWebsocketContext from '../../utils/withWebsocketContext'
 import { AlertType } from '../../interfaces/Credential'
 import {
   Container,
@@ -35,24 +34,19 @@ function NavBar(): ReactElement {
   const [, { handleAddSubscription, handleRemoveSubscription }] = useWebsocket()
 
   const handleAlertChannel = useCallback(
-    ({ data }: MessageEvent): void => {
-      const { t, d } = JSON.parse(data)
-      console.log(t, d)
-
-      if (t === 7) {
-        switch (d.data.type) {
-          case 'new:alert': {
-            handleAddAlert(d.data.data)
-            setUnread(true)
-            break
-          }
-          case 'edit:alert': {
-            handleRemoveAlert(d.data.data)
-            break
-          }
-          default:
-            console.log(t, d.data.data)
+    ({ d }): void => {
+      switch (d.data.type) {
+        case 'new:alert': {
+          handleAddAlert(d.data.data)
+          setUnread(true)
+          break
         }
+        case 'edit:alert': {
+          handleRemoveAlert(d.data.data)
+          break
+        }
+        default:
+          console.log(d.data.data)
       }
     },
     [handleAddAlert, handleRemoveAlert, setUnread]
@@ -61,15 +55,17 @@ function NavBar(): ReactElement {
   useEffect(() => {
     if (token.uuid) {
       handleAddSubscription(
-        { subscription: 'alert', topic: token.uuid },
+        { subscription: 'alert', topic: token.uuid, packet: 7 },
         handleAlertChannel
       )
 
-      return (): void =>
+      return (): void => {
+        console.log('removing subscription...')
         handleRemoveSubscription(
-          { subscription: 'alert', topic: token.uuid },
+          { subscription: 'alert', topic: token.uuid, packet: 7 },
           handleAlertChannel
         )
+      }
     }
   }, [
     handleAddSubscription,
@@ -81,14 +77,11 @@ function NavBar(): ReactElement {
   useEffect(() => {
     const alertUuids: string[] = alerts
       // eslint-disable-next-line
-      .filter(({ is_read }: AlertType): boolean => !is_read)
       .map(({ uuid }: AlertType): string => uuid)
     if (notification && alertUuids.length) handleFetchNewAlerts(alertUuids)
   }, [notification, handleFetchNewAlerts, alerts])
 
   useEffect(() => {
-    token.token && handleFetchAlerts()
-
     if (alerts.length) {
       const unreadAlerts: AlertType[] = alerts.filter(
         // eslint-disable-next-line
@@ -99,14 +92,20 @@ function NavBar(): ReactElement {
     }
   }, [handleFetchAlerts, setUnread, token.token, alerts])
 
+  useEffect(() => {
+    token.token && handleFetchAlerts()
+  }, [token.token, handleFetchAlerts])
+
   return (
     <Container>
       <Wrapper>
         <Box>
-          <BoxLogo>
-            <Logo src={LogoImage} />
-            <p>BRS</p>
-          </BoxLogo>
+          <Link to="/">
+            <BoxLogo>
+              <Logo src={LogoImage} />
+              <p>BRS</p>
+            </BoxLogo>
+          </Link>
           <Join>
             {!token.token ? (
               <>
@@ -150,4 +149,4 @@ function NavBar(): ReactElement {
   )
 }
 
-export default withWebsocketContext(NavBar)
+export default NavBar

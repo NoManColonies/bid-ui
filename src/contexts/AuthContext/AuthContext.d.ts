@@ -8,15 +8,15 @@ export type PAYLOAD_TYPE =
 export type USE_TOKEN_RETURN_TYPE = [
   CredentialType,
   {
-    handleFetchToken: () => Promise<void>;
-    handleFetchLogin: ({ username, password }: LoginFormType) => Promise<void>;
-    handleFetchLogout: () => Promise<void>;
+    handleFetchToken: () => void;
+    handleFetchLogin: ({ username, password }: LoginFormType) => void;
+    handleFetchLogout: () => void;
     handleFetchRegister: ({
       username,
       email,
       password,
       key
-    }: RegistrationFormType) => Promise<void>;
+    }: RegistrationFormType) => void;
     handleFetchAlerts: () => void;
     handleFetchNewAlerts: (alertUuids: string[]) => void;
     handleAddAlert: (alert: AlertType) => void;

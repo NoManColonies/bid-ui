@@ -1,20 +1,26 @@
-import React, { ReactElement, lazy, Suspense } from 'react'
+import React, { ReactElement, lazy, Suspense, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import withHelmet from './utils/withHelmet'
 import RegisterContext from './contexts/RegisterContext'
 import GlobalStyle from './components/GlobalStyle'
-import NavBar from './components/NavBar'
+import withWebsocketContext from './utils/withWebsocketContext'
+import { useWebsocket } from './utils/useWebsocket'
 
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
 const Home = lazy(() => import('./pages/Home'))
 
 function App(): ReactElement {
+  const [, { handleConnectionClose }] = useWebsocket()
+
+  useEffect(() => {
+    return (): void => handleConnectionClose()
+  }, [handleConnectionClose])
+
   return (
     <>
       <GlobalStyle />
       <Suspense fallback="...loading">
-        <NavBar />
         <Switch>
           <Route exact path="/">
             <Home />
@@ -36,4 +42,4 @@ function App(): ReactElement {
   )
 }
 
-export default withHelmet('BIDRS')(App)
+export default withWebsocketContext(withHelmet('BIDRS')(App))

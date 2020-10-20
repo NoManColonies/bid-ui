@@ -85,10 +85,10 @@ function AuthContext({
     INITIAL_STATE
   )
 
-  useEffect((): void => {
+  useEffect(() => {
     !credential.token.refreshToken &&
-      HEALTH_CHECK().then(
-        (): Promise<void> =>
+      HEALTH_CHECK().then((response: boolean) => {
+        response &&
           FETCH_POST<
             {},
             RefreshTokenFormType,
@@ -115,10 +115,10 @@ function AuthContext({
             .catch((e: Error): void =>
               console.error(`Refresh token restoration failed. ${e}`)
             )
-      )
+      })
   }, [credential.token.refreshToken])
 
-  useEffect((): void => {
+  useEffect(() => {
     credential.token.refreshToken &&
       window.localStorage.setItem(TOKEN_STORE, credential.token.refreshToken)
   }, [credential.token.refreshToken])

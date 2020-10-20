@@ -15,7 +15,12 @@ export function useWebsocket(): USE_WEBSOCKET_RETURN_TYPE<EMITTERY_TYPE> {
         payload: JSON.stringify(payload),
         ws
       })
-      socketDispatch({ type: 'ADD_LISTENER', payload, event, ws })
+      socketDispatch({
+        type: 'ADD_LISTENER',
+        payload: JSON.stringify(payload),
+        event,
+        ws
+      })
     },
     [socketDispatch, ws]
   )
@@ -27,19 +32,31 @@ export function useWebsocket(): USE_WEBSOCKET_RETURN_TYPE<EMITTERY_TYPE> {
         payload: JSON.stringify(payload),
         ws
       })
-      socketDispatch({ type: 'REMOVE_LISTENER', payload, event, ws })
+      socketDispatch({
+        type: 'REMOVE_LISTENER',
+        payload: JSON.stringify(payload),
+        event,
+        ws
+      })
     },
     [socketDispatch, ws]
   )
+
+  const handleConnectionClose = useCallback(() => {
+    socketDispatch({ type: 'CLOSE_CONNECTION', payload: '', ws })
+  }, [socketDispatch, ws])
 
   const socketState = useMemo(
     () => ({
       ws,
       clientLimit: socket.clientLimit,
       cuurentIteration: socket.currentIteration,
-      interval: socket.interval,
+      clientInterval: socket.clientInterval,
+      serverInterval: socket.serverInterval,
       subscriptions: socket.subscriptions,
-      emitter: socket.emitter
+      emitter: socket.emitter,
+      clientIntervalCode: socket.clientIntervalCode,
+      serverIntervalCode: socket.serverIntervalCode
     }),
     [socket, ws]
   )
@@ -47,9 +64,10 @@ export function useWebsocket(): USE_WEBSOCKET_RETURN_TYPE<EMITTERY_TYPE> {
   const handlerFunctions = useMemo(
     () => ({
       handleAddSubscription,
-      handleRemoveSubscription
+      handleRemoveSubscription,
+      handleConnectionClose
     }),
-    [handleAddSubscription, handleRemoveSubscription]
+    [handleAddSubscription, handleRemoveSubscription, handleConnectionClose]
   )
 
   return [socketState, handlerFunctions]
