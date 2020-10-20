@@ -25,8 +25,6 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
   const [ws, reconnect] = useState<WebSocket>(new WebSocket(WEBSOCKET_ENDPOINT))
 
   const handleHeartbeatEffect = useCallback(() => {
-    console.log(socket.cuurentIteration)
-
     socketDispatch({
       type: 'SET_CLIENT_TRIES',
       payload: JSON.stringify({
@@ -35,57 +33,79 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     })
   }, [socket.cuurentIteration, socketDispatch])
 
-  const handleHeartbeat = useCallback(() => {
-    ws && ws.send(JSON.stringify({ t: 8 }))
+  const handleHeartbeat = useCallback(
+    (serverInterval, clientInterval) => {
+      ws && ws.send(JSON.stringify({ t: 8 }))
 
-    const heartbeatEffect = setTimeout(
-      () => handleHeartbeatEffect(),
-      socket.serverInterval - socket.clientInterval
-    )
-    socketDispatch({
-      type: 'SET_SERVER_INTERVAL_NUMBER',
-      payload: JSON.stringify({
-        intervalCode: heartbeatEffect
+      const heartbeatEffect = setTimeout(
+        () => handleHeartbeatEffect(),
+        serverInterval - clientInterval
+      )
+      socketDispatch({
+        type: 'SET_SERVER_INTERVAL_NUMBER',
+        payload: JSON.stringify({
+          intervalCode: heartbeatEffect
+        })
       })
-    })
-  }, [socket.serverInterval, socket.clientInterval, handleHeartbeatEffect, ws])
+    },
+    [socketDispatch, handleHeartbeatEffect, ws]
+  )
 
   useEffect(() => {
     if (socket.cuurentIteration > socket.clientLimit) {
       clearInterval(socket.clientIntervalCode)
       clearTimeout(socket.serverIntervalCode)
     }
+  }, [
+    socket.clientLimit,
+    socket.cuurentIteration,
+    socket.clientIntervalCode,
+    socket.serverIntervalCode
+  ])
+
+  useEffect(() => {
     if (ws.readyState === 0 || ws.readyState === 1) {
       ws.onmessage = ({ data }: MessageEvent): void => {
         const payload = JSON.parse(data)
         console.log(payload)
         socket.emitter.emit(payload.t.toString(), payload)
         if (payload.t === 0) {
+          const { clientAttempts, clientInterval, serverInterval } = payload.d
           socketDispatch({
             type: 'SET_CLIENT_ATTEMPTS',
             payload: JSON.stringify({
-              clientAttempts: payload.d.clientAttempts
+              clientAttempts: clientAttempts
             })
           })
           socketDispatch({
             type: 'SET_CLIENT_INTERVAL',
             payload: JSON.stringify({
-              interval: payload.d.clientInterval
+              interval: clientInterval
             })
           })
           socketDispatch({
             type: 'SET_SERVER_INTERVAL',
             payload: JSON.stringify({
-              interval: payload.d.serverInterval
+              interval: serverInterval
             })
           })
-          setTimeout(() => handleHeartbeat(), payload.d.clientInterval)
+          setTimeout(
+            () => handleHeartbeat(serverInterval, clientInterval),
+            clientInterval
+          )
         } else if (payload.t === 9) {
-          clearInterval(socket.clientIntervalCode)
-          clearTimeout(socket.serverIntervalCode)
+          const {
+            clientIntervalCode,
+            serverIntervalCode,
+            clientInterval,
+            serverInterval
+          } = socket
+          clearInterval(clientIntervalCode)
+          clearTimeout(serverIntervalCode)
+          console.log('heartbeat effect cleared.')
           const hearthbeat: number = setInterval(
-            () => handleHeartbeat(),
-            socket.clientInterval
+            () => handleHeartbeat(serverInterval, clientInterval),
+            clientInterval
           )
           socketDispatch({
             type: 'SET_CLIENT_INTERVAL_NUMBER',
@@ -100,12 +120,11 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     ws.onmessage,
     ws.readyState,
     socket.emitter,
-    socket.clientInterval,
     handleHeartbeat,
     socketDispatch,
+    socket.clientInterval,
+    socket.serverInterval,
     socket.clientIntervalCode,
-    socket.cuurentIteration,
-    socket.clientLimit,
     socket.serverIntervalCode
   ])
 
