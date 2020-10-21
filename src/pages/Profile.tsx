@@ -25,7 +25,7 @@ const Additional =styled.div`
   position: absolute;
   width: 150px;
   height: 100%;
-  background:#E8FFC1;
+  background:#0278ae;
   transition: width 0.4s;
   overflow: hidden;
   z-index: 2;
@@ -44,7 +44,7 @@ const Infomation =styled.div`
   height: 100%;
 
   h1{
-    color: #0278ae;
+    color: #fff;
     margin-bottom: 0;
     padding-top:1.5rem;
   }
@@ -52,9 +52,9 @@ const Infomation =styled.div`
 
 const Coords =styled.div`
    margin: 1rem 0.5rem 0.5rem;
-  color: #fff;
+
   font-size: 0.8rem;
-  color:#0278ae;
+  color: #fff;
   span+span {
     float: right;
   }
@@ -66,7 +66,7 @@ const Icon =styled.div`
   bottom: 1rem;
   padding-right:1rem;
   top: auto;
-  color:#0278ae;
+  color: #fff;
   flex: 1;
   text-align: center;
 
