@@ -1,5 +1,9 @@
 import React,{ReactElement   } from 'react'
 import styled from 'styled-components'
+import PopulaSeller from './PopulaSeller'
+import HotProduct from './HotProduct'
+import RecommendedItems from './RecommendedItems'
+import Trend from './Trend'
 
 const Container =styled.div`
 
@@ -14,6 +18,10 @@ const Container =styled.div`
 function homeContainer(): ReactElement{
   return(
     <Container>
+      <HotProduct/>
+      <RecommendedItems/>
+      <Trend/>
+      <PopulaSeller/>
     </Container>
   )
 }
