@@ -20,7 +20,6 @@ const Card =styled.div`
     font-weight: bold;
   }
 
-  }
 `
 const Additional =styled.div`
   position: absolute;
@@ -46,8 +45,8 @@ const Infomation =styled.div`
 
   h1{
     color: #0278ae;
-  margin-bottom: 0;
-  padding-top:1.5rem;
+    margin-bottom: 0;
+    padding-top:1.5rem;
   }
 `
 
@@ -101,11 +100,11 @@ const General =styled.div`
   right: 0;
   z-index: 1;
   box-sizing: border-box;
-  padding: 1rem;
+  padding-right:1rem;
   padding-top: 0;
   h1{
-
-  margin-bottom: 0;
+  padding-right:1rem;
+  margin-bottom: 1rem;
   padding-top:1.5rem;
   }
 `
