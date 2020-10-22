@@ -1,6 +1,7 @@
 import { useCallback, useContext, useMemo } from 'react'
 import {
   HEALTH_CHECK,
+  AUTH_CHECK,
   FETCH_GET,
   FETCH_POST,
   FETCH_UPDATE
@@ -24,38 +25,17 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
   const handleFetchToken = useCallback(
     () =>
       HEALTH_CHECK().then(
-        (response: boolean) =>
-          response &&
+        () =>
+          credential.token.refreshToken &&
           FETCH_POST<
             {},
             RefreshTokenFormType,
             string,
             RefreshTokenResponseType
-          >('authenticate', {}, { refreshToken: credential.refreshToken }, '')
-            .then(({ tokens }) =>
-              credentialDispatch({
-                type: 'NEW_TOKEN',
-                payload: JSON.stringify({
-                  token: tokens.token,
-                  refreshToken: tokens.refreshToken,
-                  uuid: tokens.uuid
-                })
-              })
-            )
-            .catch((e: Error) => console.error(e))
-      ),
-    [credential.refreshToken, credentialDispatch]
-  )
-
-  const handleFetchLogin = useCallback(
-    ({ username, password }: LoginFormType) =>
-      HEALTH_CHECK().then(
-        (response: boolean) =>
-          response &&
-          FETCH_POST<LoginFormType, {}, string, RefreshTokenResponseType>(
-            'login',
-            { username, password },
+          >(
+            'authenticate',
             {},
+            { refreshToken: credential.token.refreshToken },
             ''
           )
             .then(({ tokens }) =>
@@ -70,19 +50,43 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
             )
             .catch((e: Error) => console.error(e))
       ),
+    [credential.token.refreshToken, credentialDispatch]
+  )
+
+  const handleFetchLogin = useCallback(
+    ({ username, password }: LoginFormType) =>
+      HEALTH_CHECK().then(() =>
+        FETCH_POST<LoginFormType, {}, string, RefreshTokenResponseType>(
+          'login',
+          { username, password },
+          {},
+          ''
+        )
+          .then(({ tokens }) =>
+            credentialDispatch({
+              type: 'NEW_TOKEN',
+              payload: JSON.stringify({
+                token: tokens.token,
+                refreshToken: tokens.refreshToken,
+                uuid: tokens.uuid
+              })
+            })
+          )
+          .catch((e: Error) => console.error(e))
+      ),
     [credentialDispatch]
   )
 
   const handleFetchLogout = useCallback(
     () =>
-      HEALTH_CHECK().then((response: boolean) => {
-        response &&
+      AUTH_CHECK(credential.token.token).then(() => {
+        credential.token.token &&
           FETCH_POST<
             {},
             RefreshTokenFormType,
             string,
             APIResponseType<undefined>
-          >('logout', {}, { refreshToken: credential.refreshToken }, '')
+          >('logout', {}, { refreshToken: credential.token.refreshToken }, '')
             .catch((e: Error) => console.error(e))
             .finally(() =>
               credentialDispatch({
@@ -91,85 +95,77 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
               })
             )
       }),
-    [credential.refreshToken, credentialDispatch]
+    [credential.token, credentialDispatch]
   )
 
   const handleFetchRegister = useCallback(
     ({ username, email, password, key }: RegistrationFormType) =>
-      HEALTH_CHECK().then(
-        (response: boolean) =>
-          response &&
-          FETCH_POST<
-            RegistrationFormType,
-            {},
-            string,
-            RegistrationResponseType
-          >('users', { username, email, password, key }, {}, '')
-            .then(({ tokens }) =>
-              credentialDispatch({
-                type: 'NEW_TOKEN',
-                payload: JSON.stringify({
-                  token: tokens.token,
-                  refreshToken: tokens.refreshToken,
-                  uuid: tokens.uuid
-                })
+      HEALTH_CHECK().then(() =>
+        FETCH_POST<RegistrationFormType, {}, string, RegistrationResponseType>(
+          'users',
+          { username, email, password, key },
+          {},
+          ''
+        )
+          .then(({ tokens }) =>
+            credentialDispatch({
+              type: 'NEW_TOKEN',
+              payload: JSON.stringify({
+                token: tokens.token,
+                refreshToken: tokens.refreshToken,
+                uuid: tokens.uuid
               })
-            )
-            .catch((e: Error) => console.error(e))
+            })
+          )
+          .catch((e: Error) => console.error(e))
       ),
     [credentialDispatch]
   )
 
   const handleFetchAlerts = useCallback(
     () =>
-      HEALTH_CHECK().then((response: boolean) => {
-        response &&
-          FETCH_GET<
-            AuthorizationHeaderType,
-            undefined,
-            APIResponseType<AlertType[]>
-          >(
-            'alerts',
-            { Authorization: `Bearer ${credential.token.token}` },
-            undefined
+      credential.token.token &&
+      AUTH_CHECK(credential.token.token).then(() => {
+        FETCH_GET<
+          AuthorizationHeaderType,
+          undefined,
+          APIResponseType<AlertType[]>
+        >(
+          'alerts',
+          { Authorization: `Bearer ${credential.token.token}` },
+          undefined
+        )
+          .then(({ data }) =>
+            credentialDispatch({
+              type: 'NEW_ALERT',
+              payload: JSON.stringify(data)
+            })
           )
-            .then(({ data }) =>
-              credentialDispatch({
-                type: 'NEW_ALERT',
-                payload: JSON.stringify(data)
-              })
-            )
-            .catch((e: Error) => console.error(e))
+          .catch((e: Error) => console.error(e))
       }),
     [credentialDispatch, credential.token.token]
   )
 
   const handleFetchNewAlerts = useCallback(
     (alertUuids: string[]) =>
-      HEALTH_CHECK().then(
-        (response: boolean) =>
-          response &&
+      credential.token.token &&
+      AUTH_CHECK(credential.token.token)
+        .then(() =>
           FETCH_UPDATE<
             {},
             AuthorizationHeaderType,
-            undefined,
+            { list: string },
             APIResponseType<AlertType[]>
           >(
-            'alerts',
+            'alerts/read',
             {},
             { Authorization: `Bearer ${credential.token.token}` },
             undefined,
-            `list=${alertUuids.join(',')}`
-          )
-            .then(({ data }) =>
-              credentialDispatch({
-                type: 'NEW_ALERT',
-                payload: JSON.stringify(data)
-              })
-            )
-            .catch((e: Error) => console.error(e))
-      ),
-    [credentialDispatch, credential.token.token]
+            { list: alertUuids.join(',') }
+          ).catch((e: Error) => console.error(e))
+        )
+        .catch(() => handleFetchToken()),
+    [credential.token.token, handleFetchToken]
   )
 
   const handleAddAlert = useCallback(
@@ -182,6 +178,15 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
     (alert: AlertType) =>
       credentialDispatch({
         type: 'REMOVE_ALERT',
+        payload: JSON.stringify(alert)
+      }),
+    [credentialDispatch]
+  )
+
+  const handleEditAlert = useCallback(
+    (alert: AlertType) =>
+      credentialDispatch({
+        type: 'EDIT_ALERT',
         payload: JSON.stringify(alert)
       }),
     [credentialDispatch]
@@ -204,7 +209,8 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
       handleFetchAlerts,
       handleFetchNewAlerts,
       handleAddAlert,
-      handleRemoveAlert
+      handleRemoveAlert,
+      handleEditAlert
     }),
     [
       handleFetchToken,
@@ -214,7 +220,9 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
       handleFetchAlerts,
       handleFetchNewAlerts,
       handleAddAlert,
-      handleRemoveAlert
+      handleRemoveAlert,
+
+      handleEditAlert
     ]
   )
 
