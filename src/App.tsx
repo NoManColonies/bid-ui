@@ -28,6 +28,7 @@ function App(): ReactElement {
             <Home />
           </Route>
           <Route exact path="/profile">
+            <Home />
             <Profile/>
           </Route>
           <RegisterContext>
