@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import AuthContext from './contexts/AuthContext'
-import { HashRouter} from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthContext>
-      <HashRouter>
+      <Router>
         <App />
-      </HashRouter>
+      </Router>
     </AuthContext>
   </React.StrictMode>,
   document.getElementById('root')
