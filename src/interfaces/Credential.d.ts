@@ -7,6 +7,7 @@ export interface AlertType {
   reference: string;
   accept: string;
   decline: string;
+  path_to_credential: string;
 }
 
 export interface TokensType {

@@ -121,10 +121,7 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     socket.emitter,
     handleHeartbeat,
     socketDispatch,
-    socket.clientInterval,
-    socket.serverInterval,
-    socket.clientIntervalCode,
-    socket.serverIntervalCode
+    socket
   ])
 
   useEffect(() => {

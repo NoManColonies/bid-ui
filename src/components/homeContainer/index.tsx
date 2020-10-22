@@ -1,13 +1,12 @@
-import React,{ReactElement   } from 'react'
+import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import PopulaSeller from './PopulaSeller'
 import HotProduct from './HotProduct'
 import RecommendedItems from './RecommendedItems'
 import Trend from './Trend'
 
-const Container =styled.div`
-
-  background-color:white;
+const Container = styled.div`
+  background-color: white;
   align-items: center;
   margin: 0;
   padding: 0;
@@ -15,13 +14,13 @@ const Container =styled.div`
   height:auto;
 `
 
-function homeContainer(): ReactElement{
-  return(
+function homeContainer(): ReactElement {
+  return (
     <Container>
-      <HotProduct/>
-      <RecommendedItems/>
-      <Trend/>
-      <PopulaSeller/>
+      <HotProduct />
+      <RecommendedItems />
+      <Trend />
+      <PopulaSeller />
     </Container>
   )
 }

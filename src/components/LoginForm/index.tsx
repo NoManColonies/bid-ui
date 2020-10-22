@@ -1,4 +1,10 @@
-import React, { ReactElement, useCallback, ChangeEvent, FormEvent } from 'react'
+import React, {
+  ReactElement,
+  useCallback,
+  ChangeEvent,
+  FormEvent,
+  useEffect
+} from 'react'
 import {
   Container,
   FormsContainer,
@@ -21,11 +27,13 @@ import withHelmet from '../../utils/withHelmet'
 import BackgroundLogin from '../LoginForm/BackgrountLogin'
 import backgroundImage from '../../assets/bg.png'
 import ImageLogin from './ImageLogin'
+import { useHistory } from 'react-router-dom'
 import Image from '../../assets/surfer.svg'
 
 // import Images from '../assets/1png'
 
 function LoginForm(): ReactElement {
+  const history = useHistory()
   const [
     { username, password, loading },
     {
@@ -35,7 +43,7 @@ function LoginForm(): ReactElement {
       handleChangeReset
     }
   ] = useRegistration()
-  const [credential, { handleFetchLogin }] = useToken()
+  const [{ token }, { handleFetchLogin }] = useToken()
 
   // handle function that will submit form request
   const onSubmitLogin = useCallback(
@@ -57,6 +65,10 @@ function LoginForm(): ReactElement {
     ]
   )
 
+  useEffect(() => {
+    token.token && history.push('/home')
+  }, [token.token, history])
+
   return (
     <Container>
       <BackgroundLogin src={backgroundImage} />
@@ -64,10 +76,6 @@ function LoginForm(): ReactElement {
         <SigninSignup>
           {/* TODO: Style these loading indicator properly */}
           {loading && <Paragraph>...is loading</Paragraph>}
-          {/* FIXME: Remove these temporary debugging component */}
-          {credential.token.token && (
-            <Paragraph>{credential.token.token}</Paragraph>
-          )}
           <Signin>
             <Form onSubmit={onSubmitLogin}>
               <Title>WELCOME</Title>

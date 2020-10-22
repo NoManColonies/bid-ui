@@ -23,7 +23,7 @@ function Footer(): ReactElement {
       <Content>
         <Title>
           <Box>
-            <Link to="/">
+            <Link to="/home">
               <h3>BIDBRS</h3>
             </Link>
             <p>
@@ -36,7 +36,7 @@ function Footer(): ReactElement {
             <h3>EXPLORE</h3>
             <ActionContainer>
               <Action>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
               </Action>
               <Action>
                 <Link to="/bid">Bid</Link>

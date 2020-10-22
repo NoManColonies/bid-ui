@@ -3,6 +3,7 @@ export type PAYLOAD_TYPE =
   | 'ABORT_ALL'
   | 'NEW_ALERT'
   | 'ADD_ALERT'
+  | 'EDIT_ALERT'
   | 'REMOVE_ALERT'
 
 export type USE_TOKEN_RETURN_TYPE = [
@@ -21,6 +22,7 @@ export type USE_TOKEN_RETURN_TYPE = [
     handleFetchNewAlerts: (alertUuids: string[]) => void;
     handleAddAlert: (alert: AlertType) => void;
     handleRemoveAlert: (alert: AlertType) => void;
+    handleEditAlert: (alert: AlertType) => void;
   }
 ]
 
