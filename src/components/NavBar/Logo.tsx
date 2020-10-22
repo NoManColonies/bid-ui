@@ -13,10 +13,10 @@ interface LogoPropsType{
 
 const animateLogo=keyframes`
   from{
-    tranform:rotateZ(0deg)
+    transform:rotateZ(0deg)
   }
   to{
-    tranform:rotateZ(360deg)
+    transform:rotateZ(360deg)
   }
 
 `
@@ -30,7 +30,7 @@ const LogoImage = styled.div`
   padding:1rem 1rem 1.5rem 1rem;
   transform-origin: center;
   transform-box:fill-box;
-  animation:${animateLogo} 5s infinite linear;
+  animation:${animateLogo} 5s infinite;
 `
 
 function Logo ({ src, height = "1" }: LogoBlockType): ReactElement {

@@ -11,6 +11,7 @@ import ProductSpecificationContext from './contexts/ProductSpecificationContext'
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
 const Home = lazy(() => import('./pages/Home'))
+const Profile = lazy(() => import('./pages/Profile'))
 
 function App(): ReactElement {
   const [, { handleConnectionClose }] = useWebsocket()
@@ -52,6 +53,9 @@ function App(): ReactElement {
               </>
             )}
           />
+          <Route exact path="/profile">
+            <Profile />
+          </Route>
           <RegisterContext>
             <Route path="/register">
               <RegistrationForm admin={false} />
