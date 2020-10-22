@@ -1,5 +1,6 @@
 export interface NotificationInterface {
   alerts: AlertType[];
+  toggleNotification: Function;
 }
 
 export interface AlertWrapperInterface {
