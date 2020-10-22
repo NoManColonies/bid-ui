@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import ImagesSeller from './ImagesSeller'
 import Image from '../../assets/k.jpg'
 import Image1 from '../../assets/seller1.jpg'
@@ -10,8 +11,9 @@ import Image3 from '../../assets/seller3.jpg'
 
 const Container =styled.div`
  width:100vw;
-height:100vh;
-background-color:yellow;
+ height:70vh;
+ background-color:yellow;
+
 
 h1{
   font-weight:800;
@@ -30,7 +32,7 @@ const Row =styled.div`
   display: flex;
   align-items: center;
   width:100%;
-  height:100%;
+  height:80vh;
   margin-left:1.8rem;
   margin-right:1rem;
   `
@@ -39,7 +41,7 @@ const Content =styled.div`
   display:flex;
   flex-direction:row;
   width:100%;
-  height:100%;
+  height:80vh;
 
   `
 
@@ -56,32 +58,27 @@ const Box =styled.div`
 
 `
 const SocialIcon =styled.div`
-   width: 100%;
+  width: 100%;
+  height:1.5rem;
   padding: 0;
   margin: 0;
-  background-color: #1369ce;
   position: absolute;
-  bottom: 1rem;
   left: 0;
-  transition: all 0.5s ease-in-out 0s;
   display:flex;
   flex-direction:row;
 
 
   i{
+  margin-top:0.3rem;
   display: block;
   padding: 10px;
   font-size: 17px;
-  color: white;
+  color: #0278ae;
   transition: all 0.3s ease 0s;
   text-decoration: none;
-  color: #1369ce;
   flex:1;
   }
-  &:hover{
-    bottom:0;
-    background-color: #f7f5ec;
-  }
+
 `
 const Picture =styled.div`
  display: inline-block;
@@ -98,6 +95,7 @@ function PopularSeller(): ReactElement{
       <h1>Popular seller</h1>
       <Row>
          <Content>
+               <Link to="/profile">
                <Box>
                 <Picture>
                 <ImagesSeller src={Image} />
@@ -107,13 +105,16 @@ function PopularSeller(): ReactElement{
                <h4>Iam a chubbyboy</h4>
                </TeamContent>
                <SocialIcon>
+
                <i className="fa fa-trophy"></i>
                <i className="fa fa-gamepad"></i>
                <i className="fas fa-boxes"></i>
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                </Box>
+               </Link>
 
+               <Link to="/profile">
                <Box>
                 <Picture>
                 <ImagesSeller src={Image1} />
@@ -129,7 +130,9 @@ function PopularSeller(): ReactElement{
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                </Box>
+               </Link>
 
+               <Link to="/profile">
                <Box>
                 <Picture>
                 <ImagesSeller src={Image2} />
@@ -145,7 +148,9 @@ function PopularSeller(): ReactElement{
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                </Box>
+               </Link>
 
+               <Link to="/profile">
                <Box>
                 <Picture>
                 <ImagesSeller src={Image3} />
@@ -161,7 +166,9 @@ function PopularSeller(): ReactElement{
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                 </Box>
+               </Link>
 
+               <Link to="/profile">
                <Box>
                 <Picture>
                 <ImagesSeller src={Image} />
@@ -177,6 +184,7 @@ function PopularSeller(): ReactElement{
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                </Box>
+               </Link>
           </Content>
        </Row>
 
