@@ -62,6 +62,18 @@ function authReducer(
         alerts: [...state.alerts, alert]
       }
     }
+    case 'EDIT_ALERT': {
+      const alert: AlertType = JSON.parse(action.payload)
+
+      const alerts = state.alerts.map((filter: AlertType) =>
+        filter.uuid === alert.uuid ? alert : filter
+      )
+
+      return {
+        ...state,
+        alerts: [...alerts]
+      }
+    }
     case 'REMOVE_ALERT': {
       const alert: AlertType = JSON.parse(action.payload)
 
@@ -87,34 +99,28 @@ function AuthContext({
 
   useEffect(() => {
     !credential.token.refreshToken &&
-      HEALTH_CHECK().then((response: boolean) => {
-        response &&
-          FETCH_POST<
-            {},
-            RefreshTokenFormType,
-            string,
-            RefreshTokenResponseType
-          >(
-            'authenticate',
-            {},
-            {
-              refreshToken: window.localStorage.getItem(TOKEN_STORE) || ''
-            },
-            ''
-          )
-            .then((response: RefreshTokenResponseType): void =>
-              credentialDispatch({
-                type: 'NEW_TOKEN',
-                payload: JSON.stringify({
-                  token: response.tokens.token,
-                  refreshToken: response.tokens.refreshToken,
-                  uuid: response.tokens.uuid
-                })
+      HEALTH_CHECK().then(() => {
+        FETCH_POST<{}, RefreshTokenFormType, string, RefreshTokenResponseType>(
+          'authenticate',
+          {},
+          {
+            refreshToken: window.localStorage.getItem(TOKEN_STORE) || ''
+          },
+          ''
+        )
+          .then((response: RefreshTokenResponseType): void =>
+            credentialDispatch({
+              type: 'NEW_TOKEN',
+              payload: JSON.stringify({
+                token: response.tokens.token,
+                refreshToken: response.tokens.refreshToken,
+                uuid: response.tokens.uuid
               })
-            )
-            .catch((e: Error): void =>
-              console.error(`Refresh token restoration failed. ${e}`)
-            )
+            })
+          )
+          .catch((e: Error): void =>
+            console.error(`Refresh token restoration failed. ${e}`)
+          )
       })
   }, [credential.token.refreshToken])
 
