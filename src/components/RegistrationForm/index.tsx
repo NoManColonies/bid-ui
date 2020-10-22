@@ -1,4 +1,10 @@
-import React, { useCallback, ChangeEvent, FormEvent, ReactElement } from 'react'
+import React, {
+  useCallback,
+  ChangeEvent,
+  FormEvent,
+  ReactElement,
+  useEffect
+} from 'react'
 import {
   Container,
   FormsContainer,
@@ -22,6 +28,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useRegistration } from '../../contexts/RegisterContext'
+import { useHistory } from 'react-router-dom'
 import withHelmet from '../../utils/withHelmet'
 
 interface RegistrationFormType {
@@ -29,6 +36,7 @@ interface RegistrationFormType {
 }
 
 function RegistrationForm({ admin }: RegistrationFormType): ReactElement {
+  const history = useHistory()
   const [
     { username, email, password, key, loading },
     {
@@ -40,7 +48,7 @@ function RegistrationForm({ admin }: RegistrationFormType): ReactElement {
       handleChangeReset
     }
   ] = useRegistration()
-  const [credential, { handleFetchRegister }] = useToken()
+  const [{ token }, { handleFetchRegister }] = useToken()
 
   // handle function that will submit form request
   const onSubmitRegister = useCallback(
@@ -64,16 +72,16 @@ function RegistrationForm({ admin }: RegistrationFormType): ReactElement {
     ]
   )
 
+  useEffect(() => {
+    token.token && history.push('/home')
+  }, [token.token, history])
+
   return (
     <Container>
       <FormsContainer>
         <SigninSignup>
           {/* TODO: Style these loading indicator properly */}
           {loading && <Paragraph>...is loading</Paragraph>}
-          {/* FIXME: Remove these temporary debugging component */}
-          {credential.token.token && (
-            <Paragraph>{credential.token.token}</Paragraph>
-          )}
           <Signup>
             <Form onSubmit={onSubmitRegister}>
               <Title>SIGN UP</Title>
@@ -133,7 +141,7 @@ function RegistrationForm({ admin }: RegistrationFormType): ReactElement {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
                 laboriosam ad deleniti.
               </p>
-              <Button type="submit">SING IN</Button>
+              <Button type="submit">SIGN IN</Button>
             </Content>
           </RightPanel>
         </Panel>
