@@ -71,6 +71,7 @@ export const NotificationButton = styled.button`
   background-color: transparent;
   font-size: 1rem;
   position: relative;
+  cursor: pointer;
 
   &::before {
     content: '';

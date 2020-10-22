@@ -22,13 +22,15 @@ import LogoImage from '../../assets/dollar-coin.svg'
 function NavBar(): ReactElement {
   const [notification, toggleNotification] = useState<boolean>(false)
   const [unread, setUnread] = useState<boolean>(false)
+  const [alertUuids, setAlertUuids] = useState<string[]>([])
   const [
     { token, alerts },
     {
       handleFetchAlerts,
       handleFetchNewAlerts,
       handleAddAlert,
-      handleRemoveAlert
+      handleRemoveAlert,
+      handleEditAlert
     }
   ] = useToken()
   const [, { handleAddSubscription, handleRemoveSubscription }] = useWebsocket()
@@ -41,15 +43,19 @@ function NavBar(): ReactElement {
           setUnread(true)
           break
         }
-        case 'edit:alert': {
+        case 'remove:alert': {
           handleRemoveAlert(d.data.data)
+          break
+        }
+        case 'edit:alert': {
+          handleEditAlert(d.data.data)
           break
         }
         default:
           console.log(d.data.data)
       }
     },
-    [handleAddAlert, handleRemoveAlert, setUnread]
+    [handleAddAlert, handleRemoveAlert, handleEditAlert, setUnread]
   )
 
   useEffect(() => {
@@ -75,11 +81,17 @@ function NavBar(): ReactElement {
   ])
 
   useEffect(() => {
-    const alertUuids: string[] = alerts
+    const uuids: string[] = alerts
+      // eslint-disable-next-line
+      .filter(({ is_read }: AlertType) => !is_read)
       // eslint-disable-next-line
       .map(({ uuid }: AlertType): string => uuid)
+    setAlertUuids(uuids)
+  }, [alerts, setAlertUuids])
+
+  useEffect(() => {
     if (notification && alertUuids.length) handleFetchNewAlerts(alertUuids)
-  }, [notification, handleFetchNewAlerts, alerts])
+  }, [notification, handleFetchNewAlerts, alertUuids])
 
   useEffect(() => {
     if (alerts.length) {
@@ -88,9 +100,9 @@ function NavBar(): ReactElement {
         ({ is_read }: AlertType): boolean => !is_read
       )
 
-      unreadAlerts.length && setUnread(true)
+      unreadAlerts.length ? setUnread(true) : setUnread(false)
     }
-  }, [handleFetchAlerts, setUnread, token.token, alerts])
+  }, [setUnread, alerts])
 
   useEffect(() => {
     token.token && handleFetchAlerts()
@@ -100,7 +112,7 @@ function NavBar(): ReactElement {
     <Container>
       <Wrapper>
         <Box>
-          <Link to="/">
+          <Link to="/home">
             <BoxLogo>
               <Logo src={LogoImage} />
               <p>BRS</p>
@@ -124,20 +136,25 @@ function NavBar(): ReactElement {
                 >
                   <BellIcon icon={faBell} fixedWidth size="1x"></BellIcon>
                 </NotificationButton>
-                {notification && <Notification alerts={alerts} />}
+                {notification && (
+                  <Notification
+                    alerts={alerts}
+                    toggleNotification={toggleNotification}
+                  />
+                )}
               </Action>
             )}
           </Join>
         </Box>
         <ActionContainer>
           <Action>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
           </Action>
           <Action>
-            <Link to="/bid">Bid</Link>
+            <Link to="/offers">View product</Link>
           </Action>
           <Action>
-            <Link to="/product">Product</Link>
+            <Link to="/home/product">Add product</Link>
           </Action>
           <Action>
             <Link to="/payment">Payment</Link>
