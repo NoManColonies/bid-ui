@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { NotificationButtonPropsType } from './NavBar'
 
 export const Container = styled.div`
-  padding: 0.5rem;
+
   width: 100vw;
-  height: 15vh;
+  height: 14vh;
   z-index: 10000;
   background-color: #0278ae;
   color: white;
@@ -17,7 +17,8 @@ export const Box = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-top: 0.5rem;
+  margin-top:1rem;
+  height:4vh;
   margin-left: 2rem;
 `
 export const BoxLogo = styled.div`
@@ -48,8 +49,11 @@ export const Wrapper = styled.div`
 export const ActionContainer = styled.ul`
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
+  width:62vw;
+  margin-top:0.8rem;
+
 `
 export const Action = styled.li`
   padding: 0 1rem;
@@ -81,4 +85,11 @@ export const NotificationButton = styled.button`
     height: 10px;
     border-radius: 50%;
   }
+`
+
+export const ManuBar = styled.div`
+display:flex;
+
+align-items:center;
+
 `
