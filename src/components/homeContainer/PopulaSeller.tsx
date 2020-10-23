@@ -12,48 +12,52 @@ import Image3 from '../../assets/seller3.jpg'
 const Container =styled.div`
  width:100vw;
  height:70vh;
- background-color:yellow;
-
-
-h1{
+ background-color:#f7f7f7;
+ h1{
   font-weight:800;
   font-size:1.2rem;
   text-transform: uppercase;
-  margin-left:2.7rem;
-  padding-top:2rem;
+  margin-left:9.5rem;
+  padding-top:3rem;
+  margin-bottom:3rem;
 
-
-}
-
+ }
 `
 const Row =styled.div`
-  background-size: cover;
-  background-position: center;
+
   display: flex;
   align-items: center;
-  width:100%;
-  height:80vh;
-  margin-left:1.8rem;
-  margin-right:1rem;
+  justify-content:center;
+
+  width:100vw;
+  height:70;
+
+
   `
 const Content =styled.div`
-
   display:flex;
   flex-direction:row;
+  justify-content:center;
   width:100%;
-  height:80vh;
+  height:35vh;
 
   `
 
 const Box =styled.div`
   width:15vw;
-  height:30vh;
-  padding:1rem 0.5rem 0.5rem 0.5rem;
+  height:35vh;
+  margin-left:2rem;
+  margin-right:2rem;
   background-color: #f7f5ec;
   text-align: center;
   overflow: hidden;
   position: relative;
-  margin:1rem 1rem 1rem 1rem;
+
+ &:hover{
+ box-shadow:2px 2px 4px gray;
+ }
+
+
 
 
 `
@@ -69,7 +73,8 @@ const SocialIcon =styled.div`
 
 
   i{
-  margin-top:0.3rem;
+  margin-top:1rem;
+  padding-bottom:0;
   display: block;
   padding: 10px;
   font-size: 17px;
@@ -85,6 +90,7 @@ const Picture =styled.div`
   margin-bottom:1rem;
   z-index: 1;
   position: relative;
+  padding-top:0.5rem;
   `
 const TeamContent =styled.div`
 `
@@ -166,24 +172,6 @@ function PopularSeller(): ReactElement{
                <i className="fas fa-star-half-alt"></i>
                </SocialIcon>
                 </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
-                <ImagesSeller src={Image} />
-                </Picture>
-                <TeamContent>
-                <h3>Keng kutsu</h3>
-                <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIcon>
-               <i className="fa fa-trophy"></i>
-               <i className="fa fa-gamepad"></i>
-               <i className="fas fa-boxes"></i>
-               <i className="fas fa-star-half-alt"></i>
-               </SocialIcon>
-               </Box>
                </Link>
           </Content>
        </Row>
