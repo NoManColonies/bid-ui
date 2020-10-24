@@ -35,20 +35,22 @@ const Globalstyle = createGlobalStyle`
   }
 
   * {
-  scrollbar-width: thin;
-  scrollbar-color: #51adcf #E8FFC1;
+    scrollbar-width: thin;
+    scrollbar-color: #51adcf #E8FFC1;
   }
-  *::-webkit-scrollbar {
-  width: 10px;
 
+  *::-webkit-scrollbar {
+    width: 10px;
   }
+
   *::-webkit-scrollbar-track {
-  background: #51adcf;
+    background: #51adcf;
   }
+
   *::-webkit-scrollbar-thumb {
-  background-color: #E8FFC1;
-  border-radius: 20px;
-  border: none;
+    background-color: #E8FFC1;
+    border-radius: 20px;
+    border: none;
   }
 `
 

@@ -13,11 +13,10 @@ h1{
   word-spacing:1px;
   text-transform: uppercase;
   font-family: 'Staatliches', cursive;
-
- }
+  }
 `
-export const Row =styled.div`
 
+export const Row = styled.div`
   display: flex;
   width:100vw;
   height:70vh;
@@ -30,23 +29,21 @@ export const Content =styled.div`
 
   width:100%;
   height:35vh;
-
-  `
+`
 
 export const Box =styled.div`
   width:15vw;
   height:35vh;
   margin-right:3rem;
- margin-top:2rem;
+  margin-top:2rem;
   background-color:white;
   text-align: center;
   overflow: hidden;
   position: relative;
 
- &:hover{
- box-shadow:2px 2px 4px gray;
- }
-
+  &:hover {
+    box-shadow: 2px 2px 4px gray;
+  }
 `
 export const SocialIconWrapper =styled.div`
  width: 100%;
@@ -72,12 +69,13 @@ export const SocialIcon =styled(FontAwesomeIcon)`
   flex:1;
 
 `
-export const Picture =styled.div`
- display: inline-block;
-  margin-bottom:1rem;
+
+export const Picture = styled.div`
+  display: inline-block;
+  margin-bottom: 1rem;
   z-index: 1;
   position: relative;
-  padding-top:0.5rem;
-  `
-export const TeamContent =styled.div`
+  padding-top: 0.5rem;
 `
+
+export const TeamContent = styled.div``

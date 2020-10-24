@@ -21,7 +21,6 @@ export const BoxXL = styled.div`
  display:flex;
  margin-right:1rem;
  margin-top:2rem;
-
 `
 export const BoxL = styled.div`
  width:91%;
@@ -30,6 +29,4 @@ export const BoxL = styled.div`
  display:grid;
  grid-template-columns:repeat(4,25%);
  grid-template-rows:50% 50%;
-
 `
-

@@ -24,6 +24,8 @@ export const ProductBox =styled.div`
  padding:0;
  justify-content:center;
 
+  justify-content: center;
+  margin-top: 1rem;
 `
 
 export const CulumnBox =styled.div`
@@ -58,23 +60,26 @@ export const Product =styled.div`
  }
 
 
+  &:hover {
+    box-shadow: 2px 2px 4px gray;
+  }
 `
 
-export const Image =styled.div`
- width:100%;
- height:70%;
- padding:0;
- margin:0;
+export const Image = styled.div`
+  width: 100%;
+  height: 70%;
+  padding: 0;
+  margin: 0;
 `
 
-export const Title =styled.div`
- padding:0;
- margin:0;
- width:100.4%;
- height:30%;
- background-color:#51ADCF;
+export const Title = styled.div`
+  padding: 0;
+  margin: 0;
+  width: 100.4%;
+  height: 30%;
+  background-color: #51adcf;
 `
-export const Line =styled.div`
-border: 10px solid black;
 
+export const Line = styled.div`
+  border: 10px solid black;
 `

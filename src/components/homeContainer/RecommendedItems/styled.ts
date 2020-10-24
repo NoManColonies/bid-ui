@@ -30,10 +30,6 @@ export const RowBox =styled.div`
  padding:0;
  display:flex;
  flex-direction:row;
-
-
-
-
 `
 
 export const Product =styled.div`
@@ -46,22 +42,23 @@ export const Product =styled.div`
  }
 
 
+  &:hover {
+    box-shadow: 2px 2px 4px gray;
+  }
 `
 
-export const Image =styled.div`
- width:100%;
- height:70%;
- background-color:lawngreen;
- padding:0;
- margin:0;
+export const Image = styled.div`
+  width: 100%;
+  height: 70%;
+  background-color: lawngreen;
+  padding: 0;
+  margin: 0;
 `
 
-export const Title =styled.div`
- padding:0;
- margin:0;
- width:100.4%;
- height:30%;
- background-color:lightgoldenrodyellow;
-
+export const Title = styled.div`
+  padding: 0;
+  margin: 0;
+  width: 100.4%;
+  height: 30%;
+  background-color: lightgoldenrodyellow;
 `
-

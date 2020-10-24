@@ -151,9 +151,9 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
 
   useEffect(() => {
     if (ws.readyState === 2)
-      console.log(`closing websocket connection on ${WEBSOCKET_ENDPOINT}...`)
+      console.log(`closing websocket connection to ${WEBSOCKET_ENDPOINT}...`)
     if (ws.readyState === 3) {
-      console.log(`closed websocket connection to the ${WEBSOCKET_ENDPOINT}.`)
+      console.log(`closed websocket connection to ${WEBSOCKET_ENDPOINT}.`)
       clearInterval(socket.clientIntervalCode)
       clearTimeout(socket.serverIntervalCode)
     }
