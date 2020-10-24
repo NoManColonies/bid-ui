@@ -6,13 +6,14 @@ import
   CulumnBox,
   RowBox,
   Product,
-  Image,Title}
+  Image,
+  Title,
+  Line}
   from './styled'
 
 
 function HotProduct(): ReactElement{
   return(
-   <div>
      <Container>
      <h1>HOT PRODUCT</h1>
        <ProductBox>
@@ -75,8 +76,8 @@ function HotProduct(): ReactElement{
 
         </CulumnBox>
        </ProductBox>
+       <Line/>
      </Container>
-   </div>
 
   )
 }
