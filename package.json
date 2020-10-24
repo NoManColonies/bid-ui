@@ -47,6 +47,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:coverage": "react-scripts test --watchAll=false --collect-coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -67,5 +68,12 @@
   "devDependencies": {
     "prettier": "^2.1.2",
     "prettier-config-standard": "^1.0.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/components/**/*.{js,jsx,ts,tsx}",
+      "src/services/**/*.{js,jsx,ts,tsx}",
+      "src/utils/**/*.{js,jsx,ts,tsx}"
+    ]
   }
 }
