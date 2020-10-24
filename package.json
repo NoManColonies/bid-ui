@@ -29,6 +29,7 @@
     "eslint-plugin-react": "^7.21.3",
     "eslint-plugin-standard": "^4.0.1",
     "form-data": "^3.0.0",
+    "push.js": "^1.0.12",
     "react": "^16.14.0",
     "react-datepicker": "^3.3.0",
     "react-dom": "^16.14.0",
