@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { Link } from 'react-router-dom'
-import ImagesSeller from '../ImagesSeller'
-import Image from '../../../assets/k.jpg'
-import Image1 from '../../../assets/seller1.jpg'
-import Image2 from '../../../assets/seller2.jpg'
-import Image3 from '../../../assets/seller3.jpg'
+import ImagesSeller from './ImagesSeller'
+import Image from '../../../assets/seller/k.jpg'
+import Image1 from '../../../assets/seller/seller1.jpg'
+import Image2 from '../../../assets/seller/seller2.jpg'
+import Image3 from '../../../assets/seller/seller3.jpg'
 import {
   Container,
   Row,
