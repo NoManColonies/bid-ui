@@ -12,6 +12,7 @@ export const Container = styled.div`
   align-items: center;
   font-family: 'Josefin Sans', sans-serif;
 `
+
 export const Content = styled.div`
   display: flex;
   justify-content: space-between;
@@ -20,6 +21,7 @@ export const Content = styled.div`
   height: 30vh;
   font-family: 'Josefin Sans', sans-serif;
 `
+
 export const Title = styled.div`
   display: flex;
   padding-left: 4rem;
@@ -42,6 +44,7 @@ export const Box = styled.div`
     font-style: oblique;
     font-family: 'Josefin Sans', sans-serif;
   }
+
   p {
     width: 25vw;
     height: 20vh;
@@ -50,10 +53,10 @@ export const Box = styled.div`
     font-family: 'Josefin Sans', sans-serif;
   }
 `
+
 export const Menu = styled.div`
   width: 10vw;
   height: 30vh;
-
   display: flex;
   flex-direction: column;
   padding-right: 3rem;
@@ -66,16 +69,19 @@ export const Menu = styled.div`
     font-family: 'Josefin Sans', sans-serif;
   }
 `
+
 export const ActionContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
   font-size: 0.7rem;
 `
+
 export const Action = styled.div`
   margin-bottom: 0.5rem;
   font-size: 0.8rem;
 `
+
 export const Address = styled.div`
   margin-bottom: 0.5rem;
   width: 25vw;
@@ -90,6 +96,7 @@ export const Address = styled.div`
     font-style: oblique;
     font-family: 'Josefin Sans', sans-serif;
   }
+
   p {
     width: 25vw;
     height: 20vh;
@@ -98,6 +105,7 @@ export const Address = styled.div`
     font-family: 'Josefin Sans', sans-serif;
   }
 `
+
 export const Contact = styled.div`
   margin-bottom: 0.5rem;
   font-size: 1rem;
@@ -107,12 +115,14 @@ export const Contact = styled.div`
   flex-direction: column;
   padding-right: 2rem;
   font-family: 'Josefin Sans', sans-serif;
+
   h3 {
     margin: 2rem 0 1rem 0;
     font-weight: 600;
     font-style: oblique;
     font-family: 'Josefin Sans', sans-serif;
   }
+
   p {
     line-height: 1.6;
     font-size: 0.8rem;
@@ -126,16 +136,19 @@ export const User1 = styled.div`
   flex-direction: row;
   margin-bottom: 0.5rem;
 `
+
 export const User2 = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 0.5rem;
 `
+
 export const Email = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 0.5rem;
 `
+
 export const Tel = styled.div`
   display: flex;
   flex-direction: row;

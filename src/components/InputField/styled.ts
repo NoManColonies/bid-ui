@@ -21,7 +21,7 @@ export const InputIcon = styled(FontAwesomeIcon)`
   display: flex;
   opacity: 0.6;
   grid-column: 1;
-  padding:0 0.5rem 0 0.5rem;
+  padding: 0 0.5rem 0 0.5rem;
 `
 
 export const Input = styled.input`
@@ -37,7 +37,7 @@ export const Input = styled.input`
   grid-column: 2;
   font-family: 'Josefin Sans', sans-serif;
 
-  &&::-webkit-input-placeholder {
+  &::-webkit-input-placeholder {
     color: gray;
     font-weight: 600;
     font-size: 0.9rem;
