@@ -67,7 +67,8 @@ function App(): ReactElement {
             )}
           />
           <Route exact path="/profile">
-            <Profile />
+            <Home />
+            <Profile/>
           </Route>
           <RegisterContext>
             <Route path="/register">

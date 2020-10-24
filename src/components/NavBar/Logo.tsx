@@ -22,7 +22,7 @@ const animateLogo=keyframes`
 `
 const LogoImage = styled.div`
   height: ${(props: LogoPropsType): string => props.height}vh;
-  width:15px;
+  width:10px;
   background-image: url(${(props: LogoPropsType): string => props.src});
   background-size: cover;
   background-position: center;
@@ -30,10 +30,13 @@ const LogoImage = styled.div`
   padding:1rem 1rem 1.5rem 1rem;
   transform-origin: center;
   transform-box:fill-box;
+
+  &:hover{
   animation:${animateLogo} 5s infinite;
+  }
 `
 
-function Logo ({ src, height = "1" }: LogoBlockType): ReactElement {
+function Logo ({ src, height = "0.3" }: LogoBlockType): ReactElement {
   return (
     <div>
 

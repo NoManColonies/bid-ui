@@ -13,11 +13,13 @@ import {
   ActionContainer,
   Action,
   BellIcon,
-  NotificationButton
+  NotificationButton,
+  ManuBar
 } from '../NavBar/styled'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
 import LogoImage from '../../assets/dollar-coin.svg'
+import SearchBar from './SearchBar'
 
 function NavBar(): ReactElement {
   const [notification, toggleNotification] = useState<boolean>(false)
@@ -118,6 +120,7 @@ function NavBar(): ReactElement {
               <p>BRS</p>
             </BoxLogo>
           </Link>
+
           <Join>
             {!token.token ? (
               <>
@@ -146,20 +149,23 @@ function NavBar(): ReactElement {
             )}
           </Join>
         </Box>
-        <ActionContainer>
-          <Action>
-            <Link to="/home">Home</Link>
-          </Action>
-          <Action>
-            <Link to="/offers">View product</Link>
-          </Action>
-          <Action>
-            <Link to="/home/product">Add product</Link>
-          </Action>
-          <Action>
-            <Link to="/payment">Payment</Link>
-          </Action>
-        </ActionContainer>
+        <ManuBar>
+          <ActionContainer>
+            <Action>
+              <Link to="/home">Home</Link>
+            </Action>
+            <Action>
+              <Link to="/offers">View product</Link>
+            </Action>
+            <Action>
+              <Link to="/home/product">Add product</Link>
+            </Action>
+            <Action>
+              <Link to="/payment">Payment</Link>
+            </Action>
+          </ActionContainer>
+          <SearchBar />
+        </ManuBar>
       </Wrapper>
     </Container>
   )

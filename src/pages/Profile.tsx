@@ -1,18 +1,34 @@
 import React ,{ReactElement}from 'react'
 import styled from 'styled-components'
 
+
 const Center =styled.div`
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index:100;
 
   `
+
+const Background =styled.div`
+  background-color:black;
+  opacity:0.6;
+  width:100vw;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+
+`
+
 const Card =styled.div`
   width: 450px;
   height: 250px;
   background-color: #fff;
   margin-right:1rem;
+  border-radius: 5px 5px 5px 5px;
+
 
 
   h1{
@@ -29,6 +45,8 @@ const Additional =styled.div`
   transition: width 0.4s;
   overflow: hidden;
   z-index: 2;
+  border-radius: 5px 0px 0px 5px;
+
 
   &:hover {
     width: 100%;
@@ -112,23 +130,26 @@ const General =styled.div`
 
 function Profile (): ReactElement{
   return(
-
+    <>
+    <Background></Background>
   <Center>
+
 
    <Card>
      <Additional>
 
         <Infomation>
-      <h1>Jane Doe</h1>
-      <Coords>
+        <h1>Jane Doe</h1>
+        <Coords>
         <span>Group Name</span>
         <span>Joined January 2019</span>
-      </Coords>
-      <Coords>
+        </Coords>
+
+        <Coords>
         <span>Position/Role</span>
         <span>City, Country</span>
-      </Coords>
-      <Icon>
+        </Coords>
+       <Icon>
         <div>
           <Title>Winning</Title>
           <i className="fa fa-trophy"></i>
@@ -155,11 +176,15 @@ function Profile (): ReactElement{
 
      <General>
         <h1>Jane Doe</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris, at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a volutpat mauris,
+           at molestie lacus. Nam vestibulum sodales odio ut pulvinar.</p>
 
      </General>
    </Card>
+
   </Center>
+  </>
+
 
   )
 }

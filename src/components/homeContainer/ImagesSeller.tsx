@@ -9,15 +9,15 @@ interface BackgroundBlockType {
 interface BackgroundBlockPropsType{
   src: string;
    height: string;
-}
+  }
 
 const BackgroundImage = styled.div`
   height: ${(props: BackgroundBlockPropsType): string => props.height}vh;
   width: 6rem;
   background-image: url(${(props: BackgroundBlockPropsType): string => props.src});
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
+  background-size:cover;
+  background-position:top;
   border-radius:50%;
   position: relative;
 `
