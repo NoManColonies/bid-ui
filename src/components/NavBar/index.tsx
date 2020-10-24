@@ -155,7 +155,7 @@ function NavBar(): ReactElement {
               <Link to="/home">Home</Link>
             </Action>
             <Action>
-              <Link to="/offers">View product</Link>
+              <Link to="/products">View product</Link>
             </Action>
             <Action>
               <Link to="/home/product">Add product</Link>
