@@ -43,20 +43,16 @@ function BidBuffer(): ReactElement {
   } = useBidBuffer()
 
   useEffect(() => {
-    setTimeout(() => {
-      handleAddSubscription(
-        { subscription: 'product', topic: uuid, packet: 7 },
-        handleBidChannel
-      )
-    }, 1000)
+    handleAddSubscription(
+      { subscription: 'product', topic: uuid, packet: 7 },
+      handleBidChannel
+    )
 
-    return (): void => {
+    return (): void =>
       handleRemoveSubscription(
         { subscription: 'product', topic: uuid, packet: 7 },
         handleBidChannel
       )
-      console.log('unmounting')
-    }
   }, [handleAddSubscription, handleRemoveSubscription, handleBidChannel, uuid])
 
   return (
