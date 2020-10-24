@@ -148,28 +148,24 @@ function NavBar(): ReactElement {
               </Action>
             )}
           </Join>
-
         </Box>
         <ManuBar>
-        <ActionContainer>
-          <Action>
-            <Link to="/home">Home</Link>
-          </Action>
-          <Action>
-            <Link to="/offers">View product</Link>
-          </Action>
-          <Action>
-            <Link to="/home/product">Add product</Link>
-          </Action>
-          <Action>
-            <Link to="/payment">Payment</Link>
-          </Action>
-        </ActionContainer>
-        <SearchBar/>
+          <ActionContainer>
+            <Action>
+              <Link to="/home">Home</Link>
+            </Action>
+            <Action>
+              <Link to="/offers">View product</Link>
+            </Action>
+            <Action>
+              <Link to="/home/product">Add product</Link>
+            </Action>
+            <Action>
+              <Link to="/payment">Payment</Link>
+            </Action>
+          </ActionContainer>
+          <SearchBar />
         </ManuBar>
-
-
-
       </Wrapper>
     </Container>
   )

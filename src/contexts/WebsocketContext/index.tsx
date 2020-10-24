@@ -23,6 +23,7 @@ export const SocketContext = createContext<
 function WebSocketContext({ children }: WebSocketContextType): ReactElement {
   const [socket, socketDispatch] = useReducer(socketReducer, INITIAL_STATE)
   const [ws, reconnect] = useState<WebSocket>(new WebSocket(WEBSOCKET_ENDPOINT))
+  const [isProcessingQueue, setIsProcessingQueue] = useState<boolean>(false)
 
   const handleHeartbeatEffect = useCallback(() => {
     socketDispatch({
@@ -67,6 +68,7 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     if (ws.readyState === 0 || ws.readyState === 1) {
       ws.onmessage = ({ data }: MessageEvent): void => {
         const payload = JSON.parse(data)
+        // ! FIXME: Remove before production
         console.log(payload)
         socket.emitter.emit(payload.t.toString(), payload)
         if (payload.t === 0) {
@@ -112,6 +114,12 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
               intervalCode: hearthbeat
             })
           })
+        } else if (payload.t === 3 || payload.t === 4) {
+          if (ws.readyState === 1 && socket._subscriptionQueue.length > 0) {
+            ws.send(JSON.stringify(socket._subscriptionQueue.pop()))
+          } else {
+            setIsProcessingQueue(false)
+          }
         }
       }
     }
@@ -121,7 +129,24 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     socket.emitter,
     handleHeartbeat,
     socketDispatch,
-    socket
+    socket,
+    setIsProcessingQueue
+  ])
+
+  useEffect(() => {
+    if (
+      !isProcessingQueue &&
+      ws.readyState === 1 &&
+      socket._subscriptionQueue.length === 1
+    ) {
+      ws.send(JSON.stringify(socket._subscriptionQueue.pop()))
+      setIsProcessingQueue(true)
+    }
+  }, [
+    ws.readyState,
+    socket._subscriptionQueue,
+    isProcessingQueue,
+    setIsProcessingQueue
   ])
 
   useEffect(() => {
@@ -133,6 +158,12 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
       clearTimeout(socket.serverIntervalCode)
     }
   }, [ws.readyState, socket.clientIntervalCode, socket.serverIntervalCode])
+
+  useEffect(() => {
+    if (ws.readyState === 3) {
+      setTimeout(() => reconnect(new WebSocket(WEBSOCKET_ENDPOINT)), 10000)
+    }
+  }, [ws.readyState, reconnect])
 
   return (
     <SocketContext.Provider
