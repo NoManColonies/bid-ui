@@ -8,9 +8,9 @@ export const Container =styled.div`
   font-weight:800;
   font-size:1.2rem;
   text-transform: uppercase;
-  margin-left:9.5rem;
+  margin-left:8rem;
   padding-top:3rem;
-  margin-bottom:3rem;
+  margin-bottom:2.5rem;
 
  }
 `
@@ -19,7 +19,6 @@ export const Row =styled.div`
   display: flex;
   align-items: center;
   justify-content:center;
-
   width:100vw;
   height:70;
 
@@ -31,15 +30,17 @@ export const Content =styled.div`
   justify-content:center;
   width:100%;
   height:35vh;
+  margin-left:10rem;
+  margin-right:10rem;
 
   `
 
 export const Box =styled.div`
   width:15vw;
   height:35vh;
-  margin-left:2rem;
-  margin-right:2rem;
-  background-color: #f7f5ec;
+  margin-left:2.5rem;
+  margin-right:2.5rem;
+  background-color:white;
   text-align: center;
   overflow: hidden;
   position: relative;
