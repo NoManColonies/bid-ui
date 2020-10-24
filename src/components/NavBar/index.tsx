@@ -160,7 +160,6 @@ function NavBar(): ReactElement {
             <Link to="/payment">Payment</Link>
           </Action>
         </ActionContainer>
-
       </Wrapper>
     </Container>
   )

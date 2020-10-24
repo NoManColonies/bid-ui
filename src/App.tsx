@@ -6,7 +6,9 @@ import withWebsocketContext from './utils/withWebsocketContext'
 import { useWebsocket } from './utils/useWebsocket'
 import CredentialBuffer from './components/FloatBuffer/CredebtialBuffer'
 import NewProductBuffer from './components/FloatBuffer/NewProductBuffer'
+import BidBuffer from './components/FloatBuffer/BidBuffer'
 import ProductSpecificationContext from './contexts/ProductSpecificationContext'
+import BidableContext from './contexts/BidableContext'
 
 const RegistrationForm = lazy(() => import('./components/RegistrationForm'))
 const LoginForm = lazy(() => import('./components/LoginForm'))
@@ -39,6 +41,17 @@ function App(): ReactElement {
               <>
                 <Home />
                 <CredentialBuffer />
+              </>
+            )}
+          />
+          <Route
+            path="/home/product/:uuid"
+            render={(): ReactElement => (
+              <>
+                <Home />
+                <BidableContext>
+                  <BidBuffer />
+                </BidableContext>
               </>
             )}
           />

@@ -59,14 +59,14 @@ function NewProductBuffer(): ReactElement {
   ] = useSpecification()
   const [{ token }, { handleFetchToken }] = useToken()
 
-  const handleAddTag = useCallback(
+  const handleAddSpecification = useCallback(
     (value: string) => {
       handleSetSpecification({ [value]: '' })
     },
     [handleSetSpecification]
   )
 
-  const handleChangeTag = useCallback(
+  const handleChangeSpecification = useCallback(
     (key: string, value: string) => {
       handleSetSpecification({ [key]: value })
     },
@@ -132,16 +132,31 @@ function NewProductBuffer(): ReactElement {
   )
 
   const handleUploadImages = useCallback(
-    (file: File, uuid: string) => {
-      FETCH_FILE_UPLOAD<AuthorizationHeaderType>(
+    (file: File, uuid: string): Promise<APIResponse<void>> =>
+      FETCH_FILE_UPLOAD<AuthorizationHeaderType, APIResponse<void>>(
         'upload',
         'product_image',
         file,
         { Authorization: `Bearer ${token.token}` },
         uuid
-      )
-    },
+      ),
     [token.token]
+  )
+
+  const handleUploadImagesProcess = useCallback(
+    (uuid: string) => {
+      if (files.length > 1) {
+        const file = files.pop()
+        file &&
+          handleUploadImages(file, uuid).then(() =>
+            handleUploadImagesProcess(uuid)
+          )
+      } else {
+        const file = files.pop()
+        return file && handleUploadImages(file, uuid)
+      }
+    },
+    [files, handleUploadImages]
   )
 
   const handleUploadProductDetail = useCallback(
@@ -188,15 +203,11 @@ function NewProductBuffer(): ReactElement {
         VALIDATION_CHECK(token.token)
           .then(() => {
             handleUploadProduct()
-              .then(({ data }: APIResponse<ProductResponseType>) => {
-                const promises = files.map((file) =>
-                  handleUploadImages(file, data ? data.uuid : '')
+              .then(async ({ data }: APIResponse<ProductResponseType>) => {
+                data && (await handleUploadImagesProcess(data.uuid))
+                handleUploadProductDetail(data ? data.uuid : '').then(() =>
+                  history.goBack()
                 )
-                Promise.all(promises).then(() => {
-                  handleUploadProductDetail(data ? data.uuid : '').then(() =>
-                    history.goBack()
-                  )
-                })
               })
               .catch((e: Error) => console.log(e))
           })
@@ -208,11 +219,10 @@ function NewProductBuffer(): ReactElement {
     [
       token.token,
       handleFetchToken,
-      files,
-      handleUploadImages,
       handleUploadProductDetail,
       handleUploadProduct,
-      history
+      history,
+      handleUploadImagesProcess
     ]
   )
 
@@ -304,7 +314,7 @@ function NewProductBuffer(): ReactElement {
                       onChange={({
                         target
                       }: ChangeEvent<HTMLInputElement>): void =>
-                        handleChangeTag(key, target.value)
+                        handleChangeSpecification(key, target.value)
                       }
                     />
                   </SpecificationTag>
@@ -318,7 +328,7 @@ function NewProductBuffer(): ReactElement {
                   <SpecificationAction
                     key={key}
                     type="button"
-                    onClick={(): void => handleAddTag(key)}
+                    onClick={(): void => handleAddSpecification(key)}
                   >
                     Add {key}
                   </SpecificationAction>
