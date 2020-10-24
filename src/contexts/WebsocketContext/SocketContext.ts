@@ -10,7 +10,8 @@ export const INITIAL_STATE: SocketType<EMITTERY_TYPE> = {
   clientInterval: 0,
   serverInterval: 0,
   clientIntervalCode: 0,
-  serverIntervalCode: 0
+  serverIntervalCode: 0,
+  _subscriptionQueue: []
 }
 
 export function socketReducer(
@@ -78,34 +79,25 @@ export function socketReducer(
       const payload = JSON.parse(action.payload)
       const subscription = `${payload.subscription}:${payload.topic}`
       const subscriptions = [...state.subscriptions]
+      const queue = [...state._subscriptionQueue]
       if (subscriptions.find((filter) => filter === subscription)) {
         return state
       }
 
       subscriptions.push(subscription)
-      action.ws &&
-        action.ws.send(
-          JSON.stringify({
-            t: 1,
-            d: { topic: subscription }
-          })
-        )
-      return { ...state, subscriptions }
+      queue.push({ t: 1, d: { topic: subscription } })
+      return { ...state, subscriptions, _subscriptionQueue: queue }
     }
     case 'REMOVE_SUBSCRIPTION': {
       const payload = JSON.parse(action.payload)
-      const subscription = `${payload.subscription}:${payload.topic}`
+      const subscription = `${payload.subscriptions}:${payload.topic}`
       const subscriptions = [...state.subscriptions]
+      const queue = [...state._subscriptionQueue]
 
-      action.ws &&
-        action.ws.send(
-          JSON.stringify({
-            t: 2,
-            d: { topic: subscription }
-          })
-        )
+      queue.push({ t: 2, d: { topic: subscription } })
       return {
         ...state,
+        _subscriptionQueue: queue,
         subscriptions: subscriptions.filter((filter) => filter !== subscription)
       }
     }

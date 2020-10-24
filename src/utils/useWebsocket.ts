@@ -48,7 +48,6 @@ export function useWebsocket(): USE_WEBSOCKET_RETURN_TYPE<EMITTERY_TYPE> {
 
   const socketState = useMemo(
     () => ({
-      ws,
       clientLimit: socket.clientLimit,
       cuurentIteration: socket.currentIteration,
       clientInterval: socket.clientInterval,
@@ -56,9 +55,10 @@ export function useWebsocket(): USE_WEBSOCKET_RETURN_TYPE<EMITTERY_TYPE> {
       subscriptions: socket.subscriptions,
       emitter: socket.emitter,
       clientIntervalCode: socket.clientIntervalCode,
-      serverIntervalCode: socket.serverIntervalCode
+      serverIntervalCode: socket.serverIntervalCode,
+      _subscriptionQueue: socket._subscriptionQueue
     }),
-    [socket, ws]
+    [socket]
   )
 
   const handlerFunctions = useMemo(

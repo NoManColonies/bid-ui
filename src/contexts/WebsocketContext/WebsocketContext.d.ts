@@ -13,6 +13,11 @@ export type PAYLOAD_TYPE =
 
 export type EMITTERY_TYPE = 'OPEN' | 'MESSAGE'
 
+export interface SubscriptionQueueInterface {
+  t: number;
+  d: { topic: string };
+}
+
 export interface SocketType<T> {
   clientLimit: number;
   cuurentIteration: number;
@@ -22,6 +27,7 @@ export interface SocketType<T> {
   serverIntervalCode: number;
   subscriptions: string[];
   emitter: Emittery.Typed<T>;
+  _subscriptionQueue: SubscriptionQueueInterface[];
 }
 
 export interface SocketContextType<T> {
