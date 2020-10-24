@@ -2,32 +2,31 @@ import styled from 'styled-components'
 
 export const Container =styled.div`
 width:100vw;
-height:135vh;
+height:115vh;
+background-color:#f7f7f7;
+padding-left:3rem;
+padding-top:3rem;
 
- background-color:#f7f7f7;
- h1{
-  font-weight:800;
-  font-size:1.2rem;
+h1{
+  font-size:2rem;
+  word-spacing:1px;
   text-transform: uppercase;
-  margin-left:8rem;
-  padding-top:3rem;
-  padding-bottom:3rem;
-
-
+  font-family: 'Staatliches', cursive;
  }
 
 `
 export const BoxXL = styled.div`
  width:100vw;
- height:75%;
+ height:105vh;
  display:flex;
- justify-content:center;
- align-items:center;
+ margin-right:1rem;
+ margin-top:2rem;
 
 `
 export const BoxL = styled.div`
- width:80vw;
+ width:91%;
  height:100%;
+
  display:grid;
  grid-template-columns:repeat(4,25%);
  grid-template-rows:50% 50%;
