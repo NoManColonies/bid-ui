@@ -4,6 +4,7 @@ import styled from 'styled-components'
 interface BackgroundBlockType {
    src: string;
    height?: string;
+   hoverSrc: string;
 
 }
 interface BackgroundBlockPropsType{
@@ -24,10 +25,26 @@ const Image = styled.div`
   grid-row:1;
 `
 
-function ImagesdBoxS ({ src, height = "100%" }: BackgroundBlockType): ReactElement {
+function ImagesdBoxS ({ src, height = "100%",hoverSrc }: BackgroundBlockType): ReactElement {
+
+  const [imageSrc, setImageSrc] = React.useState<string>(src);
+
+  const mouseOver = React.useCallback(() => {
+    setImageSrc(hoverSrc);
+  }, []);
+
+  const mouseOut = React.useCallback(() => {
+    setImageSrc(src);
+  }, [])
   return (
-       <Image src={src} height={height}>
+
+       <Image
+       src={imageSrc}
+       height={height}
+       onMouseEnter={mouseOver}
+       onMouseLeave={mouseOut}>
        </Image>
   )
+
 }
 export default ImagesdBoxS
