@@ -90,23 +90,25 @@ export async function FETCH_DELETE<T, Return>(
   }).then(({ data }: AxiosResponse): Promise<Return> => data)
 }
 
-export async function FETCH_FILE_UPLOAD<T>(
+export async function FETCH_FILE_UPLOAD<T, Return>(
   // ? TODO: implement file upload feature
   section: string,
   fileName: string,
   file: File,
   headers: T,
   param?: string
-): Promise<void> {
+): Promise<Return> {
   const fd = new FormData()
 
   // ! FIXME: Resolve string | Blob issue
   fd.append(fileName, file)
-  axios.post(
-    `${API_ENDPOINT}/${API_VERSION}/${section}${param ? `/${param}` : ''}`,
-    fd,
-    {
-      headers: { ...headers, 'Content-Type': 'multipart/form-data' }
-    }
-  )
+  return axios
+    .post(
+      `${API_ENDPOINT}/${API_VERSION}/${section}${param ? `/${param}` : ''}`,
+      fd,
+      {
+        headers: { ...headers, 'Content-Type': 'multipart/form-data' }
+      }
+    )
+    .then(({ data }: AxiosResponse) => data)
 }
