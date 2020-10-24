@@ -1,45 +1,43 @@
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const Container =styled.div`
  width:100vw;
  height:70vh;
  background-color:#f7f7f7;
- h1{
-  font-weight:800;
-  font-size:1.2rem;
+ padding-left:3rem;
+ padding-top:3rem;
+h1{
+
+  font-size:2rem;
+  word-spacing:1px;
   text-transform: uppercase;
-  margin-left:8rem;
-  padding-top:3rem;
-  margin-bottom:2.5rem;
+  font-family: 'Staatliches', cursive;
 
  }
 `
 export const Row =styled.div`
 
   display: flex;
-  align-items: center;
-  justify-content:center;
   width:100vw;
-  height:70;
+  height:70vh;
 
 
   `
 export const Content =styled.div`
   display:flex;
   flex-direction:row;
-  justify-content:center;
+
   width:100%;
   height:35vh;
-  margin-left:10rem;
-  margin-right:10rem;
 
   `
 
 export const Box =styled.div`
   width:15vw;
   height:35vh;
-  margin-left:2.5rem;
-  margin-right:2.5rem;
+  margin-right:3rem;
+ margin-top:2rem;
   background-color:white;
   text-align: center;
   overflow: hidden;
@@ -50,8 +48,8 @@ export const Box =styled.div`
  }
 
 `
-export const SocialIcon =styled.div`
-  width: 100%;
+export const SocialIconWrapper =styled.div`
+ width: 100%;
   height:1.5rem;
   padding: 0;
   margin: 0;
@@ -60,9 +58,10 @@ export const SocialIcon =styled.div`
   display:flex;
   flex-direction:row;
 
+  `
 
-  i{
-  margin-top:1rem;
+export const SocialIcon =styled(FontAwesomeIcon)`
+   margin-top:1rem;
   padding-bottom:0;
   display: block;
   padding: 10px;
@@ -71,7 +70,6 @@ export const SocialIcon =styled.div`
   transition: all 0.3s ease 0s;
   text-decoration: none;
   flex:1;
-  }
 
 `
 export const Picture =styled.div`
