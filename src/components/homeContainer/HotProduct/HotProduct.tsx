@@ -8,12 +8,13 @@ import
   Product,
   Image,
   Title,
-  Line}
+  }
   from './styled'
 
 
 function HotProduct(): ReactElement{
   return(
+
      <Container>
      <h1>HOT PRODUCT</h1>
        <ProductBox>
@@ -26,18 +27,8 @@ function HotProduct(): ReactElement{
             </Product>
 
             <Product>
-            <Image></Image>
-            <Title></Title>
-            </Product>
-
-            <Product>
-            <Image></Image>
-            <Title></Title>
-            </Product>
-
-            <Product>
-            <Image></Image>
-            <Title></Title>
+              <Image></Image>
+              <Title></Title>
             </Product>
 
             <Product>
@@ -47,6 +38,12 @@ function HotProduct(): ReactElement{
           </RowBox>
 
           <RowBox>
+          <Product>
+              <Image></Image>
+              <Title></Title>
+            </Product>
+
+
             <Product>
               <Image></Image>
               <Title></Title>
@@ -57,26 +54,11 @@ function HotProduct(): ReactElement{
             <Title></Title>
             </Product>
 
-            <Product>
-            <Image></Image>
-            <Title></Title>
-            </Product>
-
-            <Product>
-            <Image></Image>
-            <Title></Title>
-            </Product>
-
-            <Product>
-            <Image></Image>
-            <Title></Title>
-            </Product>
           </RowBox>
 
 
         </CulumnBox>
        </ProductBox>
-       <Line/>
      </Container>
 
   )
