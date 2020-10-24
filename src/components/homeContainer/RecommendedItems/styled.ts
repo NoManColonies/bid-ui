@@ -9,9 +9,9 @@ h1{
   font-weight:800;
   font-size:1.2rem;
   text-transform: uppercase;
-  margin-left:9.5rem;
+  margin-left:7.6rem;
   padding-top:3rem;
-  margin-bottom:3rem;
+  padding-bottom:5rem;
 
  }
 
@@ -25,23 +25,26 @@ export const ProductBox =styled.div`
  `
 
 export const RowBox =styled.div`
- width:80vw;
+ margin-left:10rem;
+ margin-right:10rem;
  height:40vh;
  padding:0;
+
  display:flex;
  justify-content:center;
+ align-items:center;
  flex-direction:row;
+
+
 
 
 `
 
 export const Product =styled.div`
- width:25vw;
+ width:16vw;
  height:50vh;
- margin-left:1.8rem;
- margin-right:1.5rem;
-
-
+ margin-left:2rem;
+ margin-right:2rem;
  &:hover{
  box-shadow:2px 2px 4px gray;
  }
