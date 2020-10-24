@@ -13,7 +13,10 @@ function withHelmet<T>(title: string) {
           href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@600&display=swap"
           rel="stylesheet"
         ></link>
-        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap" rel="stylesheet"
+></link>
+
         <title>{title}</title>
       </Helmet>
       <Component {...props} />
