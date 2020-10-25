@@ -6,15 +6,14 @@ import Container from '../components/homeContainer'
 import Footer from '../components/Footer'
 import withNavbar from '../utils/withNavbar'
 
-
 function Home(): ReactElement {
   return (
     <div>
       <BackgroundBlock src={backgroundImage}></BackgroundBlock>
-
       <Container />
       <Footer />
     </div>
   )
 }
+
 export default withHelmet('BIDRS | Home')(withNavbar(Home))
