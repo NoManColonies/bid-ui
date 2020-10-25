@@ -15,92 +15,86 @@ import {
   TeamContent
 } from './styled'
 
-
-
-
-function PopularSeller(): ReactElement{
-  return(
+function PopularSeller(): ReactElement {
+  return (
     <Container>
       <h1>Popular seller</h1>
       <Row>
-         <Content>
-               <Link to="/profile">
-               <Box>
-                <Picture>
+        <Content>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image} />
-                </Picture>
-                <TeamContent>
-               <h3>Keng kutsu</h3>
-               <h4>Iam a chubbyboy</h4>
-               </TeamContent>
-               <SocialIcon>
+              </Picture>
+              <TeamContent>
+                <h3>Keng kutsu</h3>
+                <h4>Iam a chubbyboy</h4>
+              </TeamContent>
+              <SocialIcon>
+                <i className="fa fa-trophy"></i>
+                <i className="fa fa-gamepad"></i>
+                <i className="fas fa-boxes"></i>
+                <i className="fas fa-star-half-alt"></i>
+              </SocialIcon>
+            </Box>
+          </Link>
 
-               <i className="fa fa-trophy"></i>
-               <i className="fa fa-gamepad"></i>
-               <i className="fas fa-boxes"></i>
-               <i className="fas fa-star-half-alt"></i>
-               </SocialIcon>
-               </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image1} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIcon>
-               <i className="fa fa-trophy"></i>
-               <i className="fa fa-gamepad"></i>
-               <i className="fas fa-boxes"></i>
-               <i className="fas fa-star-half-alt"></i>
-               </SocialIcon>
-               </Box>
-               </Link>
+              </TeamContent>
+              <SocialIcon>
+                <i className="fa fa-trophy"></i>
+                <i className="fa fa-gamepad"></i>
+                <i className="fas fa-boxes"></i>
+                <i className="fas fa-star-half-alt"></i>
+              </SocialIcon>
+            </Box>
+          </Link>
 
-               <Link to="/profile">
-               <Box>
-                <Picture>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image2} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIcon>
-               <i className="fa fa-trophy"></i>
-               <i className="fa fa-gamepad"></i>
-               <i className="fas fa-boxes"></i>
-               <i className="fas fa-star-half-alt"></i>
-               </SocialIcon>
-               </Box>
-               </Link>
+              </TeamContent>
+              <SocialIcon>
+                <i className="fa fa-trophy"></i>
+                <i className="fa fa-gamepad"></i>
+                <i className="fas fa-boxes"></i>
+                <i className="fas fa-star-half-alt"></i>
+              </SocialIcon>
+            </Box>
+          </Link>
 
-               <Link to="/profile">
-               <Box>
-                <Picture>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image3} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIcon>
-               <i className="fa fa-trophy"></i>
-               <i className="fa fa-gamepad"></i>
-               <i className="fas fa-boxes"></i>
-               <i className="fas fa-star-half-alt"></i>
-               </SocialIcon>
-                </Box>
-               </Link>
-          </Content>
-       </Row>
-
+              </TeamContent>
+              <SocialIcon>
+                <i className="fa fa-trophy"></i>
+                <i className="fa fa-gamepad"></i>
+                <i className="fas fa-boxes"></i>
+                <i className="fas fa-star-half-alt"></i>
+              </SocialIcon>
+            </Box>
+          </Link>
+        </Content>
+      </Row>
     </Container>
-
   )
 }
 
