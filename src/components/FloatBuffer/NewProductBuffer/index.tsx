@@ -298,7 +298,9 @@ function NewProductBuffer(): ReactElement {
       handleUploadProductDetail,
       handleUploadProduct,
       history,
-      handleUploadImagesProcess
+      handleUploadImagesProcess,
+      tagList,
+      handleUploadTag
     ]
   )
 
