@@ -7,7 +7,7 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-
+position:relative;
 width:100vw;
 height:100vh;
  h1{
@@ -18,6 +18,22 @@ height:100vh;
   margin-bottom:1rem;
   margin-top:-4rem;
  }
+
+`
+export const ImageBg =styled.img`
+   width:200px;
+   height:200px;
+   position:absolute;
+   bottom:2%;
+   right:8%;
+`
+export const ImageBg2 =styled.img`
+   width:200px;
+   height:200px;
+   position:absolute;
+   top:2%;
+   left:10%;
+   z-index:100;
 `
 
 export const UserWrapper =styled.div`
