@@ -4,7 +4,7 @@ import styled from 'styled-components'
 export const Container =styled.div`
     padding-top:1rem;
     display:flex;
-    width:30vw;
+    width:31.5vw;
     justify-content:flex-end;
 `
 

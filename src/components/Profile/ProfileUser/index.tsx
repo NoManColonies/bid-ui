@@ -17,13 +17,17 @@ import {
   Title,
   Value,
   IdImageWrapper,
-  FormStatus
+  FormStatus,
+  ImageBg,
+  ImageBg2
 } from './styled'
 import withHelmet from '../../../utils/withHelmet'
 import withNavbar from '../../../utils/withNavbar'
 import InputUser from '../InputUser/index'
 import InputIdCard from '../InputStatus/index'
 import ImageCard from '../../../assets/backgraund/card.svg'
+import ImageCardbg from '../../../assets/backgraund/fishing.svg'
+import ImageCardbg2 from '../../../assets/backgraund/beacs.svg'
 import { faTrophy, faGamepad,faBoxes, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons'
 
 
@@ -61,6 +65,9 @@ function ProfileUser (): ReactElement{
   return(
    <Container>
      <h1>YOUR PROFILE</h1>
+     <ImageBg src={ImageCardbg}/>
+     <ImageBg2 src={ImageCardbg2}/>
+
      <UserWrapper>
        <UserFormWrapper>
 
