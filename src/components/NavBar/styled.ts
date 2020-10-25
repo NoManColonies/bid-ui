@@ -52,7 +52,7 @@ export const ActionContainer = styled.ul`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  width: 65vw;
+  width: 64vw;
   margin-top: 0.8rem;
 
 `
