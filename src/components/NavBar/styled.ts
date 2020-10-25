@@ -52,19 +52,37 @@ export const ActionContainer = styled.ul`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  width: 62vw;
+  width: 65vw;
   margin-top: 0.8rem;
+
 `
 
 export const Action = styled.li`
   padding: 0 1rem;
   font-size: 0.8rem;
   position: relative;
-
   &:hover {
     color: #e8ffc1;
-    font-size: 0.9rem;
+
+
+    &::before{
+    content:'';
+    position:absolute;
+    bottom: -20%;
+    left:10%;
+    width:80%;
+    height:2px;
+    background-color:#fff;
+
   }
+  }
+
+`
+
+export const Line = styled.div`
+  width:128px;
+  height:3px;
+  color: #fff;
 `
 
 export const BellIcon = styled(FontAwesomeIcon)`

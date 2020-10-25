@@ -5,6 +5,7 @@ interface BackgroundBlockType {
    src: string;
    height?: string;
    column: string;
+   hoverSrc: string;
 }
 interface BackgroundBlockPropsType{
   src: string;
@@ -24,10 +25,26 @@ const Image = styled.div`
   grid-column:${(props: BackgroundBlockPropsType): string =>props.column};
 `
 
-function ImagesdBoxSx ({ src, height = "100%" ,column}: BackgroundBlockType): ReactElement {
+function ImagesdBoxSx ({ src, height = "100%" ,column,hoverSrc}: BackgroundBlockType): ReactElement {
+  const [imageSrc, setImageSrc] = React.useState<string>(src);
+
+  const mouseOver = React.useCallback(() => {
+    setImageSrc(hoverSrc);
+  }, []);
+
+  const mouseOut = React.useCallback(() => {
+    setImageSrc(src);
+  }, [])
   return (
-       <Image src={src} height={height} column={column}>
+
+       <Image
+       src={imageSrc}
+       height={height}
+       column={column}
+       onMouseEnter={mouseOver}
+       onMouseLeave={mouseOut}>
        </Image>
+
   )
 }
 export default ImagesdBoxSx

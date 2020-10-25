@@ -1,32 +1,32 @@
 import styled from 'styled-components'
 
-export const Container = styled.div`
-  width: 100vw;
-  height: 135vh;
+export const Container =styled.div`
+width:100vw;
+height:115vh;
+background-color:#f7f7f7;
+padding-left:3rem;
+padding-top:3rem;
 
-  background-color: #f7f7f7;
-  h1 {
-    font-weight: 800;
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    margin-left: 8rem;
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-  }
+h1{
+  font-size:2rem;
+  word-spacing:1px;
+  text-transform: uppercase;
+  font-family: 'Staatliches', cursive;
+ }
+
 `
-
 export const BoxXL = styled.div`
-  width: 100vw;
-  height: 75%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+ width:100vw;
+ height:105vh;
+ display:flex;
+ margin-right:1rem;
+ margin-top:2rem;
 `
-
 export const BoxL = styled.div`
-  width: 80vw;
-  height: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 25%);
-  grid-template-rows: 50% 50%;
+ width:91%;
+ height:100%;
+
+ display:grid;
+ grid-template-columns:repeat(4,25%);
+ grid-template-rows:50% 50%;
 `

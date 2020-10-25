@@ -1,6 +1,13 @@
 import React, { ReactElement } from 'react'
 import styled from 'styled-components'
 import { useHistory } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faTrophy,
+  faGamepad,
+  faBoxes,
+  faStarHalfAlt
+} from '@fortawesome/free-solid-svg-icons'
 
 const Center = styled.div`
   position: absolute;
@@ -22,7 +29,7 @@ const Background = styled.div`
 `
 
 const Card = styled.div`
-  width: 450px;
+  width: 460px;
   height: 250px;
   background-color: #fff;
   margin-right: 1rem;
@@ -45,7 +52,7 @@ const Additional = styled.div`
   border-radius: 5px 0px 0px 5px;
 
   &:hover {
-    width: 100%;
+    width: 96%;
     border-radius: 5px 5px 5px 5px;
   }
 `
@@ -74,20 +81,24 @@ const Coords = styled.div`
   }
 `
 
-const Icon = styled.div`
-  font-size: 1rem;
+const Icon = styled(FontAwesomeIcon)`
+  display: block;
+`
+const IconWrapper = styled.div`
   display: flex;
   position: absolute;
   bottom: 1rem;
-  padding-right: 1rem;
+  padding-right: 3rem;
   top: auto;
   color: #fff;
   flex: 1;
-  text-align: center;
-
-  i {
-    display: block;
-  }
+  /* text-align: center; */
+`
+const TitleWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 `
 
 const Title = styled.div`
@@ -97,10 +108,6 @@ const Title = styled.div`
   padding-left: 0.5rem;
   margin-bottom: 0.3rem;
   flex: 1;
-
-  i {
-    display: block;
-  }
 `
 
 const Value = styled.div`
@@ -147,30 +154,31 @@ function Profile(): ReactElement {
                 <span>Position/Role</span>
                 <span>City, Country</span>
               </Coords>
-              <Icon>
-                <div>
+              <IconWrapper>
+                <TitleWrapper>
                   <Title>Winning</Title>
-                  <i className="fa fa-trophy"></i>
+                  <Icon icon={faTrophy}></Icon>
                   <Value>2</Value>
-                </div>
-                <div>
+                </TitleWrapper>
+                <TitleWrapper>
                   <Title>Amount</Title>
-                  <i className="fa fa-gamepad"></i>
+                  <Icon icon={faGamepad}></Icon>
                   <Value>27</Value>
-                </div>
-                <div>
+                </TitleWrapper>
+                <TitleWrapper>
                   <Title>Product</Title>
-                  <i className="fas fa-boxes"></i>
+                  <Icon icon={faBoxes}></Icon>
                   <Value>123</Value>
-                </div>
-                <div>
+                </TitleWrapper>
+                <TitleWrapper>
                   <Title>Ratting</Title>
-                  <i className="fas fa-star-half-alt"></i>
+                  <Icon icon={faStarHalfAlt}></Icon>
                   <Value>20</Value>
-                </div>
-              </Icon>
+                </TitleWrapper>
+              </IconWrapper>
             </Infomation>
           </Additional>
+
           <General>
             <h1>Jane Doe</h1>
             <p>
