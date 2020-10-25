@@ -9,6 +9,10 @@ interface FocusedImageInterface {
   focused: boolean;
 }
 
+interface DetailPropsInterface {
+  focused: boolean;
+}
+
 export const Wrapper = styled.form`
   display: grid;
   grid-template-columns: repeat(2, 50%);
@@ -71,8 +75,24 @@ export const DetailWrapper = styled.div`
   grid-column: 2;
   grid-row: 1 / span 2;
   padding: 0 2rem;
+`
+
+export const BidDetailWrapper = styled.div`
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+  display: ${({ focused }: DetailPropsInterface): string =>
+    focused ? 'block' : 'none'};
+`
+
+export const ProductDetailWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  display: ${({ focused }: DetailPropsInterface): string =>
+    focused ? 'block' : 'none'};
 `
 
 export const BidAmountWrapper = styled.div`
@@ -116,7 +136,7 @@ export const BidUserList = styled.span`
 
 export const BidFormWrapper = styled.form`
   display: flex;
-  margin: 2rem 0;
+  margin: 1rem 0;
 `
 
 export const BidInputFieldWrapper = styled.label`
@@ -152,7 +172,8 @@ export const BidAction = styled.button`
   justify-content: center;
   transition: opacity ease 100ms;
 
-  &:hover {
+  &:hover,
+  &:disabled {
     opacity: 0.7;
   }
 `
@@ -177,4 +198,32 @@ export const MerchantProfilePicture = styled.div`
 export const MerchantProfileDetail = styled.div`
   display: flex;
   flex-direction: column;
+`
+
+export const ProductPageAction = styled.button`
+  border: none;
+  background-color: #e1e1e1;
+  border-radius: 10px;
+  padding: 0.7rem;
+  width: 100%;
+`
+
+export const ProductSpecificationWrapper = styled.div`
+  width: 100%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+`
+
+export const ProductDetailHeader = styled.h1`
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+`
+
+export const ProductTagWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 `

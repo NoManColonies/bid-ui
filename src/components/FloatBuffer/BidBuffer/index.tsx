@@ -7,7 +7,7 @@ import {
   ImageList,
   FocusedImage,
   FocusedImageWrapper,
-  DetailWrapper,
+  BidDetailWrapper,
   BidAmountWrapper,
   ProductNameHeader,
   BidUserWrapper,
@@ -18,8 +18,15 @@ import {
   BidAction,
   MerchantWrapper,
   MerchantProfileDetail,
-  MerchantProfilePicture
+  MerchantProfilePicture,
+  DetailWrapper,
+  ProductPageAction,
+  ProductDetailWrapper,
+  ProductSpecificationWrapper,
+  ProductDetailHeader,
+  ProductTagWrapper
 } from './styled'
+import { SpecificationTag } from '../NewProductBuffer/styled'
 import { useBidBuffer } from '../../../utils/useBidBuffer'
 import { useWebsocket } from '../../../utils/useWebsocket'
 
@@ -38,8 +45,13 @@ function BidBuffer(): ReactElement {
     uuid,
     startingPrice,
     incrementalPrice,
+    isOnBidPage,
+    isAlreadyBidded,
+    specification,
+    tagList,
     handleFocusImage,
-    currentFocusedImage
+    currentFocusedImage,
+    handleClickNextPage
   } = useBidBuffer()
 
   useEffect(() => {
@@ -94,34 +106,75 @@ function BidBuffer(): ReactElement {
           <BidAmountWrapper>
             <p>Current bid</p>
             <p>$</p>
-            <p>{currentHighestBid ? currentHighestBid : startingPrice}</p>
+            <p>
+              {currentHighestBid ? currentHighestBid.amount : startingPrice}
+            </p>
           </BidAmountWrapper>
-          <BidUserWrapper>
-            {bids.length
-              ? bids.map((bid, index) => (
-                  <BidUserList key={index}>
-                    <p>{bid.customer.firstName}</p>
-                    <p>${bid.amount}</p>
-                  </BidUserList>
-                ))
-              : ''}
-          </BidUserWrapper>
-          <BidFormWrapper onSubmit={handleSubmitBid}>
-            <BidInputFieldWrapper>
-              <p>$</p>
-              <BidInputField
-                type="number"
-                min={
-                  currentHighestBid
-                    ? currentHighestBid + incrementalPrice
-                    : startingPrice
-                }
-                value={bidAmount}
-                onChange={handleBidAmountChange}
-              />
-            </BidInputFieldWrapper>
-            <BidAction type="submit">Bid</BidAction>
-          </BidFormWrapper>
+          <BidDetailWrapper focused={isOnBidPage}>
+            <BidUserWrapper>
+              {bids.length
+                ? bids.map((bid, index) => (
+                    <BidUserList key={index}>
+                      <p>{bid.customer.firstName}</p>
+                      <p>${bid.amount}</p>
+                    </BidUserList>
+                  ))
+                : ''}
+            </BidUserWrapper>
+            <BidFormWrapper onSubmit={handleSubmitBid}>
+              <BidInputFieldWrapper>
+                <p>$</p>
+                <BidInputField
+                  type="number"
+                  min={
+                    currentHighestBid.amount
+                      ? currentHighestBid.amount + incrementalPrice
+                      : startingPrice
+                  }
+                  value={bidAmount}
+                  onChange={handleBidAmountChange}
+                  disabled={isAlreadyBidded}
+                />
+              </BidInputFieldWrapper>
+              <BidAction type="submit" disabled={isAlreadyBidded}>
+                Bid
+              </BidAction>
+            </BidFormWrapper>
+            <ProductPageAction type="button" onClick={handleClickNextPage}>
+              See details
+            </ProductPageAction>
+          </BidDetailWrapper>
+          <ProductDetailWrapper focused={!isOnBidPage}>
+            <ProductPageAction type="button" onClick={handleClickNextPage}>
+              See bids
+            </ProductPageAction>
+            <ProductSpecificationWrapper>
+              <ProductDetailHeader>Specifications</ProductDetailHeader>
+              <ProductTagWrapper>
+                {Object.keys(specification).map((tag) => (
+                  <SpecificationTag key={tag}>
+                    {tag}: {specification[tag]}
+                  </SpecificationTag>
+                ))}
+              </ProductTagWrapper>
+            </ProductSpecificationWrapper>
+            <ProductSpecificationWrapper>
+              <ProductDetailHeader>Shipping details</ProductDetailHeader>
+              <ProductTagWrapper>
+                <SpecificationTag>Mock shipping detail</SpecificationTag>
+              </ProductTagWrapper>
+            </ProductSpecificationWrapper>
+            <ProductSpecificationWrapper>
+              <ProductDetailHeader>Tags</ProductDetailHeader>
+              <ProductTagWrapper>
+                {tagList.map((tag) => (
+                  <SpecificationTag key={tag.tag_name}>
+                    #{tag.tag_name}
+                  </SpecificationTag>
+                ))}
+              </ProductTagWrapper>
+            </ProductSpecificationWrapper>
+          </ProductDetailWrapper>
         </DetailWrapper>
       </Wrapper>
     </FloatBuffer>

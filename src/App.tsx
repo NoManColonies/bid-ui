@@ -68,6 +68,15 @@ function App(): ReactElement {
               </>
             )}
           />
+          <Route
+            path="/home/profile"
+            render={(): ReactElement => (
+              <>
+                <Home />
+                <Profile />
+              </>
+            )}
+          />
           <Route exact path="/products">
             <Products/>
 

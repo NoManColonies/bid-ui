@@ -14,7 +14,7 @@ export const BidSpecfication = createContext<
 const INITIAL_STATE: BidSpecficationInterface = {
   bids: [],
   productName: '',
-  merchant: { firstName: '', lastName: '' },
+  merchant: { firstName: '', lastName: '', uuid: '' },
   productImages: [],
   startingPrice: 0,
   incrementalPrice: 0,
@@ -37,7 +37,8 @@ function reducer(
             amount: bid.bid_amount,
             customer: {
               firstName: bid.customer.first_name,
-              lastName: bid.customer.last_name
+              lastName: bid.customer.last_name,
+              uuid: bid.customer.user.uuid
             }
           }
         ]

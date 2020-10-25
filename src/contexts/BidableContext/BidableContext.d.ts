@@ -26,6 +26,7 @@ export type USE_BIDABLE_PRODUCT_RETURN_TYPE = [
 export interface CustomerInterface {
   firstName: string;
   lastName: string;
+  uuid: string;
 }
 
 export interface BidInterface {

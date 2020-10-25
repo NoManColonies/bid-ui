@@ -124,6 +124,7 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
       }
     }
   }, [
+    ws,
     ws.onmessage,
     ws.readyState,
     socket.emitter,
@@ -143,6 +144,7 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
       setIsProcessingQueue(true)
     }
   }, [
+    ws,
     ws.readyState,
     socket._subscriptionQueue,
     isProcessingQueue,

@@ -15,113 +15,107 @@ import {
   TeamContent,
   SocialIconWrapper
 } from './styled'
+import {
+  faTrophy,
+  faGamepad,
+  faBoxes,
+  faStarHalfAlt
+} from '@fortawesome/free-solid-svg-icons'
 
-
-import { faTrophy, faGamepad,faBoxes, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons'
-
-
-function PopularSeller(): ReactElement{
-  return(
+function PopularSeller(): ReactElement {
+  return (
     <Container>
       <h1>Popular seller</h1>
       <Row>
-         <Content>
-               <Link to="/profile">
-               <Box>
-                <Picture>
+        <Content>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image} />
-                </Picture>
-                <TeamContent>
-               <h3>Keng kutsu</h3>
-               <h4>Iam a chubbyboy</h4>
-               </TeamContent>
-               <SocialIconWrapper>
-               <SocialIcon icon={ faTrophy}></SocialIcon>
-               <SocialIcon icon={faGamepad}></SocialIcon>
-               <SocialIcon icon={faBoxes}></SocialIcon>
-               <SocialIcon icon={faStarHalfAlt}></SocialIcon>
+              </Picture>
+              <TeamContent>
+                <h3>Keng kutsu</h3>
+                <h4>Iam a chubbyboy</h4>
+              </TeamContent>
+              <SocialIconWrapper>
+                <SocialIcon icon={faTrophy}></SocialIcon>
+                <SocialIcon icon={faGamepad}></SocialIcon>
+                <SocialIcon icon={faBoxes}></SocialIcon>
+                <SocialIcon icon={faStarHalfAlt}></SocialIcon>
               </SocialIconWrapper>
-               </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
+            </Box>
+          </Link>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image1} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-
-
-                <SocialIconWrapper>
-               <SocialIcon icon={ faTrophy}></SocialIcon>
-               <SocialIcon icon={faGamepad}></SocialIcon>
-               <SocialIcon icon={faBoxes}></SocialIcon>
-               <SocialIcon icon={faStarHalfAlt}></SocialIcon>
+              </TeamContent>
+              <SocialIconWrapper>
+                <SocialIcon icon={faTrophy}></SocialIcon>
+                <SocialIcon icon={faGamepad}></SocialIcon>
+                <SocialIcon icon={faBoxes}></SocialIcon>
+                <SocialIcon icon={faStarHalfAlt}></SocialIcon>
               </SocialIconWrapper>
-               </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
+            </Box>
+          </Link>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image2} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIconWrapper>
-               <SocialIcon icon={ faTrophy}></SocialIcon>
-               <SocialIcon icon={faGamepad}></SocialIcon>
-               <SocialIcon icon={faBoxes}></SocialIcon>
-               <SocialIcon icon={faStarHalfAlt}></SocialIcon>
+              </TeamContent>
+              <SocialIconWrapper>
+                <SocialIcon icon={faTrophy}></SocialIcon>
+                <SocialIcon icon={faGamepad}></SocialIcon>
+                <SocialIcon icon={faBoxes}></SocialIcon>
+                <SocialIcon icon={faStarHalfAlt}></SocialIcon>
               </SocialIconWrapper>
-               </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
+            </Box>
+          </Link>
+          <Link to="/home/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image3} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIconWrapper>
-               <SocialIcon icon={ faTrophy}></SocialIcon>
-               <SocialIcon icon={faGamepad}></SocialIcon>
-               <SocialIcon icon={faBoxes}></SocialIcon>
-               <SocialIcon icon={faStarHalfAlt}></SocialIcon>
+              </TeamContent>
+              <SocialIconWrapper>
+                <SocialIcon icon={faTrophy}></SocialIcon>
+                <SocialIcon icon={faGamepad}></SocialIcon>
+                <SocialIcon icon={faBoxes}></SocialIcon>
+                <SocialIcon icon={faStarHalfAlt}></SocialIcon>
               </SocialIconWrapper>
-                </Box>
-               </Link>
-
-               <Link to="/profile">
-               <Box>
-                <Picture>
+            </Box>
+          </Link>
+          <Link to="/profile">
+            <Box>
+              <Picture>
                 <ImagesSeller src={Image3} />
-                </Picture>
-                <TeamContent>
+              </Picture>
+              <TeamContent>
                 <h3>Keng kutsu</h3>
                 <h4>Iam a chubbyboy</h4>
-                </TeamContent>
-                <SocialIconWrapper>
-               <SocialIcon icon={ faTrophy}></SocialIcon>
-               <SocialIcon icon={faGamepad}></SocialIcon>
-               <SocialIcon icon={faBoxes}></SocialIcon>
-               <SocialIcon icon={faStarHalfAlt}></SocialIcon>
+              </TeamContent>
+              <SocialIconWrapper>
+                <SocialIcon icon={faTrophy}></SocialIcon>
+                <SocialIcon icon={faGamepad}></SocialIcon>
+                <SocialIcon icon={faBoxes}></SocialIcon>
+                <SocialIcon icon={faStarHalfAlt}></SocialIcon>
               </SocialIconWrapper>
-                </Box>
-               </Link>
-          </Content>
-       </Row>
-
+            </Box>
+          </Link>
+        </Content>
+      </Row>
     </Container>
-
   )
 }
 

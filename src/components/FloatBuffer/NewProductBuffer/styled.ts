@@ -1,8 +1,30 @@
 import styled from 'styled-components'
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.div`
   padding: 1rem;
   box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 65% 34%;
+  grid-column-gap: 1%;
+`
+
+export const TagColumnWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+`
+
+export const TagInputFormWrapper = styled.form`
+  border-radius: 10px;
+  background-color: #d2f5eb;
+  padding: 1rem;
+  box-sizing: border-box;
+  height: 48%;
+
+  & + form {
+    margin-top: 4%;
+  }
 `
 
 export const InputFormWrapper = styled.div`
@@ -12,6 +34,7 @@ export const InputFormWrapper = styled.div`
   box-sizing: border-box;
   display: flex;
   flex-wrap: wrap;
+  grid-column: 1;
 
   & + div {
     margin-top: 1rem;
@@ -41,6 +64,16 @@ export const FormInputLabel = styled.label`
   flex-grow: 1;
 `
 
+export const TagInputLabel = styled.label`
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  color: #3f4a47;
+  display: flex;
+  align-items: baseline;
+  max-height: 100%;
+`
+
 export const FormSubmitActionWrapper = styled.div`
   border-radius: 10px;
   background-color: transparent;
@@ -50,6 +83,7 @@ export const FormSubmitActionWrapper = styled.div`
   flex-wrap: wrap;
   margin-top: 1rem;
   justify-content: center;
+  grid-column: 1;
 `
 
 export const FormSubmitAction = styled.button`
@@ -125,4 +159,12 @@ export const SpecificationAction = styled.button`
   &:hover {
     opacity: 0.7;
   }
+`
+
+export const TagsWrapper = styled.div`
+  max-height: 80%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
 `
