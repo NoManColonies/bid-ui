@@ -13,7 +13,7 @@ interface DetailPropsInterface {
   focused: boolean;
 }
 
-export const Wrapper = styled.form`
+export const Wrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 50%);
   grid-template-rows: 540px 1fr;

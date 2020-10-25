@@ -91,6 +91,7 @@ function NewProductBuffer(): ReactElement {
       if (currentTag.length && !tagList.find((tag) => tag === currentTag))
         setTagList([...tagList, currentTag])
       setCurrentTag('')
+      setFilteredRecommendedTags(recommendedTags)
     },
     [setTagList, tagList, currentTag, setCurrentTag]
   )
@@ -185,7 +186,7 @@ function NewProductBuffer(): ReactElement {
   const handleUploadImage = useCallback(
     (file: File, uuid: string): Promise<APIResponse<void>> =>
       FETCH_FILE_UPLOAD<AuthorizationHeaderType, APIResponse<void>>(
-        'upload',
+        'upload/product',
         'product_image',
         file,
         { Authorization: `Bearer ${token.token}` },
@@ -203,7 +204,7 @@ function NewProductBuffer(): ReactElement {
         { references: string },
         AxiosResponse
       >(
-        'products',
+        'products/tags',
         // eslint-disable-next-line
         { tag_name },
         { Authorization: `Bearer ${token.token}` },
@@ -231,6 +232,17 @@ function NewProductBuffer(): ReactElement {
     [files, handleUploadImage]
   )
 
+  const handleUploadSpecification = useCallback(
+    (type: string, name: string, uuid: string) =>
+      FETCH_POST(
+        'products/specifications',
+        { type, name },
+        { Authorization: `Bearer ${token.token}` },
+        uuid
+      ),
+    [token.token]
+  )
+
   const handleUploadProductDetail = useCallback(
     (uuid: string) =>
       FETCH_POST<
@@ -239,7 +251,6 @@ function NewProductBuffer(): ReactElement {
           product_price: number;
           product_bid_start: number;
           product_bid_increment: number;
-          product_description: string;
         },
         AuthorizationHeaderType,
         undefined,
@@ -253,9 +264,7 @@ function NewProductBuffer(): ReactElement {
           //eslint-disable-next-line
           product_bid_start: startingPrice,
           //eslint-disable-next-line
-          product_bid_increment: incrementalPrice,
-          //eslint-disable-next-line
-          product_description: JSON.stringify(specifications)
+          product_bid_increment: incrementalPrice
         },
         { Authorization: `Bearer ${token.token}` }
       ),
@@ -277,10 +286,20 @@ function NewProductBuffer(): ReactElement {
             handleUploadProduct()
               .then(async ({ data }: APIResponse<ProductResponseType>) => {
                 data && (await handleUploadImagesProcess(data.uuid))
-                const promises = tagList.map((tag) =>
+                const tagPromises = tagList.map((tag) =>
                   handleUploadTag(tag, data ? data.uuid : '')
                 )
-                await Promise.all(promises)
+                await Promise.all(tagPromises)
+                const specificationPromises = Object.keys(specifications)
+                  .filter((tag) => specifications[tag] !== undefined)
+                  .map((key) =>
+                    handleUploadSpecification(
+                      key,
+                      specifications[key],
+                      data ? data.uuid : ''
+                    )
+                  )
+                await Promise.all(specificationPromises)
                 handleUploadProductDetail(data ? data.uuid : '').then(() =>
                   history.goBack()
                 )
