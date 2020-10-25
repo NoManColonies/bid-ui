@@ -1,4 +1,11 @@
-import { useEffect, useCallback, useState, ChangeEvent, FormEvent } from 'react'
+import {
+  useEffect,
+  useCallback,
+  useState,
+  ChangeEvent,
+  FormEvent,
+  useMemo
+} from 'react'
 import {
   HEALTH_CHECK,
   VALIDATION_CHECK,
@@ -22,22 +29,34 @@ interface UseBidBufferReturnInterface {
   productImages: string[];
   merchant: CustomerInterface;
   productName: string;
-  currentHighestBid: number;
+  currentHighestBid: BidInterface;
   bidAmount: number;
   startingPrice: number;
   incrementalPrice: number;
+  isOnBidPage: boolean;
+  isAlreadyBidded: boolean;
+  specification: any;
+  tagList: { tag_name: string }[];
   handleBidAmountChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
   handleSubmitBid: (e: FormEvent<HTMLFormElement>) => void;
   handleBidChannel: ({ d }: any) => void;
   handleFocusImage: (index: number) => void;
   currentFocusedImage: number;
+  handleClickNextPage: () => void;
 }
 
 export function useBidBuffer(): UseBidBufferReturnInterface {
   const [bidAmount, setBidAmount] = useState<number>(0)
   const [rawImagePaths, setRawImagePaths] = useState<string[]>([])
-  const [currentHighestBid, setCurrentHighestBid] = useState<number>(0)
+  const [currentHighestBid, setCurrentHighestBid] = useState<BidInterface>({
+    amount: 0,
+    customer: { firstName: '', lastName: '', uuid: '' }
+  })
   const [currentFocusedImage, setCurrentFocusedImage] = useState<number>(0)
+  const [isOnBidPage, setIsOnBidPage] = useState<boolean>(true)
+  const [specification, setSpecification] = useState<any>({})
+  const [tagList, setTagList] = useState<{ tag_name: string }[]>([])
+  const [isAlreadyBidded, setIsAlreadyBidded] = useState<boolean>(false)
   const { uuid } = useParams()
   const [{ token }, { handleFetchToken }] = useToken()
   const [
@@ -60,6 +79,11 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
       handleSetIncrementalPrice
     }
   ] = useBidableProduct()
+
+  const handleClickNextPage = useCallback(() => setIsOnBidPage(!isOnBidPage), [
+    setIsOnBidPage,
+    isOnBidPage
+  ])
 
   const handleFocusImage = useCallback(
     (index: number) => {
@@ -87,7 +111,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
           Authorization: `Bearer ${token.token}`
         },
         '',
-        { references: 'customer' }
+        { references: 'customer.user' }
       ),
     [token.token, bidAmount, uuid]
   )
@@ -144,7 +168,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
 
   useEffect(() => {
     bids.length &&
-      setCurrentHighestBid(bids.sort((a, b) => b.amount - a.amount)[0].amount)
+      setCurrentHighestBid(bids.sort((a, b) => b.amount - a.amount)[0])
   }, [bids, setCurrentHighestBid])
 
   useEffect(() => {
@@ -154,7 +178,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
         {},
         uuid,
         {
-          references: 'bids.customer,customer,productDetail'
+          references: 'bids.customer.user,customer.user,productDetail,tags'
         }
       )
         .then(({ data }: APIResponse<any>) => {
@@ -163,7 +187,8 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
               data.bids.map((bid: any) => ({
                 customer: {
                   firstName: bid.customer.first_name,
-                  lastName: bid.customer.last_name
+                  lastName: bid.customer.last_name,
+                  uuid: bid.customer.user.uuid
                 },
                 amount: bid.bid_amount
               }))
@@ -171,12 +196,15 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
           handleSetProductName(data.product_name)
           handleSetMerchant({
             firstName: data.customer.first_name,
-            lastName: data.customer.last_name
+            lastName: data.customer.last_name,
+            uuid: data.customer.user.uuid
           })
           handleSetEndDate(data.end_data)
           handleSetStartingPrice(data.productDetail.product_bid_start)
           handleSetIncrementalPrice(data.productDetail.product_bid_increment)
           setRawImagePaths(data.product_image.split(','))
+          setTagList(data.tags)
+          setSpecification(JSON.parse(data.productDetail.product_description))
         })
         .catch((e: AxiosError) => console.error(e))
     )
@@ -198,24 +226,61 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
 
   useEffect(() => {
     setBidAmount(
-      currentHighestBid ? currentHighestBid + incrementalPrice : startingPrice
+      currentHighestBid
+        ? currentHighestBid.amount + incrementalPrice
+        : startingPrice
     )
   }, [currentHighestBid, incrementalPrice, startingPrice])
 
-  return {
-    currentHighestBid,
-    merchant,
-    productName,
-    productImages,
-    handleBidAmountChange,
-    handleSubmitBid,
-    bids,
-    bidAmount,
-    handleBidChannel,
-    uuid,
-    startingPrice,
-    incrementalPrice,
-    handleFocusImage,
-    currentFocusedImage
-  }
+  useEffect(() => {
+    currentHighestBid &&
+      setIsAlreadyBidded(currentHighestBid.customer.uuid === token.uuid)
+  }, [currentHighestBid, setIsAlreadyBidded, token.uuid])
+
+  const memorizedReturn = useMemo(
+    () => ({
+      currentHighestBid,
+      merchant,
+      productName,
+      productImages,
+      handleBidAmountChange,
+      handleSubmitBid,
+      bids,
+      bidAmount,
+      handleBidChannel,
+      uuid,
+      startingPrice,
+      incrementalPrice,
+      isOnBidPage,
+      isAlreadyBidded,
+      specification,
+      tagList,
+      handleFocusImage,
+      currentFocusedImage,
+      handleClickNextPage
+    }),
+    [
+      currentHighestBid,
+      merchant,
+      productName,
+      productImages,
+      handleBidAmountChange,
+      handleSubmitBid,
+      bids,
+      bidAmount,
+      handleBidChannel,
+      uuid,
+      startingPrice,
+      incrementalPrice,
+      isOnBidPage,
+      isAlreadyBidded,
+      specification,
+      tagList,
+      handleFocusImage,
+      currentFocusedImage,
+      handleClickNextPage
+    ]
+  )
+
+  return memorizedReturn
 }
