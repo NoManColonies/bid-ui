@@ -66,10 +66,15 @@ function App(): ReactElement {
               </>
             )}
           />
-          <Route exact path="/profile">
-            <Home />
-            <Profile/>
-          </Route>
+          <Route
+            path="/home/profile"
+            render={(): ReactElement => (
+              <>
+                <Home />
+                <Profile />
+              </>
+            )}
+          />
           <RegisterContext>
             <Route path="/register">
               <RegistrationForm admin={false} />
