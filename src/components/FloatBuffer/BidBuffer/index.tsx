@@ -47,7 +47,7 @@ function BidBuffer(): ReactElement {
     incrementalPrice,
     isOnBidPage,
     isAlreadyBidded,
-    specification,
+    specifications,
     tagList,
     handleFocusImage,
     currentFocusedImage,
@@ -66,6 +66,10 @@ function BidBuffer(): ReactElement {
         handleBidChannel
       )
   }, [handleAddSubscription, handleRemoveSubscription, handleBidChannel, uuid])
+
+  useEffect(() => {
+    console.log(isAlreadyBidded)
+  }, [isAlreadyBidded])
 
   return (
     <FloatBuffer width={'1442px'} height={'774px'}>
@@ -151,9 +155,9 @@ function BidBuffer(): ReactElement {
             <ProductSpecificationWrapper>
               <ProductDetailHeader>Specifications</ProductDetailHeader>
               <ProductTagWrapper>
-                {Object.keys(specification).map((tag) => (
-                  <SpecificationTag key={tag}>
-                    {tag}: {specification[tag]}
+                {specifications.map((tag) => (
+                  <SpecificationTag key={tag.type}>
+                    {tag.type}: {tag.name}
                   </SpecificationTag>
                 ))}
               </ProductTagWrapper>

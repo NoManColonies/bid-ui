@@ -35,7 +35,7 @@ interface UseBidBufferReturnInterface {
   incrementalPrice: number;
   isOnBidPage: boolean;
   isAlreadyBidded: boolean;
-  specification: any;
+  specifications: any[];
   tagList: { tag_name: string }[];
   handleBidAmountChange: ({ target }: ChangeEvent<HTMLInputElement>) => void;
   handleSubmitBid: (e: FormEvent<HTMLFormElement>) => void;
@@ -54,7 +54,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
   })
   const [currentFocusedImage, setCurrentFocusedImage] = useState<number>(0)
   const [isOnBidPage, setIsOnBidPage] = useState<boolean>(true)
-  const [specification, setSpecification] = useState<any>({})
+  const [specifications, setSpecifications] = useState<any>([])
   const [tagList, setTagList] = useState<{ tag_name: string }[]>([])
   const [isAlreadyBidded, setIsAlreadyBidded] = useState<boolean>(false)
   const { uuid } = useParams()
@@ -178,7 +178,8 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
         {},
         uuid,
         {
-          references: 'bids.customer.user,customer.user,productDetail,tags'
+          references:
+            'bids.customer.user,customer.user,productDetail,tags,specifications'
         }
       )
         .then(({ data }: APIResponse<any>) => {
@@ -204,7 +205,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
           handleSetIncrementalPrice(data.productDetail.product_bid_increment)
           setRawImagePaths(data.product_image.split(','))
           setTagList(data.tags)
-          setSpecification(JSON.parse(data.productDetail.product_description))
+          setSpecifications(data.specifications)
         })
         .catch((e: AxiosError) => console.error(e))
     )
@@ -253,7 +254,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
       incrementalPrice,
       isOnBidPage,
       isAlreadyBidded,
-      specification,
+      specifications,
       tagList,
       handleFocusImage,
       currentFocusedImage,
@@ -274,7 +275,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
       incrementalPrice,
       isOnBidPage,
       isAlreadyBidded,
-      specification,
+      specifications,
       tagList,
       handleFocusImage,
       currentFocusedImage,
