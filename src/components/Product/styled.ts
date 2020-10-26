@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 
 export const Container = styled.div`
   width: 100vw;
+  height:200vh;
   background-color: #f7f7f7;
   padding-left: 3rem;
   padding-top: 3rem;
@@ -10,8 +11,9 @@ export const Container = styled.div`
 
   h1 {
     font-weight: 600;
-    font-size: 1.5rem;
-    padding-bottom: 1rem;
+    font-size: 1rem;
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
     text-transform: uppercase;
     font-family: 'Josefin Sans', sans-serif;
   }
@@ -87,33 +89,33 @@ export const Filter = styled.div`
 `
 
 export const ProductBox = styled.div`
-  width: 80vw;
+  width: 76vw;
   height: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-  grid-auto-rows: 500px;
-  grid-gap: 2%;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-auto-rows: 380px;
+  grid-row-gap:10%;
+  grid-column-gap:1%;
   padding: 0 3rem;
   box-sizing: border-box;
 `
 
 export const Box = styled.div`
-  width: 420px;
-  height: 500px;
+  width: 320px;
+  height: 400px;
   background-color: white;
   margin: auto;
-
-  &:hover {
-    box-shadow: 2px 2px 4px gray;
-  }
 `
 
 export const Image = styled.div`
   width: 100%;
-  height: 70%;
+  height: 80%;
   padding: 0;
   margin: 0;
   background-color: #51adcf;
+  &:hover {
+    box-shadow: 2px 2px 4px gray;
+  }
 `
 
 export const Title = styled.div`
@@ -122,28 +124,37 @@ export const Title = styled.div`
   width: 100.4%;
   height: 30%;
   box-sizing: border-box;
+  display:flex;
+  flex-direction:column;
+  background-color:#f7f7f7;
+
 `
 
 export const TitleHeader = styled.h1`
   color: #fc9520;
-  font-size: 1.2rem;
+  font-size:0.1rem;
+`
+export const AllTitle = styled.div`
+ display:flex;
+  flex-direction:row;
+`
+export const IconBox = styled.div`
+ display:flex;
+  flex-direction:column;
 `
 
-export const StyledIcon = styled(FontAwesomeIcon)`
-  display: block;
-`
+export const Icon = styled.div`
+  width:10%;
+  padding-bottom:0.1rem;
 
-export const IconWrapper = styled.div`
-  display: flex;
-  position: absolute;
-  bottom: 1rem;
-  padding-right: 3rem;
-  top: auto;
-  color: #fff;
-  flex: 1;
-  /* text-align: center; */
-`
 
-export const Line = styled.div`
-  border: 10px solid black;
+`
+export const Text = styled.div`
+  color:black;
+  font-size:1.2rem;
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  padding-left:0.5rem;
+
 `

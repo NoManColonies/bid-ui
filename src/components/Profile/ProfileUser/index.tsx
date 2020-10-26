@@ -28,6 +28,7 @@ import {
   ImageBg,
   ImageBg2,
   HiddenFileInput
+  Back
 } from './styled'
 import withHelmet from '../../../utils/withHelmet'
 import withNavbar from '../../../utils/withNavbar'
@@ -53,6 +54,7 @@ import { useToken } from '../../../utils/useToken'
 import { AuthorizationHeaderType } from '../../../contexts/AuthContext/AuthContext'
 import APIResponse from '../../../interfaces/APIResponse'
 import { AxiosError, AxiosResponse } from 'axios'
+import { faTrophy, faGamepad,faBoxes, faStarHalfAlt,faAngleLeft} from '@fortawesome/free-solid-svg-icons'
 
 function ProfileUser(): ReactElement {
   const [name, setName] = useState('')
@@ -99,6 +101,8 @@ function ProfileUser(): ReactElement {
       ),
     [token.token, description]
   )
+
+
 
   const handleUpdateProfile = useCallback(
     () =>

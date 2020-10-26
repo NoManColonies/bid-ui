@@ -40,7 +40,6 @@ export const UserWrapper = styled.div`
   background-color: white;
   display: flex;
   flex-direction: row;
-
   box-shadow: 2px 2px 4px gray;
 `
 export const UserFormWrapper = styled.div`
@@ -99,6 +98,18 @@ export const Form2 = styled.form`
     ${(props: { click: boolean }): string => (props.click ? '0%' : '100%')}
   );
   transition: all 500ms ease-in;
+`
+export const Back = styled(FontAwesomeIcon)`
+  color: white;
+  top: -1rem;
+  left: 6.5rem;
+  padding-bottom: 0.5rem;
+  color: white;
+  position: absolute;
+  z-index: 200;
+  width: 30px;
+  height: 40px;
+  cursor: pointer;
 `
 
 export const Button = styled.button`
