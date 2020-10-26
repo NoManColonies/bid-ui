@@ -12,9 +12,20 @@ import {
   ColorWrapper,
   BoxWrapper,
   BoxColor,
-  TitleHeader
+  TitleHeader,
+  Icon,
+  Text,
+  AllTitle,
+  IconBox
 } from './styled'
 import APIResponse from '../../interfaces/APIResponse'
+import { DateRange  } from '@styled-icons/material/DateRange'
+import { Dollar  } from '@styled-icons/boxicons-regular/Dollar'
+import { User } from '@styled-icons/boxicons-solid/User'
+
+
+
+
 
 function Product(): ReactElement {
   useEffect(() => {
@@ -66,7 +77,27 @@ function Product(): ReactElement {
             <ImageBlock></ImageBlock>
             <TitleWrapper>
               <TitleHeader>Product name</TitleHeader>
-              <p>sdsdsdsdsd</p>
+
+              <AllTitle>
+              <IconBox>
+              <Icon>
+                    <Dollar size='1rem'></Dollar>
+               </Icon>
+               <Icon>
+                    <User size='1rem'/>
+              </Icon>
+              <Icon>
+                   <DateRange size='1rem'/>
+              </Icon>
+              </IconBox>
+
+              <Text>
+              <p>xchckac</p>
+              <p>xchckac</p>
+              <p>xchckac</p>
+              </Text>
+              </AllTitle>
+
             </TitleWrapper>
           </Box>
           <Box>
