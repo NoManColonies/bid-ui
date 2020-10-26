@@ -383,10 +383,6 @@ function ProfileUser(): ReactElement {
     handleSignImageUrl
   ])
 
-  useEffect(() => {
-    console.log(profileImage, !!profileStream)
-  }, [profileImage, profileStream])
-
   return (
     <Container>
       <h1>YOUR PROFILE</h1>

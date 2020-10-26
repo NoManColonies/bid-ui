@@ -31,11 +31,12 @@ export const ImageContainer = styled.div`
 `
 
 export const ImageTab = styled.div`
-  display: flex;
+  display: grid;
   grid-column: 1;
-  flex-direction: column;
+  grid-auto-row: 126px;
   width: 100%;
   height: 100%;
+  overflow-y: auto;
 `
 
 export const ImageList = styled.span`
