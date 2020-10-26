@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect, useCallback } from 'react'
-import { faBell } from '@fortawesome/free-regular-svg-icons'
+import { faBell, faUser } from '@fortawesome/free-regular-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useWebsocket } from '../../utils/useWebsocket'
 import Notification from './Notification'
@@ -14,17 +14,25 @@ import {
   Action,
   BellIcon,
   NotificationButton,
-  ManuBar
+  ManuBar,
+  DropDown,
+  DropDownContent
 } from '../NavBar/styled'
 import { Link } from 'react-router-dom'
 import Logo from './Logo'
 import LogoImage from '../../assets/dollar-coin.svg'
 import SearchBar from './SearchBar'
+import { HEALTH_CHECK, FETCH_GET } from '../../services/FetchAPI'
+import { AuthorizationHeaderType } from '../../contexts/AuthContext/AuthContext'
+import { AxiosError } from 'axios'
+import APIResponse from '../../interfaces/APIResponse'
 
 function NavBar(): ReactElement {
   const [notification, toggleNotification] = useState<boolean>(false)
   const [unread, setUnread] = useState<boolean>(false)
+  const [dropdown, setDropdown] = useState<boolean>(false)
   const [alertUuids, setAlertUuids] = useState<string[]>([])
+  const [profilePath, setProfilePath] = useState<string>('')
   const [
     { token, alerts },
     {
@@ -35,6 +43,7 @@ function NavBar(): ReactElement {
       handleEditAlert
     }
   ] = useToken()
+
   const [, { handleAddSubscription, handleRemoveSubscription }] = useWebsocket()
 
   const handleAlertChannel = useCallback(
@@ -60,6 +69,35 @@ function NavBar(): ReactElement {
     [handleAddAlert, handleRemoveAlert, handleEditAlert, setUnread]
   )
 
+  const handleSignImageUrl = useCallback(
+    (rawImagePath: string) => {
+      HEALTH_CHECK().then(() =>
+        FETCH_GET<{}, undefined, APIResponse<any>>(
+          `download/profile/${rawImagePath}`,
+          {}
+        )
+          .then(({ data }) => setProfilePath(data))
+          .catch((e: AxiosError) => console.error(e))
+      )
+    },
+    [setProfilePath]
+  )
+
+  const handleFetchProfile = useCallback(() => {
+    HEALTH_CHECK().then(() =>
+      FETCH_GET<AuthorizationHeaderType, undefined, APIResponse<any>>(
+        `users`,
+        { Authorization: `Bearer ${token.token}` },
+        token.uuid
+      )
+        .then(({ data }) => {
+          console.log(data)
+          handleSignImageUrl(data.profile_path)
+        })
+        .catch((e: AxiosError) => console.error(e))
+    )
+  }, [token.uuid, token.token, handleSignImageUrl])
+
   useEffect(() => {
     if (token.uuid) {
       handleAddSubscription(
@@ -81,6 +119,14 @@ function NavBar(): ReactElement {
     handleAlertChannel,
     token.uuid
   ])
+
+  useEffect(() => {
+    handleFetchProfile()
+  }, [handleFetchProfile])
+
+  useEffect(() => {
+    console.log(profilePath)
+  }, [profilePath])
 
   useEffect(() => {
     const uuids: string[] = alerts
@@ -133,6 +179,23 @@ function NavBar(): ReactElement {
               </>
             ) : (
               <Action>
+                <DropDown
+                  onClick={(): void => setDropdown(!dropdown)}
+                  url={profilePath}
+                >
+                </DropDown>
+                {dropdown && (
+                  <DropDownContent>
+                    <div>
+                    <Link to="/profileUser">view profile</Link>
+                    </div>
+                    <br></br>
+                    <div>
+                    <Link to="/home">log out</Link>
+                    </div>
+                  </DropDownContent>
+                )}
+
                 <NotificationButton
                   unread={unread}
                   onClick={(): void => toggleNotification(!notification)}
