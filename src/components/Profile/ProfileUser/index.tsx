@@ -100,7 +100,7 @@ function ProfileUser (): ReactElement{
                 }
               />
                <InputUser  type="text"
-                name="emali"
+                name="email"
                 value={email}
                 disabled={true}
                 placeholder=""
