@@ -61,7 +61,6 @@ function ProfileUser(): ReactElement {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [lastname, setLastname] = useState('')
-
   const [building, setBuilding] = useState('')
   const [road, setRoad] = useState('')
   const [city, setCity] = useState('')
@@ -70,7 +69,6 @@ function ProfileUser(): ReactElement {
   const [postal, setPostal] = useState('')
   const [telephone, setTelephone] = useState('')
   const [customerUuid, setCustomerUuid] = useState('')
-
   const [description, setDescription] = useState('')
   const [idCardStream, setIdCardStream] = useState<
     ArrayBuffer | string | null
@@ -82,7 +80,6 @@ function ProfileUser(): ReactElement {
   >()
   const [profileImage, setProfileImage] = useState<File>()
   const [addressUuid, setAddressUuid] = useState<string>('')
-
   const [click, setClick] = useState(false)
   const [{ token }, { handleFetchToken }] = useToken()
 
@@ -99,7 +96,7 @@ function ProfileUser(): ReactElement {
         { Authorization: `Bearer ${token.token}` },
         token.uuid
       ),
-    [token.token, description]
+    [token.token, description, token.uuid]
   )
 
   const handleUpdateProfile = useCallback(
@@ -120,15 +117,7 @@ function ProfileUser(): ReactElement {
           customerUuid
         )
       ),
-    [
-      handleUpdateUser,
-      description,
-      token.token,
-      token.uuid,
-      customerUuid,
-      name,
-      lastname
-    ]
+    [handleUpdateUser, token.token, customerUuid, name, lastname]
   )
 
   const handlePostProfile = useCallback(
@@ -148,7 +137,7 @@ function ProfileUser(): ReactElement {
           }
         )
       ),
-    [token.token, token.uuid, name, lastname]
+    [token.token, name, lastname, handleUpdateUser]
   )
 
   const handleUpdateAddress = useCallback(
@@ -244,7 +233,7 @@ function ProfileUser(): ReactElement {
   )
 
   const handleUploadProcess = useCallback(
-    (handleProfile, handleAddress) => {
+    (handleProfile, handleAddress, profileImage, idCard) => {
       handleProfile()
         .then((response: AxiosResponse) => {
           // console.log(response.data)
@@ -252,14 +241,13 @@ function ProfileUser(): ReactElement {
         })
         .then(({ data }: AxiosResponse) => {
           handleAddress(data.uuid)
-            // .then(({ data }: AxiosResponse) => console.log(data))
+            .then(({ data }: AxiosResponse) => console.log(data))
             .catch((e: AxiosError) => console.error(e))
         })
         .then(async () => {
-          console.log(profileImage)
           if (profileImage) {
             await handleUploadImage(profileImage, 'profile')
-              // .then(({ data }: AxiosResponse) => console.log(data))
+              .then(({ data }: AxiosResponse) => console.log(data))
               .catch((e: AxiosError) => console.error(e))
           }
           if (idCard) {
@@ -270,7 +258,7 @@ function ProfileUser(): ReactElement {
         })
         .catch((e: AxiosError) => console.error(e))
     },
-    [handleUploadImage, profileImage, idCard]
+    [handleUploadImage]
   )
 
   const onSubmit = useCallback(
@@ -279,7 +267,9 @@ function ProfileUser(): ReactElement {
       AUTH_CHECK(token.token).then(() => {
         handleUploadProcess(
           customerUuid ? handleUpdateProfile : handlePostProfile,
-          addressUuid ? handleUpdateAddress : handleCreateAddress
+          addressUuid ? handleUpdateAddress : handleCreateAddress,
+          profileImage,
+          idCard
         )
       })
     },
@@ -289,7 +279,11 @@ function ProfileUser(): ReactElement {
       handleUpdateProfile,
       handlePostProfile,
       handleUpdateAddress,
-      handleCreateAddress
+      handleCreateAddress,
+      profileImage,
+      idCard,
+      addressUuid,
+      handleUploadProcess
     ]
   )
 
@@ -305,7 +299,7 @@ function ProfileUser(): ReactElement {
             .catch((e: AxiosError) => console.error(e))
         )
     },
-    [token.uuid]
+    [token.token]
   )
 
   const handleFileChange = useCallback((file: File, setFile, setStream) => {
@@ -319,9 +313,8 @@ function ProfileUser(): ReactElement {
       false
     )
 
-    reader.readAsDataURL(file)
-    console.log(file)
     setFile(file)
+    reader.readAsDataURL(file)
   }, [])
 
   useEffect(() => {
@@ -334,34 +327,40 @@ function ProfileUser(): ReactElement {
             APIResponse<any>
           >('users', { Authorization: `Bearer ${token.token}` }, token.uuid, {
             references: 'customer.address'
-          }).then(({ data }: APIResponse<any>) => {
-            console.log(data)
-            setUsername(data.username)
-            setDescription(data.description)
-            if (data.customer) {
-              setName(data.customer.first_name)
-              setLastname(data.customer.last_name)
-              setCustomerUuid(data.customer.uuid)
-              if (data.customer.path_to_credential)
-                handleSignImageUrl(
-                  data.customer.path_to_credential,
-                  'credential',
-                  setValidatedIdCard
-                )
-              if (data.customer.address) {
-                setAddressUuid(data.customer.address.uuid)
-                setTelephone(data.customer.address.phone)
-                setBuilding(data.customer.address.building)
-                setRoad(data.customer.address.road)
-                setCity(data.customer.address.city)
-                setSubCity(data.customer.address.sub_city)
-                setProvince(data.customer.address.province)
-                setPostal(data.customer.address.postal_code)
-              }
-            }
-            if (data.profile_path)
-              handleSignImageUrl(data.profile_path, 'profile', setProfileStream)
           })
+            .then(({ data }: APIResponse<any>) => {
+              console.log(data)
+              setUsername(data.username)
+              setDescription(data.description)
+              if (data.customer) {
+                setName(data.customer.first_name)
+                setLastname(data.customer.last_name)
+                setCustomerUuid(data.customer.uuid)
+                if (data.customer.path_to_credential)
+                  handleSignImageUrl(
+                    data.customer.path_to_credential,
+                    'credential',
+                    setValidatedIdCard
+                  )
+                if (data.customer.address) {
+                  setAddressUuid(data.customer.address.uuid)
+                  setTelephone(data.customer.address.phone)
+                  setBuilding(data.customer.address.building)
+                  setRoad(data.customer.address.road)
+                  setCity(data.customer.address.city)
+                  setSubCity(data.customer.address.sub_city)
+                  setProvince(data.customer.address.province)
+                  setPostal(data.customer.address.postal_code)
+                }
+              }
+              if (data.profile_path)
+                handleSignImageUrl(
+                  data.profile_path,
+                  'profile',
+                  setProfileStream
+                )
+            })
+            .catch((e: AxiosError) => console.error(e))
         })
         .catch(() => handleFetchToken())
   }, [
@@ -385,7 +384,7 @@ function ProfileUser(): ReactElement {
   ])
 
   useEffect(() => {
-    console.log(!!profileImage, profileStream)
+    console.log(profileImage, !!profileStream)
   }, [profileImage, profileStream])
 
   return (
@@ -545,7 +544,7 @@ function ProfileUser(): ReactElement {
               url={validatedIdCard ? validatedIdCard : idCardStream}
             >
               <IdImage isSet={!!idCardStream || !!validatedIdCard}>
-                <img src={ImageCard} />
+                <img src={ImageCard} alt="" />
                 <h2>ADD ID CARD</h2>
               </IdImage>
             </IdImageWrapper>

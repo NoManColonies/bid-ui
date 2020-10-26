@@ -42,6 +42,7 @@ export const UserWrapper = styled.div`
   flex-direction: row;
   box-shadow: 2px 2px 4px gray;
 `
+
 export const UserFormWrapper = styled.div`
   width: 50%;
   height: 75vh;
