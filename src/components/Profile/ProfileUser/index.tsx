@@ -19,7 +19,8 @@ import {
   IdImageWrapper,
   FormStatus,
   ImageBg,
-  ImageBg2
+  ImageBg2,
+  Back
 } from './styled'
 import withHelmet from '../../../utils/withHelmet'
 import withNavbar from '../../../utils/withNavbar'
@@ -28,7 +29,7 @@ import InputIdCard from '../InputStatus/index'
 import ImageCard from '../../../assets/backgraund/card.svg'
 import ImageCardbg from '../../../assets/backgraund/fishing.svg'
 import ImageCardbg2 from '../../../assets/backgraund/beacs.svg'
-import { faTrophy, faGamepad,faBoxes, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons'
+import { faTrophy, faGamepad,faBoxes, faStarHalfAlt,faAngleLeft} from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -124,7 +125,8 @@ function ProfileUser (): ReactElement{
 
 
          <Form2 onSubmit={onSubmit} click={click}>
-
+         <Back icon={faAngleLeft}
+          onClick={(): void=>setClick(!click)}></Back>
          <InputUser  type="text"
                 name="road"
                 placeholder="road"
