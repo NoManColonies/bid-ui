@@ -3,17 +3,16 @@ import { FETCH_GET } from '../../services/FetchAPI'
 import {
   Container,
   ProductBox,
-  CulumnBox,
-  RowBox,
   Box,
-  Image,
-  Title,
+  Image as ImageBlock,
+  Title as TitleWrapper,
   Filter,
   Wrapper,
-  SpanWrapper,
+  SpanWrapper as TagWrapper,
   ColorWrapper,
   BoxWrapper,
-  BoxColor
+  BoxColor,
+  TitleHeader
 } from './styled'
 import APIResponse from '../../interfaces/APIResponse'
 
@@ -23,9 +22,9 @@ function Product(): ReactElement {
       'products',
       {},
       undefined,
-      { references: 'bids,tags' }
-    ).then((response: APIResponse<any>) => {
-      console.log(response)
+      { references: 'bids,tags,specifications' }
+    ).then(({ data }: APIResponse<any>) => {
+      console.log(data)
     })
   }, [])
 
@@ -35,7 +34,7 @@ function Product(): ReactElement {
       <Wrapper>
         <Filter>
           <h2>BLAND & CATEGORY</h2>
-          <SpanWrapper>
+          <TagWrapper>
             <span>#supreme</span>
             <span>#gucci</span>
             <span>#bape</span>
@@ -48,7 +47,7 @@ function Product(): ReactElement {
             <span>#Collectibles</span>
             <span>#shoes</span>
             <span>#accessories</span>
-          </SpanWrapper>
+          </TagWrapper>
           <ColorWrapper>
             <h2>COLOR</h2>
             <BoxWrapper>
@@ -63,39 +62,37 @@ function Product(): ReactElement {
           </ColorWrapper>
         </Filter>
         <ProductBox>
-          <CulumnBox>
-            <RowBox>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-            </RowBox>
-            <RowBox>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-              <Box>
-                <Image></Image>
-                <Title></Title>
-              </Box>
-            </RowBox>
-          </CulumnBox>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper>
+              <TitleHeader>Product name</TitleHeader>
+              <p>sdsdsdsdsd</p>
+            </TitleWrapper>
+          </Box>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper></TitleWrapper>
+          </Box>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper></TitleWrapper>
+          </Box>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper></TitleWrapper>
+          </Box>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper></TitleWrapper>
+          </Box>
+          <Box>
+            <ImageBlock></ImageBlock>
+            <TitleWrapper></TitleWrapper>
+          </Box>
         </ProductBox>
       </Wrapper>
     </Container>
   )
 }
+
 export default Product
