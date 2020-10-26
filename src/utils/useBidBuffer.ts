@@ -153,7 +153,7 @@ export function useBidBuffer(): UseBidBufferReturnInterface {
   )
 
   const handleSignImageUrl = useCallback(
-    (rawImagePath) => {
+    (rawImagePath: string) => {
       HEALTH_CHECK().then(() =>
         FETCH_GET<{}, undefined, APIResponse<any>>(
           `download/product/${uuid}/${rawImagePath}`,
