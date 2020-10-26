@@ -20,6 +20,19 @@ height:100vh;
  }
 
 `
+export const Back =styled(FontAwesomeIcon)`
+color:white;
+top:-1rem;
+left:6.5rem;
+padding-bottom: 0.5rem;
+color:white;
+position:absolute;
+z-index:200;
+width:30px;
+height:40px;
+cursor:pointer;
+`
+
 export const ImageBg =styled.img`
    width:200px;
    height:200px;
@@ -28,12 +41,12 @@ export const ImageBg =styled.img`
    right:8%;
 `
 export const ImageBg2 =styled.img`
-   width:200px;
-   height:200px;
+   width:150px;
+   height:150px;
    position:absolute;
    top:2%;
    left:10%;
-   z-index:100;
+   z-index:10;
 `
 
 export const UserWrapper =styled.div`
@@ -98,6 +111,7 @@ position:absolute;
 transform:translateX(100%);
 transform:translateX(${(props: {click: boolean}): string=> props.click?'0%' : '100%'});
 transition:all 500ms ease-in;
+padding:0.5rem;
 `
 
 export const Button =styled.button`
