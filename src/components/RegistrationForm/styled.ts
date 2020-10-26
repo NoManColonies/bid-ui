@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const Container=styled.div`
   position: relative;
   width: 100%;
-  background-color: #fff;
+  background-color: #0278AE;
   min-height: 100vh;
   overflow: hidden;
 
@@ -67,6 +67,7 @@ export const Panel=styled.div`
     font-weight: 600;
   line-height: 1;
   font-size: 1.5rem;
+
   }
 
   `
@@ -78,6 +79,7 @@ export const RightPanel=styled.div`
   font-weight: 600;
   line-height: 1;
   font-size: 1.5rem;
+  color:white;
   padding-bottom:3rem;
 
 }
@@ -101,12 +103,13 @@ export const Form = styled.form`
   grid-column: 1 / 2;
   grid-row: 1 / 2;
   z-index: 2;
+  color:white;
   `
 
 export const Button = styled.button`
   width: 150px;
-  background-color: #0278AE;
-  border: none;
+  background-color: #E8FFC1;
+  border: white;
   outline: none;
   height: 49px;
   border-radius: 49px;
@@ -116,6 +119,7 @@ export const Button = styled.button`
   margin-top:2rem;
   cursor: pointer;
   transition: 0.5s;
+  color: #0278AE;
   &:hover {
     background-color: #E8FFC1;
     color: #0278AE;
