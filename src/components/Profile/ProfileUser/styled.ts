@@ -89,6 +89,7 @@ export const Form = styled.form`
 export const Form2 = styled.form`
   width: 100%;
   display: flex;
+  flex:1;
   justify-content: center;
   align-items: center;
   flex-direction: column;
@@ -102,8 +103,8 @@ export const Form2 = styled.form`
 `
 export const Back = styled(FontAwesomeIcon)`
   color: white;
-  top: -1rem;
-  left: 6.5rem;
+  top: -2rem;
+  left: 6rem;
   padding-bottom: 0.5rem;
   color: white;
   position: absolute;
