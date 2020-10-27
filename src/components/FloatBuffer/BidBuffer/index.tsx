@@ -131,7 +131,7 @@ function BidBuffer(): ReactElement {
                 <BidInputField
                   type="number"
                   min={
-                    currentHighestBid.amount
+                    currentHighestBid
                       ? currentHighestBid.amount + incrementalPrice
                       : startingPrice
                   }
