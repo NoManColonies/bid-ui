@@ -79,27 +79,20 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
 
   const handleFetchLogout = useCallback(
     () =>
-      AUTH_CHECK(credential.token.token).then(() => {
-        credential.token.token &&
-          FETCH_POST<
-            AuthorizationHeaderType,
-            RefreshTokenFormType,
-            string,
-            APIResponseType<undefined>
-          >(
-            'logout',
-            { Authorization: `Bearer ${credential.token.token}` },
-            { refreshToken: credential.token.refreshToken },
-            ''
+      AUTH_CHECK(credential.token.token).then(() =>
+        FETCH_GET<RefreshTokenFormType, string, APIResponseType<undefined>>(
+          'logout',
+          { refreshToken: credential.token.refreshToken },
+          ''
+        )
+          .catch((e: Error) => console.error(e))
+          .finally(() =>
+            credentialDispatch({
+              type: 'ABORT_ALL',
+              payload: ''
+            })
           )
-            .catch((e: Error) => console.error(e))
-            .finally(() =>
-              credentialDispatch({
-                type: 'ABORT_ALL',
-                payload: ''
-              })
-            )
-      }),
+      ),
     [credential.token, credentialDispatch]
   )
 
@@ -226,7 +219,6 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
       handleFetchNewAlerts,
       handleAddAlert,
       handleRemoveAlert,
-
       handleEditAlert
     ]
   )

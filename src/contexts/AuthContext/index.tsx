@@ -83,6 +83,8 @@ function authReducer(
       }
     }
     case 'ABORT_ALL':
+      window.localStorage.setItem(TOKEN_STORE, '')
+
       return INITIAL_STATE
     default:
       return state
