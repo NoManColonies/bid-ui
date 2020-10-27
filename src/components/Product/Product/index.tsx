@@ -49,7 +49,7 @@ function Product({ product }: { product: any }): ReactElement {
 
   useEffect(() => {
     console.log(product.product_image)
-  }, [product.product_imagei])
+  }, [product.product_image])
 
   // useEffect(() => {
   //   console.log(product.product_image.length, signedImages.length)
@@ -59,7 +59,7 @@ function Product({ product }: { product: any }): ReactElement {
     if (product.product_image.length) {
       handleSignImageUrl(product.product_image.pop(), product.uuid)
     }
-  }, [product.product_image, handleSignImageUrl])
+  }, [product.product_image, handleSignImageUrl, product.uuid])
 
   return (
     <Box

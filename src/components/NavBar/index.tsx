@@ -1,5 +1,5 @@
 import React, { ReactElement, useState, useEffect, useCallback } from 'react'
-import { faBell, faUser } from '@fortawesome/free-regular-svg-icons'
+import { faBell } from '@fortawesome/free-regular-svg-icons'
 import { useToken } from '../../utils/useToken'
 import { useWebsocket } from '../../utils/useWebsocket'
 import Notification from './Notification'
@@ -125,10 +125,6 @@ function NavBar(): ReactElement {
   }, [handleFetchProfile])
 
   useEffect(() => {
-    console.log(profilePath)
-  }, [profilePath])
-
-  useEffect(() => {
     const uuids: string[] = alerts
       // eslint-disable-next-line
       .filter(({ is_read }: AlertType) => !is_read)
@@ -182,16 +178,15 @@ function NavBar(): ReactElement {
                 <DropDown
                   onClick={(): void => setDropdown(!dropdown)}
                   url={profilePath}
-                >
-                </DropDown>
+                ></DropDown>
                 {dropdown && (
                   <DropDownContent>
                     <div>
-                    <Link to="/profileUser">view profile</Link>
+                      <Link to="/profileUser">view profile</Link>
                     </div>
                     <br></br>
                     <div>
-                    <Link to="/home">log out</Link>
+                      <Link to="/home">log out</Link>
                     </div>
                   </DropDownContent>
                 )}

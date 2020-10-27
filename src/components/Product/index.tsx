@@ -55,12 +55,16 @@ function Product(): ReactElement {
         { references: 'bids,tags,specifications,productDetail', tags }
       ).then(({ data }: APIResponse<any>) => {
         setProducts([])
-        const filteredProducts = data.filter((filter: any) => !!filter.tags.length)
+        const filteredProducts = data.filter(
+          (filter: any) => !!filter.tags.length
+        )
         const products = (tags ? filteredProducts : data).map(
           (product: any) => {
             const date = new Date(product.end_date)
 
-            const images = product.product_image.split(',')
+            const images = product.product_image
+              ? product.product_image.split(',')
+              : []
 
             return {
               ...product,
