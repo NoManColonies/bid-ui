@@ -1,9 +1,14 @@
 import styled from 'styled-components'
 
+interface ImageInterface {
+  url: string;
+  thisIndex: number;
+  currentIndex: number;
+}
 
 export const Container = styled.div`
   width: 100vw;
-  height:200vh;
+  height: 200vh;
   background-color: #f7f7f7;
   padding-left: 3rem;
   padding-top: 3rem;
@@ -94,8 +99,8 @@ export const ProductBox = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-auto-rows: 380px;
-  grid-row-gap:10%;
-  grid-column-gap:1%;
+  grid-row-gap: 10%;
+  grid-column-gap: 1%;
   padding: 0 3rem;
   box-sizing: border-box;
 `
@@ -113,48 +118,68 @@ export const Image = styled.div`
   padding: 0;
   margin: 0;
   background-color: #51adcf;
-  &:hover {
-    box-shadow: 2px 2px 4px gray;
-  }
+  background-image: url(${({ url }: ImageInterface): string => url});
+  background-position: center;
+  background-size: cover;
+  display: ${({ thisIndex, currentIndex }: ImageInterface): string =>
+    thisIndex === currentIndex ? 'static' : 'none'};
 `
 
 export const Title = styled.div`
-  padding: 0.5rem;
+  margin-top: 1rem;
   margin: 0;
   width: 100.4%;
   height: 30%;
   box-sizing: border-box;
-  display:flex;
-  flex-direction:column;
-  background-color:#f7f7f7;
-
+  display: flex;
+  flex-direction: column;
+  background-color: #f7f7f7;
 `
 
 export const TitleHeader = styled.h1`
   color: #fc9520;
-  font-size:0.1rem;
+  font-size: 0.1rem;
 `
 export const AllTitle = styled.div`
- display:flex;
-  flex-direction:row;
+  display: flex;
+  flex-direction: row;
 `
 export const IconBox = styled.div`
- display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
+  height: 5vh;
 `
 
 export const Icon = styled.div`
-  width:10%;
-  padding-bottom:0.1rem;
-
-
+  width: 10%;
+  padding-bottom: 0.1rem;
 `
 export const Text = styled.div`
-  color:black;
-  font-size:1.2rem;
-  display:flex;
-  flex:1;
-  flex-direction:column;
-  padding-left:0.5rem;
+  color: black;
+  font-size: 1.2rem;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding-left: 0.5rem;
+  width: 100%;
+  height: 10vh;
+`
+export const SmallImageWrapper = styled.div`
+  width: 100%;
+  height: 5vh;
 
+  display: ${({ hover }: { hover: boolean }): string =>
+    hover ? 'flex' : 'none'};
+  flex-direction: row;
+  margin-top: 0.5rem;
+`
+
+export const SmallImage = styled.div`
+  width: 45px;
+  height: 5vh;
+  background-color: red;
+  margin-right: 0.5rem;
+  background-image: url(${({ url }: { url: string }): string => url});
+  background-position: center;
+  background-size: cover;
 `

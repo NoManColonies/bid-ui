@@ -435,7 +435,7 @@ function ProfileUser(): ReactElement {
               type="email"
               name="email"
               value={email}
-              placeholder="enter email address"
+              placeholder="changes email address"
               onChange={(event: ChangeEvent<HTMLInputElement>): void =>
                 setEmail(event.target.value)
               }
@@ -489,16 +489,7 @@ function ProfileUser(): ReactElement {
                 setSubCity(event.target.value)
               }
             />
-            <InputUser
-              type="text"
-              name="subCity"
-              placeholder="subCity"
-              value={subCity}
-              required
-              onChange={(event: ChangeEvent<HTMLInputElement>): void =>
-                setSubCity(event.target.value)
-              }
-            />
+
             <InputUser
               type="text"
               name="city"

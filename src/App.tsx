@@ -92,7 +92,7 @@ function App(): ReactElement {
             <Profile/>
           </Route>
           <RegisterContext>
-            <Route path="/register">
+            <Route exact path="/register">
               <RegistrationForm admin={false} />
             </Route>
             <Route path="/register/key">

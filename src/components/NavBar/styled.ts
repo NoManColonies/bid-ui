@@ -61,20 +61,14 @@ export const Action = styled.li`
   padding: 0 1rem;
   font-size: 0.8rem;
   position: relative;
+  border: none;
+  display: flex;
+  flex-direction: row-reverse;
   &:hover {
     color: #e8ffc1;
 
 
-    &::before{
-    content:'';
-    position:absolute;
-    bottom: -20%;
-    left:10%;
-    width:80%;
-    height:2px;
-    background-color:#fff;
 
-  }
   }
 
 `
@@ -87,6 +81,11 @@ export const Line = styled.div`
 
 export const BellIcon = styled(FontAwesomeIcon)`
   color: #fff;
+  font-size:1rem;
+  padding-left:.5rem;
+  border: none;
+  cursor: pointer;
+
 `
 
 export const NotificationButton = styled.button`
@@ -112,3 +111,32 @@ export const ManuBar = styled.div`
 
   align-items: center;
 `
+export const DropDownContent = styled.div`
+  color:black;
+  position: absolute;
+  background-color: white;
+  border-radius:10px;
+  padding:0.5rem;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  bottom:-250%;
+
+  div+div{
+    padding-top:0.5rem;
+  }
+
+
+`
+
+export const DropDown = styled.div`
+   width: 30px;
+   height: 30px;
+   border-radius: 50px;
+   background-color: grey;
+   background-image: url(${({url}: {url: string}): string => url});
+   background-size: cover;
+   background-position: top;
+`
+
+

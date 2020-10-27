@@ -1,63 +1,115 @@
-import React, { ReactElement, useEffect } from 'react'
+import React, { ReactElement, useEffect, useState, useCallback } from 'react'
 import { FETCH_GET } from '../../services/FetchAPI'
 import {
   Container,
   ProductBox,
-  Box,
-  Image as ImageBlock,
-  Title as TitleWrapper,
   Filter,
   Wrapper,
   SpanWrapper as TagWrapper,
   ColorWrapper,
   BoxWrapper,
-  BoxColor,
-  TitleHeader,
-  Icon,
-  Text,
-  AllTitle,
-  IconBox
+  BoxColor
 } from './styled'
 import APIResponse from '../../interfaces/APIResponse'
-import { DateRange  } from '@styled-icons/material/DateRange'
-import { Dollar  } from '@styled-icons/boxicons-regular/Dollar'
-import { User } from '@styled-icons/boxicons-solid/User'
-
-
-
-
+import ProductWrapper from './Product'
 
 function Product(): ReactElement {
+  const [products, setProducts] = useState<any[]>([])
+  const [currentFilters, setCurrentFilters] = useState<string[]>([])
+  const [recommendedFilters, setRecommendedFilters] = useState<string[]>([])
+
+  const handleSelectTag = useCallback(
+    (tag: string) => {
+      setCurrentFilters([...currentFilters, tag])
+      setRecommendedFilters(
+        recommendedFilters.filter((filter) => filter !== tag)
+      )
+    },
+    [
+      setCurrentFilters,
+      currentFilters,
+      setRecommendedFilters,
+      recommendedFilters
+    ]
+  )
+
+  const handleDeselectTag = useCallback(
+    (tag: string) => {
+      setCurrentFilters(currentFilters.filter((filter) => tag !== filter))
+      setRecommendedFilters([...recommendedFilters, tag])
+    },
+    [
+      currentFilters,
+      setCurrentFilters,
+      setRecommendedFilters,
+      recommendedFilters
+    ]
+  )
+
+  const handleFetchProducts = useCallback(
+    (tags?: string) =>
+      FETCH_GET<{}, { references: string; tags?: string }, APIResponse<any>>(
+        tags ? 'products/tags' : 'products',
+        {},
+        undefined,
+        { references: 'bids,tags,specifications,productDetail', tags }
+      ).then(({ data }: APIResponse<any>) => {
+        setProducts([])
+        const filteredProducts = data.filter((filter: any) => !!filter.tags.length)
+        const products = (tags ? filteredProducts : data).map(
+          (product: any) => {
+            const date = new Date(product.end_date)
+
+            const images = product.product_image.split(',')
+
+            return {
+              ...product,
+              // eslint-disable-next-line
+              end_date: `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`,
+              // eslint-disable-next-line
+              product_image: images
+            }
+          }
+        )
+        setProducts(products)
+      }),
+    [setProducts]
+  )
+
   useEffect(() => {
-    FETCH_GET<{}, { references: string }, APIResponse<any>>(
-      'products',
-      {},
-      undefined,
-      { references: 'bids,tags,specifications' }
-    ).then(({ data }: APIResponse<any>) => {
-      console.log(data)
-    })
-  }, [])
+    FETCH_GET<{}, undefined, APIResponse<any>>(
+      'tags/sort',
+      {}
+    ).then(({ data }: APIResponse<any>) => setRecommendedFilters(data))
+  }, [setRecommendedFilters])
+
+  useEffect(() => {
+    handleFetchProducts(currentFilters.join(','))
+  }, [handleFetchProducts, currentFilters])
 
   return (
     <Container>
       <h1>Filter items</h1>
       <Wrapper>
         <Filter>
+          <h2>CURRENT FILTERS</h2>
+          <TagWrapper>
+            {currentFilters.map((filter) => (
+              <span
+                key={filter}
+                onClick={(): void => handleDeselectTag(filter)}
+              >
+                #{filter}
+              </span>
+            ))}
+          </TagWrapper>
           <h2>BLAND & CATEGORY</h2>
           <TagWrapper>
-            <span>#supreme</span>
-            <span>#gucci</span>
-            <span>#bape</span>
-            <span>#off white</span>
-            <span>#stüssy</span>
-            <span>#diro</span>
-            <span>#nike</span>
-            <span>#adidas</span>
-            <span>#clothing</span>
-            <span>#Collectibles</span>
-            <span>#shoes</span>
-            <span>#accessories</span>
+            {recommendedFilters.map((filter) => (
+              <span key={filter} onClick={(): void => handleSelectTag(filter)}>
+                #{filter}
+              </span>
+            ))}
           </TagWrapper>
           <ColorWrapper>
             <h2>COLOR</h2>
@@ -73,53 +125,9 @@ function Product(): ReactElement {
           </ColorWrapper>
         </Filter>
         <ProductBox>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper>
-              <TitleHeader>Product name</TitleHeader>
-
-              <AllTitle>
-              <IconBox>
-              <Icon>
-                    <Dollar size='1rem'></Dollar>
-               </Icon>
-               <Icon>
-                    <User size='1rem'/>
-              </Icon>
-              <Icon>
-                   <DateRange size='1rem'/>
-              </Icon>
-              </IconBox>
-
-              <Text>
-              <p>xchckac</p>
-              <p>xchckac</p>
-              <p>xchckac</p>
-              </Text>
-              </AllTitle>
-
-            </TitleWrapper>
-          </Box>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper></TitleWrapper>
-          </Box>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper></TitleWrapper>
-          </Box>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper></TitleWrapper>
-          </Box>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper></TitleWrapper>
-          </Box>
-          <Box>
-            <ImageBlock></ImageBlock>
-            <TitleWrapper></TitleWrapper>
-          </Box>
+          {products.map((product, index) => (
+            <ProductWrapper key={index} product={product} />
+          ))}
         </ProductBox>
       </Wrapper>
     </Container>
