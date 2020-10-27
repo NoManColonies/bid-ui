@@ -40,7 +40,8 @@ function NavBar(): ReactElement {
       handleFetchNewAlerts,
       handleAddAlert,
       handleRemoveAlert,
-      handleEditAlert
+      handleEditAlert,
+      handleFetchLogout
     }
   ] = useToken()
 
@@ -185,9 +186,7 @@ function NavBar(): ReactElement {
                       <Link to="/profileUser">view profile</Link>
                     </div>
                     <br></br>
-                    <div>
-                      <Link to="/home">log out</Link>
-                    </div>
+                    <div onClick={handleFetchLogout}>log out</div>
                   </DropDownContent>
                 )}
 

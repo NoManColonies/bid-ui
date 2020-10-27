@@ -82,11 +82,16 @@ export function useToken(): USE_TOKEN_RETURN_TYPE {
       AUTH_CHECK(credential.token.token).then(() => {
         credential.token.token &&
           FETCH_POST<
-            {},
+            AuthorizationHeaderType,
             RefreshTokenFormType,
             string,
             APIResponseType<undefined>
-          >('logout', {}, { refreshToken: credential.token.refreshToken }, '')
+          >(
+            'logout',
+            { Authorization: `Bearer ${credential.token.token}` },
+            { refreshToken: credential.token.refreshToken },
+            ''
+          )
             .catch((e: Error) => console.error(e))
             .finally(() =>
               credentialDispatch({
