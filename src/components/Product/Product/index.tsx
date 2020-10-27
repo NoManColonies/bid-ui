@@ -66,7 +66,7 @@ function Product({ product }: { product: any }): ReactElement {
       key={product.product_name}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={(): void => history.push(`/home/product/${product.uuid}`)}
+      onClick={(): void => history.push(`/products/${product.uuid}`)}
     >
       {signedImages.map((image: string, index) => (
         <ImageBlock

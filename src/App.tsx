@@ -15,7 +15,7 @@ const LoginForm = lazy(() => import('./components/LoginForm'))
 const Home = lazy(() => import('./pages/Home'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Products = lazy(() => import('./pages/Product'))
-const ProfileUser =lazy(()=> import('./components/Profile/ProfileUser'))
+const ProfileUser = lazy(() => import('./components/Profile/ProfileUser'))
 
 function App(): ReactElement {
   const [, { handleConnectionClose }] = useWebsocket()
@@ -77,19 +77,26 @@ function App(): ReactElement {
               </>
             )}
           />
+          <Route
+            path="/products/:uuid"
+            render={(): ReactElement => (
+              <>
+                <Products />
+                <BidableContext>
+                  <BidBuffer />
+                </BidableContext>
+              </>
+            )}
+          />
           <Route exact path="/products">
-            <Products/>
-
+            <Products />
           </Route>
-
           <Route exact path="/profileUser">
-            <ProfileUser/>
-
+            <ProfileUser />
           </Route>
-
           <Route exact path="/profile">
             <Home />
-            <Profile/>
+            <Profile />
           </Route>
           <RegisterContext>
             <Route exact path="/register">
