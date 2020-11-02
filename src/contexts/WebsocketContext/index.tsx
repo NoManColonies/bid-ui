@@ -138,7 +138,7 @@ function WebSocketContext({ children }: WebSocketContextType): ReactElement {
     if (
       !isProcessingQueue &&
       ws.readyState === 1 &&
-      socket._subscriptionQueue.length === 1
+      socket._subscriptionQueue.length >= 1
     ) {
       ws.send(JSON.stringify(socket._subscriptionQueue.pop()))
       setIsProcessingQueue(true)

@@ -32,6 +32,7 @@ export const Card = styled.div`
     font-weight: bold;
   }
 `
+
 export const Additional = styled.div`
   position: absolute;
   width: 150px;
@@ -47,6 +48,7 @@ export const Additional = styled.div`
     border-radius: 5px 5px 5px 5px;
   }
 `
+
 export const Infomation = styled.div`
   width: 300px;
 
